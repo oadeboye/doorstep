@@ -38,12 +38,14 @@ router.get('/community/:id', (req, res) => {
     });
 });
 
-// Get all the communities
-router.get('/communities', (req, res) => {
-    Community.find({})
+// GET communities
+// retrieves all the communities belonging to a specific user
+router.get('/communities/:id', (req, res) => {
+  const id = req.params.id;
+    Community.find({ users: { $elemMatch: id } })
     .then((communities) => {
         if (!communities) {
-            console.log("No communities exist");
+            console.log("User ");
             return res.json({success: false, failure: "community does not exist"})
         }
         else {
