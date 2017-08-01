@@ -43,7 +43,7 @@
     /**
      * Variables
      */
-    "no-shadow": 2,                  // http://eslint.org/docs/rules/no-shadow
+    "no-shadow": 0,                  // http://eslint.org/docs/rules/no-shadow
     "no-shadow-restricted-names": 2, // http://eslint.org/docs/rules/no-shadow-restricted-names
     "no-undef": 2,                   // http://eslint.org/docs/rules/no-undef
     "no-unused-vars": [1, {          // http://eslint.org/docs/rules/no-unused-vars
@@ -106,7 +106,7 @@
     "no-octal": 2,                   // http://eslint.org/docs/rules/no-octal
     "no-octal-escape": 2,            // http://eslint.org/docs/rules/no-octal-escape
     "no-param-reassign": 2,          // http://eslint.org/docs/rules/no-param-reassign
-    "no-proto": 2,                   // http://eslint.org/docs/rules/no-proto
+    "no-proto": 0,                   // http://eslint.org/docs/rules/no-proto
     "no-redeclare": 2,               // http://eslint.org/docs/rules/no-redeclare
     "no-return-assign": 2,           // http://eslint.org/docs/rules/no-return-assign
     "no-script-url": 2,              // at
@@ -122,9 +122,8 @@
      * Style
      */
     "indent": [
-      2,
-      4,
-      { "SwitchCase": 1 }
+      1,
+      2
     ],                              // http://eslint.org/docs/rules/indent
     "brace-style": [
       2,
@@ -144,7 +143,7 @@
     }],
     "comma-style": [2, "last"],      // http://eslint.org/docs/rules/comma-style
     # "eol-last": 2,                   // http://eslint.org/docs/rules/eol-last
-    "func-names": 1,                 // http://eslint.org/docs/rules/func-names
+    "func-names": 0,                 // http://eslint.org/docs/rules/func-names
     "key-spacing": [2, {             // http://eslint.org/docs/rules/key-spacing
       "beforeColon": false,
       "afterColon": true
@@ -169,7 +168,7 @@
       "after": true
     }],
     "space-before-blocks": 2,        // http://eslint.org/docs/rules/space-before-blocks
-    "space-before-function-paren": [2, "never"], // http://eslint.org/docs/rules/space-before-function-paren
+    "space-before-function-paren": [0, "always"], // http://eslint.org/docs/rules/space-before-function-paren
     "space-infix-ops": 2,            // http://eslint.org/docs/rules/space-infix-ops
     "spaced-comment": [2, "always",  {// http://eslint.org/docs/rules/spaced-comment
       "exceptions": ["-", "+"],
