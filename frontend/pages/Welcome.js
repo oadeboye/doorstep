@@ -1,22 +1,108 @@
 import React from 'react';
-import { Modal, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import styles from '../'
+import { Modal,
+         Button,
+         FieldGroup,
+         FormGroup,
+         Col,
+         ControlLabel,
+         Form,
+         FormControl } from 'react-bootstrap';
+import axios from 'axios';
+// import styles from '../assets/stylesheets';
 
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      showModal: false
+      showLoginModal: false,
+      showRegisterModal: false,
+      usernameLogin: '',
+      passwordLogin: '',
+      usernameReg: '',
+      passwordReg: '',
+      fName: '',
+      lName: ''
     };
   }
 
-  close() {
-    this.setState({ showModal: false });
+  closeLogin() {
+    this.setState({ showLoginModal: false });
   }
 
-  open() {
-    this.setState({ showModal: true });
+  openLogin() {
+    this.setState({ showLoginModal: true });
+  }
+
+  onUsernameLoginChange(e) {
+    this.setState({usernameLogin: e.target.value});
+  }
+
+  onPasswordLoginChange(e) {
+    this.setState({passwordLogin: e.target.value});
+  }
+
+  onLogin(e) {
+    e.preventDefault();
+    console.log('username', this.state.usernameLogin);
+    console.log('password', this.state.passwordLogin);
+    axios.post('http://localhost:3000/login', {
+      username: this.state.usernameLogin,
+      password: this.state.passwordLogin,
+    })
+    .then((resp) => {
+      if (resp.data.success) {
+        console.log('Logged in!');
+        this.closeLogin();
+      }
+    })
+    .catch((err) => {
+      console.log('Error loggin in:', err);
+    });
+  }
+
+  closeRegister() {
+    this.setState({ showRegisterModal: false });
+  }
+
+  openRegister() {
+    this.setState({ showRegisterModal: true });
+  }
+
+  onUsernameRegChange(e) {
+    this.setState({usernameReg: e.target.value});
+  }
+
+  onPasswordRegChange(e) {
+    this.setState({passwordReg: e.target.value});
+  }
+
+  onFirsNameRegChange(e) {
+    this.setState({fName: e.target.value});
+  }
+
+  onLastNameRegChange(e) {
+    this.setState({lName: e.target.value});
+  }
+
+  onRegister(e) {
+    e.preventDefault();
+    console.log('trying to reg');
+    axios.post('http://localhost:3000/register', {
+      fName: this.state.fName,
+      lName: this.state.lName,
+      username: this.state.usernameReg,
+      password: this.state.passwordReg,
+    })
+    .then((resp) => {
+      console.log('HERE');
+      if (resp.data.success) {
+        console.log('Successful registration:', resp.data);
+        this.closeReg();
+      }
+    })
+    .catch((err) => {
+      console.log('Error registering', err);
+    });
   }
 
   render() {
@@ -25,44 +111,101 @@ class Welcome extends React.Component {
         <Button
           bsStyle="primary"
           bsSize="large"
-          onClick={this.open}
+          onClick={() => this.openLogin()}
         >Login
         </Button>
         <Button
           bsStyle="primary"
           bsSize="large"
-          onClick={this.open}
+          onClick={() => this.openRegister()}
         >Register
         </Button>
-        <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+            <Form horizontal>
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={4}>
+                  Username
+                </Col>
+                <Col sm={8}>
+                  <FormControl onChange={(e) => this.onUsernameLoginChange(e)} type="email" placeholder="Username" />
+                </Col>
+              </FormGroup>
 
-            <h4>Popover in a modal</h4>
-            <p>there is a here</p>
-
-            <h4>Tooltips in a modal</h4>
-            <p>there is a here</p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} sm={4}>
+                  Password
+                </Col>
+                <Col sm={8}>
+                  <FormControl onChange={(e) => this.onPasswordLoginChange(e)} type="password" placeholder="Password" />
+                </Col>
+              </FormGroup>
+            </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.close}>Close</Button>
+            <Button onClick={(e) => this.onLogin(e)}>Login</Button>
+            <Button onClick={() => this.closeLogin()}>Cancel</Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={this.state.showRegisterModal} onHide={() => this.closeRegister()}>
+          <Modal.Header closeButton>
+            <Modal.Title>Register as a New User!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form horizontal>
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={4}>
+                  First name
+                </Col>
+                <Col sm={8}>
+                  <FormControl onChange={(e) => this.onFirsNameRegChange(e)} type="text" placeholder="First name" />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={4}>
+                  Last name
+                </Col>
+                <Col sm={8}>
+                  <FormControl onChange={(e) => this.onLastNameRegChange(e)} type="text" placeholder="Last name" />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} sm={4}>
+                  Username
+                </Col>
+                <Col sm={8}>
+                  <FormControl onChange={(e) => this.onUsernameRegChange(e)} type="text" placeholder="Username" />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} sm={4}>
+                  Password
+                </Col>
+                <Col sm={8}>
+                  <FormControl onChange={(e) => this.onPasswordRegChange(e)} type="password" placeholder="Password" />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} sm={4}>
+                  Repeat password
+                </Col>
+                <Col sm={8}>
+                  <FormControl type="password" placeholder="Repeat password" />
+                </Col>
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={(e) => this.onRegister(e)}>Register</Button>
+            <Button onClick={() => this.closeRegister()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>
