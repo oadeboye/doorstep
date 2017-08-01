@@ -18,12 +18,10 @@ var userSchema = mongoose.Schema({
         required: true
     },
     imgURL: {
-        type: String,
-        required: true
+        type: String
     },
     aboutMe: {
-        type: String,
-        required: true
+        type: String
     }
 });
 
