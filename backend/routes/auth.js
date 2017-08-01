@@ -18,21 +18,38 @@ const auth = (passport) => {
     req.check('lName', 'Last Name field must not be empty').notEmpty();
     req.check('username', 'Username must not be empty').notEmpty();
 
-    const newUser = new User({
-      username: req.body.username,
-      password,
-      fName: req.body.fName,
-      lName: req.body.lName
-    });
+    const errors = req.validationErrors();
 
-    newUser.save()
-    .then(() => {
-      res.send({success: true});
-      res.redirect('/login');
-    })
-    .catch((error) => {
-      res.send({ success: false, failure: error });
-    });
+    if (errors){
+      console.log(errors);
+      res.json({success: false, failure: errors});
+    } else {
+      User.find({ username: req.body.username })
+      .then((user) => {
+        if (user.length){
+          console.log("FOUND USERNAME", user);
+          throw new Error("Username already exists");
+        } else {
+          console.log("CREATING NEW USER");
+          const newUser = new User({
+            username: req.body.username,
+            password,
+            fName: req.body.fName,
+            lName: req.body.lName
+          });
+          console.log("CREATED");
+          return newUser.save()
+        }
+      })
+      .then(() => {
+        console.log("SUCCESSFUL REGISTRATION");
+        res.json({success: true});
+      })
+      .catch((err) => {
+        console.log("UNSUCCESSFUL REGISTRATION", err);
+        res.json({ success: false, failure: err.message });
+      });
+    }
 
   });
 
@@ -42,6 +59,8 @@ const auth = (passport) => {
       success: true,
       userId: req.session.passport.user
     });
+    // const redirectUrl = '/profile/' + req.session.passport.user ;
+    // res.redirect(redirectUrl);
   });
 
   // GET Logout
