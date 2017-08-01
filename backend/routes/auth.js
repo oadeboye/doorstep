@@ -42,6 +42,8 @@ const auth = (passport) => {
       success: true,
       userId: req.session.passport.user
     });
+    // const redirectUrl = '/profile/' + req.session.passport.user ;
+    // res.redirect(redirectUrl);
   });
 
   // GET Logout
