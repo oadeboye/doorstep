@@ -10,8 +10,8 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="welcome-page">
-        <Button className="login-button">Login</Button>
-        <Button className="register-button">Register</Button>
+        <button className="login-button">Login</button>
+        <button className="register-button">Register</button>
       </div>
     )
   }
