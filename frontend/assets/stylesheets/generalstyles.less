@@ -1,0 +1,88 @@
+@import 'colorsfonts.less';
+
+.splash {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: @lighter-blue;
+  color: white;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.button {
+  font-size: 24px;
+  padding: 10px 50px;
+  background-color: @red;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  &:active {
+    outline: 0;
+    border: none;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+
+.button-red {
+  .button;
+  background-color: @red;
+  &:hover {
+    background-color: @red - #222;
+  }
+  &:active {
+    background-color: @red - #444;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+
+.button-blue {
+  .button;
+  background-color: @sky-blue;
+  &:hover {
+    background-color: @sky-blue - #222;
+  }
+  &:active {
+    background-color: @sky-blue - #444;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+.button-orange {
+  .button;
+  background-color: @sorbet-orange;
+  &:hover {
+    background-color: @sorbet-orange - #222;
+  }
+  &:active {
+    background-color: @sorbet-orange - #444;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+.button-purple {
+  .button;
+  background-color: @purple;
+  &:hover {
+    background-color: @purple - #222;
+  }
+  &:active {
+    background-color: @purple - #444;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
