@@ -5,16 +5,16 @@ import AppContainer from './AppContainer.js';
 import DevTools from './DevTools';
 
 export default function Root({ store }) {
-    return (
-        <Provider store={store}>
-            <div>
-                <AppContainer />
-                <DevTools />
-            </div>
-        </Provider>
-    );
+  return (
+    <Provider store={store}>
+      <div>
+          <AppContainer />
+          <DevTools />
+      </div>
+    </Provider>
+  );
 }
 
 Root.propTypes = {
-    store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired
 };
