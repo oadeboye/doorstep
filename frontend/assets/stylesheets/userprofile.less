@@ -70,18 +70,28 @@
   background-color: @beige;
   padding: 100px 150px;
   .communities-box {
-    border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
+  }
+  h2 {
+    font-weight: 700;
+  }
+  .add-community-button {
+    .button;
+    width: 400px;
+    text-align: left;
+    position: absolute;
+    right: -10%;
   }
 }
 .door {
   height: 400px;
   width: 300px;
   margin: 20px;
-  border: 1px solid blue;
   background-color: @sorbet-orange;
   position: relative;
+  color: @dark-navy;
+  transition: 0.5s;
   .door-inner {
     position: absolute;
     height: 90%;
@@ -95,8 +105,56 @@
     height: 200px;
     position: absolute;
     width: 100%;
+    border-top: 5px solid @burnt-orange;
+    padding: 20px 30px;
     h2 {
-      
+      font-weight: 700;
+    }
+  }
+  .doorknob {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background-color: @gold;
+    border: 10px solid @dark-gold;
+    position: absolute;
+    z-index: 1;
+    right: 10%;
+    top: 48%;
+  }
+  .join-button {
+    .button;
+    display: none;
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-size: 22px;
+    text-align: center;
+    padding: 10px;
+    width: 70%;
+  }
+  &:hover {
+    .door-info {
+      background-color: white;
+      height: 300px;
+      position: absolute;
+      width: 100%;
+      padding: 20px 30px;
+      h2 {
+        font-weight: 700;
+      }
+    }
+    .doorknob {
+      display: none;
+    }
+    .join-button {
+      display: block;
+      transition: 0.3s;
+      &:hover {
+        background-color: @red - #222;
+      }
     }
   }
 }
