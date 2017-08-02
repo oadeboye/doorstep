@@ -22,6 +22,7 @@ class Welcome extends React.Component {
       usernameLogin: '',
       passwordLogin: '',
       usernameReg: '',
+      email: '',
       passwordReg: '',
       fName: '',
       lName: '',
@@ -76,6 +77,10 @@ class Welcome extends React.Component {
     this.setState({usernameReg: e.target.value});
   }
 
+  onEmailChange(e) {
+    this.setState({email: e.target.value});
+  }
+
   onPasswordRegChange(e) {
     this.setState({passwordReg: e.target.value});
   }
@@ -118,6 +123,11 @@ class Welcome extends React.Component {
     });
   }
 
+  onProfileClick(e) {
+    e.preventDefault();
+    this.props.history.push('/profile');
+  }
+
   render() {
     return (
       <div className="welcome-page">
@@ -135,44 +145,25 @@ class Welcome extends React.Component {
             onClick={() => this.openRegister()}
           >Register
           </Button>
+          <Button
+            bsStyle="primary"
+            bsSize="large"
+            onClick={(e) => this.onProfileClick(e)}
+          >Go to profile page
+          </Button>
         </div>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {/* <Form componentClass="fieldset" horizontal>
-              <FormGroup controlId="formValidationError3" validationState="error">
-                <Col componentClass={ControlLabel} xs={3}>
-                  Input with error
-                </Col>
-                <Col xs={9}>
-                  <FormControl type="text" />
-                  <FormControl.Feedback />
-                  <HelpBlock>Help text with validation state.</HelpBlock>
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formValidationSuccess4" validationState="success">
-                <Col componentClass={ControlLabel} xs={3}>
-                  Input group with success
-                </Col>
-                <Col xs={9}>
-                  <InputGroup>
-                    <InputGroup.Addon>@</InputGroup.Addon>
-                    <FormControl type="text" />
-                  </InputGroup>
-                  <FormControl.Feedback />
-                </Col>
-              </FormGroup>
-            </Form> */}
             <Form horizontal>
               <FormGroup controlId="formHorizontalEmail">
                 <Col componentClass={ControlLabel} sm={4}>
                   Username
                 </Col>
                 <Col sm={8}>
-                  <FormControl onChange={(e) => this.onUsernameLoginChange(e)} type="email" placeholder="Username" />
+                  <FormControl onChange={(e) => this.onUsernameLoginChange(e)} type="text" placeholder="Username" />
                 </Col>
               </FormGroup>
 
@@ -191,7 +182,6 @@ class Welcome extends React.Component {
             <Button onClick={() => this.closeLogin()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-
         <Modal show={this.state.showRegisterModal} onHide={() => this.closeRegister()}>
           <Modal.Header closeButton>
             <Modal.Title>Register as a New User!</Modal.Title>
@@ -217,6 +207,11 @@ class Welcome extends React.Component {
                 <div className="help-block with-errors">Username is required *</div>
               </div>
               <div className="form-group">
+                <label htmlFor="Email" className="control-label">Email</label>
+                <input onChange={(e) => this.onEmailRegChange(e)} type="email" className="form-control" id="email" placeholder="Email" required/>
+                <div className="help-block with-errors">Email is required *</div>
+              </div>
+              <div className="form-group">
                 <label htmlFor="inputPassword" className="control-label">Password</label>
                 <div className="form-inline row">
                   <div className="form-group col-sm-6">
@@ -229,57 +224,6 @@ class Welcome extends React.Component {
                 </div>
               </div>
             </form>
-            {/* <Form horizontal>
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={4}>
-                  First name
-                </Col>
-                <Col sm={8}>
-                  <FormControl onChange={(e) => this.onFirsNameRegChange(e)} type="text" placeholder="First name" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Last name
-                </Col>
-                <Col sm={8}>
-                  <FormControl onChange={(e) => this.onLastNameRegChange(e)} type="text" placeholder="Last name" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Username
-                </Col>
-                <Col sm={8}>
-                  <FormControl onChange={(e) => this.onUsernameRegChange(e)} type="text" placeholder="Username" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Password
-                </Col>
-                <Col sm={8}>
-                  <FormControl data-minlength="6" onChange={(e) => this.onPasswordRegChange(e)} type="password" placeholder="Password" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Repeat password
-                </Col>
-                <Col sm={8}>
-                  <FormControl type="password" placeholder="Repeat password" />
-                </Col>
-              </FormGroup>
-              <div className="form-group">
-                <div className="col-xs-9 col-xs-offset-3">
-                  <div id="failureMsg"></div>
-                </div>
-              </div>
-            </Form> */}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={(e) => this.onRegister(e)}>Register</Button>
