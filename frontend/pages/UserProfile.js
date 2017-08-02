@@ -3,12 +3,14 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/userprofile.less';
+import { connect } from 'react-redux';
 
 class UserProfile extends React.Component {
   constructor(props) {
     super(props)
   }
   render() {
+    console.log("USER: ", this.props.user);
     return (
       <div className="user-profile-page">
         <Navbar />
@@ -49,4 +51,12 @@ class UserProfile extends React.Component {
   }
 }
 
-export default UserProfile;
+const mapStateToProps = (state) => {
+  return {
+    user: state
+  };
+};
+
+export default connect(
+  mapStateToProps
+  )(UserProfile);
