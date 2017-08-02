@@ -1,9 +1,21 @@
 const express = require('express');
 const expressValidator = require('express-validator');
+// const google = require('googleapis');
 
 const router = express.Router();
 const User = require('../models/models').User;
 const hashPassword = require('../helper/hashPassword');
+
+// //Google oauth setup here
+// const OAuth2 = google.auth.OAuth2;
+// const oauth2Client = new OAuth2(
+//   process.env.GOOGLE_CLIENT_ID,
+//   process.env.GOOGLE_CLIENT_SECRET,
+//   'http://bb9c46d7.ngrok.io/'
+// );
+// const scopes = [
+//   'https://www.googleapis.com/auth/plus.me'
+// ];
 
 
 const auth = (passport) => {
@@ -17,6 +29,7 @@ const auth = (passport) => {
     req.check('fName', 'First Name field must not be empty').notEmpty();
     req.check('lName', 'Last Name field must not be empty').notEmpty();
     req.check('username', 'Username must not be empty').notEmpty();
+    req.check('email', 'Must enter a valid email').isEmail().notEmpty();
     const errors = req.validationErrors();
 
     if (errors){
@@ -33,6 +46,7 @@ const auth = (passport) => {
           const newUser = new User({
             username: req.body.username,
             password,
+            email: req.body.email,
             fName: req.body.fName,
             lName: req.body.lName
           });
@@ -58,8 +72,6 @@ const auth = (passport) => {
       success: true,
       userId: req.session.passport.user
     });
-    // const redirectUrl = '/profile/' + req.session.passport.user ;
-    // res.redirect(redirectUrl);
   });
 
   // GET Logout
