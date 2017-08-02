@@ -1,1 +1,0 @@
-export MONGODB_URI="mongodb://demidemi:demidemi@ds111549.mlab.com:11549/doorstep-two";
