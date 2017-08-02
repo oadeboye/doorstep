@@ -57,13 +57,13 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy((username, password, done) => {
   const hash = hashPassword(password);
-
+  console.log('USERNAME', username);
   // Find the user with the given username
   User.findOne({username: username})
     .then((user) => {
       // If no user is present, authentication failed
       if (!user) {
-        console.log(user);
+        console.log('USER NOT FOUND', user);
         return done(null, false, {message: 'Incorrect username.'});
       }
       // If passwords do not match, authentication failed

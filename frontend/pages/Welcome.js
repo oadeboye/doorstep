@@ -5,8 +5,10 @@ import { Modal,
          FormGroup,
          Col,
          ControlLabel,
-         Form,
-         FormControl } from 'react-bootstrap';
+         FormControl,
+         HelpBlock,
+         InputGroup,
+         Form } from 'react-bootstrap';
 import axios from 'axios';
 // import styles from '../assets/stylesheets';
 
@@ -21,7 +23,8 @@ class Welcome extends React.Component {
       usernameReg: '',
       passwordReg: '',
       fName: '',
-      lName: ''
+      lName: '',
+      failure: ''
     };
   }
 
@@ -97,7 +100,16 @@ class Welcome extends React.Component {
       console.log('HERE');
       if (resp.data.success) {
         console.log('Successful registration:', resp.data);
-        this.closeReg();
+        this.closeRegister();
+      }
+      else {
+        console.log(resp.data.failure);
+        resp.data.failure.forEach(failure => {
+          var p = document.createElement("p");
+          var textnode = document.createTextNode(failure.msg);
+          p.appendChild(textnode);
+          document.getElementById("failureMsg").appendChild(p);
+        });
       }
     })
     .catch((err) => {
@@ -125,6 +137,31 @@ class Welcome extends React.Component {
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {/* <Form componentClass="fieldset" horizontal>
+              <FormGroup controlId="formValidationError3" validationState="error">
+                <Col componentClass={ControlLabel} xs={3}>
+                  Input with error
+                </Col>
+                <Col xs={9}>
+                  <FormControl type="text" />
+                  <FormControl.Feedback />
+                  <HelpBlock>Help text with validation state.</HelpBlock>
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="formValidationSuccess4" validationState="success">
+                <Col componentClass={ControlLabel} xs={3}>
+                  Input group with success
+                </Col>
+                <Col xs={9}>
+                  <InputGroup>
+                    <InputGroup.Addon>@</InputGroup.Addon>
+                    <FormControl type="text" />
+                  </InputGroup>
+                  <FormControl.Feedback />
+                </Col>
+              </FormGroup>
+            </Form> */}
             <Form horizontal>
               <FormGroup controlId="formHorizontalEmail">
                 <Col componentClass={ControlLabel} sm={4}>
@@ -156,7 +193,39 @@ class Welcome extends React.Component {
             <Modal.Title>Register as a New User!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form horizontal>
+            <div className="form-group">
+              <div className="col-xs-9 col-xs-offset-3">
+                <div id="failureMsg"></div>
+              </div>
+            </div>
+            <form>
+              <div className="form-group">
+                <label htmlFor="firstName" className="control-label">First name</label>
+                <input onChange={(e) => this.onFirsNameRegChange(e)} type="text" className="form-control" id="fName" placeholder="First Name" required/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName" className="control-label">Last name</label>
+                <input onChange={(e) => this.onLastNameRegChange(e)} type="text" className="form-control" id="lName" placeholder="Last Name" required/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="Username" className="control-label">Username</label>
+                <input onChange={(e) => this.onUsernameRegChange(e)} type="text" className="form-control" id="username" placeholder="Username" required/>
+                <div className="help-block with-errors">Username is required *</div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="inputPassword" className="control-label">Password</label>
+                <div className="form-inline row">
+                  <div className="form-group col-sm-6">
+                    <input onChange={(e) => this.onPasswordRegChange(e)} type="password" className="form-control" id="inputPassword" placeholder="Password" required/>
+                    <div className="help-block">Minimum of 6 characters *</div>
+                  </div>
+                  <div className="form-group col-sm-6">
+                    <input type="password" className="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required/>
+                  </div>
+                </div>
+              </div>
+            </form>
+            {/* <Form horizontal>
               <FormGroup controlId="formHorizontalEmail">
                 <Col componentClass={ControlLabel} sm={4}>
                   First name
@@ -189,7 +258,7 @@ class Welcome extends React.Component {
                   Password
                 </Col>
                 <Col sm={8}>
-                  <FormControl onChange={(e) => this.onPasswordRegChange(e)} type="password" placeholder="Password" />
+                  <FormControl data-minlength="6" onChange={(e) => this.onPasswordRegChange(e)} type="password" placeholder="Password" />
                 </Col>
               </FormGroup>
 
@@ -201,7 +270,12 @@ class Welcome extends React.Component {
                   <FormControl type="password" placeholder="Repeat password" />
                 </Col>
               </FormGroup>
-            </Form>
+              <div className="form-group">
+                <div className="col-xs-9 col-xs-offset-3">
+                  <div id="failureMsg"></div>
+                </div>
+              </div>
+            </Form> */}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={(e) => this.onRegister(e)}>Register</Button>
