@@ -10,14 +10,14 @@ class UserProfile extends React.Component {
     super(props)
   }
   render() {
-    console.log("USER: ", this.props.user);
+    console.log("USER: ", this.props.user.fName);
     return (
       <div className="user-profile-page">
         <Navbar />
         <div className="profile-wrapper">
           <div className="door-tag">
             <img src='http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png' />
-            <h2 className="name">First Last</h2>
+            <h2 className="name">{this.props.user.fName + ' ' + this.props.user.lName}</h2>
           </div>
           <div className="user-profile-splash">
             <h1 className="profile-title">YOUR PROFILE</h1>
