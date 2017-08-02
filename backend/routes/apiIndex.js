@@ -135,9 +135,9 @@ router.post('/request', (req, res) => {
   });
 });
 
-router.post('/search/user', (req, res) => {
+router.post('/search/users', (req, res) => {
   // Retrieve 20 users with username containing input string
-  User.find({ username: { $text: { $search: req.body.input } }})
+  User.find({ $text: { $search: req.body.input } })
   .limit(20)
   //ask if this retrieves an array of objects or individual objects
   .then((foundUsers) => {
