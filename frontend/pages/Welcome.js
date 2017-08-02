@@ -1,9 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Modal, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
-=======
 import { Modal,
          Button,
          FieldGroup,
@@ -15,8 +10,8 @@ import { Modal,
          InputGroup,
          Form } from 'react-bootstrap';
 import axios from 'axios';
-// import styles from '../assets/stylesheets';
->>>>>>> minh
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -126,25 +121,21 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="welcome-page">
-<<<<<<< HEAD
         <div className="welcome-splash">
           <h1 className="welcome-title">Welcome to Doorstep</h1>
-          <button className="login-button">Login</button>
-          <button className="register-button">Register</button>
+          <Button
+            bsStyle="primary"
+            bsSize="large"
+            onClick={() => this.openLogin()}
+          >Login
+          </Button>
+          <Button
+            bsStyle="primary"
+            bsSize="large"
+            onClick={() => this.openRegister()}
+          >Register
+          </Button>
         </div>
-=======
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={() => this.openLogin()}
-        >Login
-        </Button>
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={() => this.openRegister()}
-        >Register
-        </Button>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>
@@ -295,7 +286,6 @@ class Welcome extends React.Component {
             <Button onClick={() => this.closeRegister()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
->>>>>>> minh
       </div>
     );
   }

@@ -10,8 +10,8 @@ class AppContainer extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path='/welcome' exact component={Welcome} />
-          <Route path='/' exact component={UserProfile} />
+          <Route path="/welcome" exact component={Welcome} />
+          <Route path="/" exact component={UserProfile} />
         </div>
       </BrowserRouter>
     );
