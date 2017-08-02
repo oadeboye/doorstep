@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Welcome from '../pages/Welcome';
+import UserProfile from '../pages/UserProfile'
 import styles from '../assets/stylesheets/main.less';
 
 class AppContainer extends React.Component {
@@ -9,7 +10,8 @@ class AppContainer extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path='/' exact component={Welcome} />
+          <Route path='/welcome' exact component={Welcome} />
+          <Route path='/' exact component={UserProfile} />
         </div>
       </BrowserRouter>
     );

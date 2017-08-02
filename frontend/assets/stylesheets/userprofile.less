@@ -1,0 +1,102 @@
+@import 'colorsfonts.less';
+@import (reference) 'generalstyles.less';
+
+.user-profile-page {
+  border-bottom: 1px solid @gray;
+  .profile-wrapper {
+    position: relative;
+    .user-profile-splash {
+      .splash;
+      height: 40vh;
+      flex-direction: row;
+      align-items: flex-end;
+      .profile-title {
+        font-size: 42px;
+        font-weight: 700;
+        padding-left: 300px;
+      }
+    }
+    .user-info {
+      display: flex;
+      justify-content: flex-end;
+      background-color: white;
+      color: @dark-navy;
+      padding: 40px 20px 90px 20px;
+      .info-box {
+        width: 50%;
+      }
+      .stats-box {
+        display: flex;
+        .stat {
+          text-align: center;
+          font-color: @dark-navy;
+          margin-right: 20%;
+          h1 {
+            font-size: 42px;
+            font-weight: 700;
+          }
+          h3 {
+            font-size: 24px;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+    .door-tag {
+      position: absolute;
+      top: 13%;
+      left: 10%;
+      height: 66%;
+      width: 30%;
+      max-width: 400px;
+      background-color: white;
+      border: 1px solid gray;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 20px;
+      .name {
+        font-weight: 600;
+      }
+      img {
+        height: 200px;
+      }
+    }
+  }
+}
+
+.communities-list {
+  background-color: @beige;
+  padding: 100px 150px;
+  .communities-box {
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+.door {
+  height: 400px;
+  width: 300px;
+  margin: 20px;
+  border: 1px solid blue;
+  background-color: @sorbet-orange;
+  position: relative;
+  .door-inner {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    top: 5%;
+    left: 5%;
+    background-color: @burnt-orange;
+  }
+  .door-info {
+    background-color: white;
+    height: 200px;
+    position: absolute;
+    width: 100%;
+    h2 {
+      
+    }
+  }
+}
