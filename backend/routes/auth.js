@@ -9,7 +9,7 @@ const hashPassword = require('../helper/hashPassword');
 const auth = (passport) => {
   //POST Registration
   router.post('/register', (req, res) => {
-
+    console.log(req.body.username, req.body.password, req.body.fName, req.body.lName);
     const password = hashPassword(req.body.password);
 
     // Express validation here
@@ -17,7 +17,6 @@ const auth = (passport) => {
     req.check('fName', 'First Name field must not be empty').notEmpty();
     req.check('lName', 'Last Name field must not be empty').notEmpty();
     req.check('username', 'Username must not be empty').notEmpty();
-
     const errors = req.validationErrors();
 
     if (errors){
