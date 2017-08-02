@@ -29,6 +29,7 @@ const auth = (passport) => {
     req.check('fName', 'First Name field must not be empty').notEmpty();
     req.check('lName', 'Last Name field must not be empty').notEmpty();
     req.check('username', 'Username must not be empty').notEmpty();
+    req.check('email', 'Must enter a valid email').isEmail().notEmpty();
     const errors = req.validationErrors();
 
     if (errors){
@@ -70,8 +71,6 @@ const auth = (passport) => {
       success: true,
       userId: req.session.passport.user
     });
-    // const redirectUrl = '/profile/' + req.session.passport.user ;
-    // res.redirect(redirectUrl);
   });
 
   // GET Logout
