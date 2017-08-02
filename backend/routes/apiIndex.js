@@ -135,4 +135,28 @@ router.post('/request', (req, res) => {
   });
 });
 
+router.post('/search/users', (req, res) => {
+  // Retrieve 20 users with username containing input string
+  User.find({ $text: { $search: req.body.input } })
+  .limit(20)
+  //ask if this retrieves an array of objects or individual objects
+  .then((foundUsers) => {
+    res.json({success: true, users: foundUsers});
+  })
+  .catch((err) => {
+    res.json({ success: false, failure: err });
+  });
+});
+
+router.post('/search/communities', (req, res) => {
+  User.find({ $text: { $search: req.body.input } })
+  .limit(20)
+  .then((foundCommunities) => {
+    res.json({ success: true, communities: foundCommunities})
+  })
+  .catch((error) => {
+    res.json({ success: false, failure: error });
+  });
+});
+
 module.exports = router;

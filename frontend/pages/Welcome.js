@@ -102,8 +102,7 @@ class Welcome extends React.Component {
       if (resp.data.success) {
         console.log('Successful registration:', resp.data);
         this.closeRegister();
-      }
-      else {
+      } else {
         console.log(resp.data.failure);
         resp.data.failure.forEach(failure => {
           var p = document.createElement("p");
@@ -199,7 +198,7 @@ class Welcome extends React.Component {
           <Modal.Body>
             <div className="form-group">
               <div className="col-xs-9 col-xs-offset-3">
-                <div id="failureMsg"></div>
+                <div id="failureMsg"/>
               </div>
             </div>
             <form>
