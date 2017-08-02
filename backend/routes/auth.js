@@ -1,9 +1,21 @@
 const express = require('express');
 const expressValidator = require('express-validator');
+// const google = require('googleapis');
 
 const router = express.Router();
 const User = require('../models/models').User;
 const hashPassword = require('../helper/hashPassword');
+
+// //Google oauth setup here
+// const OAuth2 = google.auth.OAuth2;
+// const oauth2Client = new OAuth2(
+//   process.env.GOOGLE_CLIENT_ID,
+//   process.env.GOOGLE_CLIENT_SECRET,
+//   'http://bb9c46d7.ngrok.io/'
+// );
+// const scopes = [
+//   'https://www.googleapis.com/auth/plus.me'
+// ];
 
 
 const auth = (passport) => {

@@ -1,9 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Modal, Button, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-=======
 import { Modal,
          Button,
          FieldGroup,
@@ -16,7 +13,6 @@ import { Modal,
          Form } from 'react-bootstrap';
 import axios from 'axios';
 // import styles from '../assets/stylesheets';
->>>>>>> minh
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -107,8 +103,7 @@ class Welcome extends React.Component {
       if (resp.data.success) {
         console.log('Successful registration:', resp.data);
         this.closeRegister();
-      }
-      else {
+      } else {
         console.log(resp.data.failure);
         resp.data.failure.forEach(failure => {
           var p = document.createElement("p");
@@ -126,13 +121,11 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="welcome-page">
-<<<<<<< HEAD
         <div className="welcome-splash">
           <h1 className="welcome-title">Welcome to Doorstep</h1>
           <button className="login-button">Login</button>
           <button className="register-button">Register</button>
         </div>
-=======
         <Button
           bsStyle="primary"
           bsSize="large"
@@ -208,7 +201,7 @@ class Welcome extends React.Component {
           <Modal.Body>
             <div className="form-group">
               <div className="col-xs-9 col-xs-offset-3">
-                <div id="failureMsg"></div>
+                <div id="failureMsg"/>
               </div>
             </div>
             <form>
@@ -295,7 +288,6 @@ class Welcome extends React.Component {
             <Button onClick={() => this.closeRegister()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
->>>>>>> minh
       </div>
     );
   }
