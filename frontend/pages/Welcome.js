@@ -1,6 +1,4 @@
 import React from 'react';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
 import { Modal,
          Button,
          FieldGroup,
@@ -12,7 +10,8 @@ import { Modal,
          InputGroup,
          Form } from 'react-bootstrap';
 import axios from 'axios';
-// import styles from '../assets/stylesheets';
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -123,21 +122,19 @@ class Welcome extends React.Component {
       <div className="welcome-page">
         <div className="welcome-splash">
           <h1 className="welcome-title">Welcome to Doorstep</h1>
-          <button className="login-button">Login</button>
-          <button className="register-button">Register</button>
+          <Button
+            bsStyle="primary"
+            bsSize="large"
+            onClick={() => this.openLogin()}
+          >Login
+          </Button>
+          <Button
+            bsStyle="primary"
+            bsSize="large"
+            onClick={() => this.openRegister()}
+          >Register
+          </Button>
         </div>
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={() => this.openLogin()}
-        >Login
-        </Button>
-        <Button
-          bsStyle="primary"
-          bsSize="large"
-          onClick={() => this.openRegister()}
-        >Register
-        </Button>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
             <Modal.Title>Login</Modal.Title>

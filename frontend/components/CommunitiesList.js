@@ -8,6 +8,7 @@ class CommunitiesList extends React.Component {
   render() {
     return (
       <div className="communities-list">
+      <div className="add-community-button">Create One</div>
         <h2>Communities</h2>
         <div className="communities-box">
           <Door />
