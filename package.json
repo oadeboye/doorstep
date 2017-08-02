@@ -26,6 +26,8 @@
     "express": "^4.15.2",
     "express-session": "^1.15.4",
     "express-validator": "^3.2.1",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5",
     "mocha": "^3.2.0",
     "mongoose": "^4.11.2",
     "node-sass": "^4.5.2",

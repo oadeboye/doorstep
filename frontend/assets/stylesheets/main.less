@@ -1,0 +1,66 @@
+@import 'colorsfonts.less';
+@import (reference) 'generalstyles.less';
+
+body {
+  margin: 0;
+  font-family: @font;
+  overflow-x: hidden;
+}
+
+.welcome-page {
+  .login-button {
+    margin-bottom: 15px;
+    &:extend(.button-orange all);
+  }
+  .register-button {
+    &:extend(.button-red all);
+  }
+  .welcome-splash {
+    &:extend(.splash all);
+  }
+  .welcome-title {
+    margin-bottom: 25px;
+    &:extend(.title all);
+  }
+}
+
+.footer {
+  height: 50vh;
+  color: white;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin: auto;
+  padding: 50px;
+}
+
+.navbar {
+  background-color: white;
+  color: @dark-navy;
+  border-radius: 0;
+  height: 60px;
+  margin: 0;
+  position: relative;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  .corner-logo {
+    margin-left: 30px;
+  }
+  .profile {
+    margin-left: auto;
+    margin-right: 30px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    &:hover {
+      border-bottom: 4px solid @dark-navy;
+      margin-bottom: -4px;
+    }
+  }
+}
