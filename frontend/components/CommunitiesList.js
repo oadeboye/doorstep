@@ -8,6 +8,7 @@ import { Modal,
          ControlLabel,
          Button,
          FieldGroup } from 'react-bootstrap';
+import axios from 'axios';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
@@ -17,6 +18,16 @@ class CommunitiesList extends React.Component {
       communityName: '',
       member: ''
     };
+  }
+
+  componentDidMount() {
+    axios.get(process.env.DOMAIN + '/communities/' + this.props.user._id)
+    .then(() => {
+
+    })
+    .catch(() => {
+
+    });
   }
 
   onCreateCommunity(e) {
@@ -41,6 +52,7 @@ class CommunitiesList extends React.Component {
     console.log('creating a new community');
     this.close();
   }
+
 
   render() {
     return (

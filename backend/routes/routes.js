@@ -33,7 +33,7 @@ router.get('/communities/:id', (req, res) => {
       console.log("User ");
       return res.json({success: false, failure: "community does not exist"});
     }
-    console.log("Successfully sent community data");
+    console.log("Successfully sent community data", communities);
     return res.json(communities);
   })
   .catch(err => {
