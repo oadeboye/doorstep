@@ -36,6 +36,12 @@ class CommunitiesList extends React.Component {
     this.setState({member: e.target.value});
   }
 
+  onCreate(e) {
+    e.preventDefault();
+    console.log('creating a new community');
+    this.close();
+  }
+
   render() {
     return (
       <div className="communities-list">
@@ -68,8 +74,8 @@ class CommunitiesList extends React.Component {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={(e) => this.onLogin(e)}>Login</Button>
-          <Button onClick={() => this.closeLogin()}>Cancel</Button>
+          <Button onClick={(e) => this.onCreate(e)}>Create a new community</Button>
+          <Button onClick={() => this.close()}>Cancel</Button>
         </Modal.Footer>
       </Modal>
         <h2>Communities</h2>
@@ -79,7 +85,7 @@ class CommunitiesList extends React.Component {
           <Door />
         </div>
       </div>
-    )
+    );
   }
 }
 

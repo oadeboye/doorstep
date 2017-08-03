@@ -152,7 +152,19 @@ router.post('/search/communities', (req, res) => {
   User.find({ $text: { $search: req.body.input } })
   .limit(20)
   .then((foundCommunities) => {
-    res.json({ success: true, communities: foundCommunities})
+    res.json({ success: true, communities: foundCommunities});
+  })
+  .catch((error) => {
+    res.json({ success: false, failure: error });
+  });
+});
+
+
+// GET: retrieve all users from database
+router.get('/users', (req, res) => {
+  User.find({})
+  .then((users) => {
+    res.json({ success: true, users: users});
   })
   .catch((error) => {
     res.json({ success: false, failure: error });
