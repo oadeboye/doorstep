@@ -41,7 +41,6 @@ class Welcome extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:3000/api/users')
     .then((resp) => {
-      console.log('setting users');
       var usernames = resp.data.users.map((user) => user.username);
       this.setState({usernames: usernames});
     })
@@ -68,8 +67,6 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    console.log('username', this.state.usernameLogin);
-    console.log('password', this.state.passwordLogin);
     axios.post('/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
@@ -100,8 +97,6 @@ class Welcome extends React.Component {
   // checks with database to see if username already exists
   checkUsername() {
     var usernames = this.state.usernames;
-    console.log('USERNAMES', usernames);
-    console.log('username', this.state.usernameReg);
     if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
       this.setState({validateUser: 'success', helpBlock: "You're good to go!"});
       console.log('no match', this.state.validateUser);
@@ -191,7 +186,6 @@ class Welcome extends React.Component {
   }
 
   validateUsername() {
-    console.log('STATUS', this.state.validateUser);
     return this.state.validateUser;
   }
 
