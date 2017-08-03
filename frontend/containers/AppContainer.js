@@ -14,11 +14,11 @@ class AppContainer extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path='/temp2' exact component={Welcome} />
-          <Route path='/profile' exact component={UserProfile} />
-          <Route path='/temp' exact component={CommunitiesSearch} />
-          <Route path='/community/market/:communityId' component={CommunityMarket} />
-          <Route path='/' component={CommunityProfile} />
+          <Route path="/" exact component={Welcome} />
+          <Route path="/profile" exact component={UserProfile} />
+          <Route path="/temp" exact component={CommunitiesSearch} />
+          <Route path="/community/:communityId" component={CommunityMarket} />
+          <Route path="/temp2" component={CommunityProfile} />
         </div>
       </BrowserRouter>
     );

@@ -78,8 +78,8 @@ class Welcome extends React.Component {
         this.closeLogin();
         const user = resp.data.user;
         this.props.onSuccessfulLogin(user);
-        this.props.history.push('/profile');
         console.log("RESP FROM WELCOME PAGE!", user);
+        this.props.history.push('/profile');
       }
     })
     .catch((err) => {
@@ -102,13 +102,10 @@ class Welcome extends React.Component {
     if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
       this.setState({validateUser: 'success', helpBlock: "You're good to go!"});
       console.log('no match', this.state.validateUser);
-    }
-    else if (this.state.usernameReg.trim(' ') === '') {
+    } else if (this.state.usernameReg.trim(' ') === '') {
       this.setState({validateUser: 'error', helpBlock: 'Username is required'});
       console.log('no username', this.state.validateUser);
-
-    }
-    else  {
+    } else  {
       this.setState({validateUser: 'error', helpBlock: 'Username already exists'});
       console.log('match', this.state.validateUser);
     }

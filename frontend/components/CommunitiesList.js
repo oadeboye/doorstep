@@ -18,18 +18,21 @@ class CommunitiesList extends React.Component {
       showModal: false,
       communityName: '',
       member: '',
-      userCommunities: []
+      userCommunities: [],
+      userHasCommunities: false
     };
   }
 
   componentDidMount() {
-    console.log(process.env);
     console.log("USER ON COMMUNITIES COMPONENT", this.props.user);
     axios.get('http://localhost:3000/communities/' + this.props.user._id)
     .then((responseJson) => {
       console.log("INCOMING FROM COMMUNITIES LIST", responseJson);
       const communities = responseJson.data;
-      this.setState({userCommunities: communities});
+      this.setState({
+        userCommunities: communities,
+        userHasCommunities: true
+      });
       console.log("USER COMMUNITIES HERE", communities);
     })
     .catch((err) => {
@@ -62,6 +65,7 @@ class CommunitiesList extends React.Component {
 
 
   render() {
+    console.log("BOO", this.state.userCommunities)
     return (
       <div className="communities-list">
       {
@@ -112,12 +116,11 @@ class CommunitiesList extends React.Component {
       </Modal>
         <h2>Communities</h2>
         <div className="communities-box">
-          {this.state.userCommunities.map((com, index) => {
-            return <Door key={index} com={com}/>
-          })}
+          {this.state.userCommunities.map((com, index) =>
+            <Door key={index} com={com} />)}
+          {/* <Door fromSearch={this.props.fromSearch}/>
           <Door fromSearch={this.props.fromSearch}/>
-          <Door fromSearch={this.props.fromSearch}/>
-          <Door fromSearch={this.props.fromSearch}/>
+          <Door fromSearch={this.props.fromSearch}/> */}
         </div>
       </div>
     );

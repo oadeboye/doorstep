@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 // import { saveUser } from '../actions/index';
 
-let UserProfile = ({ user }) => {
+const UserProfile = ({ user }) => {
   // componentDidMount() {
   // }
 
