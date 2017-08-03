@@ -13,6 +13,8 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
+import saveUser from '../actions/index';
+import PropTypes from 'prop-types';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -54,19 +56,17 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    console.log('username', this.state.usernameLogin);
-    console.log('password', this.state.passwordLogin);
     axios.post('/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
     .then((resp) => {
       if (resp.data.success) {
-        console.log('Logged in!');
         this.closeLogin();
+        const user = resp.data.user;
+        this.props.onSuccessfulLogin(user);
         this.props.history.push('/profile');
-        console.log(resp);
-        this.props.onSuccessfulLogin(resp.data.user);
+        console.log("RESP FROM WELCOME PAGE!", user);
       }
     })
     .catch((err) => {
@@ -118,7 +118,7 @@ class Welcome extends React.Component {
       email: this.state.email
     })
     .then((resp) => {
-      console.log('HERE');
+      console.log('HERE AT REGISTRATION');
       if (resp.data.success) {
         console.log('Successful registration:', resp.data);
         this.closeRegister();
@@ -344,9 +344,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSuccessfulLogin: (user) => {
-      dispatch({ type: 'SAVE_USER', user })
+      dispatch(saveUser(user));
     }
   };
+};
+
+Welcome.proptypes = {
+  onSuccessfulLogin: PropTypes.function
 };
 
 export default connect(

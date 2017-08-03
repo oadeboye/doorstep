@@ -9,6 +9,7 @@ import { Modal,
          Button,
          FieldGroup } from 'react-bootstrap';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
@@ -21,12 +22,13 @@ class CommunitiesList extends React.Component {
   }
 
   componentDidMount() {
+    console.log("USER ON COMMUNITIES COMPONENT", this.props.user);
     axios.get(process.env.DOMAIN + '/communities/' + this.props.user._id)
     .then((responseJson) => {
       console.log("INCOMING FROM COMMUNITIES LIST", responseJson);
     })
     .catch((err) => {
-      console.log("SOMETHING WENT WRONG", err);
+      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
     });
   }
 
@@ -100,5 +102,9 @@ class CommunitiesList extends React.Component {
     );
   }
 }
+
+CommunitiesList.propTypes = {
+  user: PropTypes.object
+};
 
 export default CommunitiesList;
