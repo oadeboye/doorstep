@@ -42,7 +42,6 @@ const auth = (passport) => {
           console.log("FOUND USERNAME", user);
           res.json({success: false, failure: [{msg: "Username already exists", param: "username"}]});
         } else {
-          console.log("CREATING NEW USER");
           const newUser = new User({
             username: req.body.username,
             password,
@@ -50,7 +49,6 @@ const auth = (passport) => {
             fName: req.body.fName,
             lName: req.body.lName
           });
-          console.log("CREATED");
           return newUser.save()
         }
       })
