@@ -13,14 +13,14 @@
 
 .title {
   text-transform: uppercase;
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 700;
 }
 
 .button {
   text-align: center;
-  font-size: 24px;
-  padding: 10px 50px;
+  font-size: 18px;
+  padding: 7px 30px;
   background-color: @red;
   color: white;
   border: none;
@@ -28,7 +28,11 @@
   font-weight: 700;
   &:active {
     outline: 0;
+    background-color: @red - #444;
     border: none;
+  }
+  &:hover {
+    background-color: @red - #222;
   }
   &:focus {
     outline: 0;
