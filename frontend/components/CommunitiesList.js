@@ -42,7 +42,7 @@ class CommunitiesList extends React.Component {
     console.log('creating a new community');
     console.log('community name', this.state.communityName);
     console.log('community desc', this.state.desc);
-    axios.post('http://localhost:3000/community', {
+    axios.post('http://localhost:3000/api/community', {
       name: this.state.communityName,
       description: this.state.desc
     })
