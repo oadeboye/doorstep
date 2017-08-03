@@ -21,7 +21,7 @@ const hashPassword = require('../helper/hashPassword');
 const auth = (passport) => {
   //POST Registration
   router.post('/register', (req, res) => {
-    console.log(req.body.username, req.body.password, req.body.fName, req.body.lName);
+    console.log(req.body.username, req.body.password, req.body.fName, req.body.lName, req.body.email);
     const password = hashPassword(req.body.password);
 
     // Express validation here
@@ -29,7 +29,7 @@ const auth = (passport) => {
     req.check('fName', 'First Name field must not be empty').notEmpty();
     req.check('lName', 'Last Name field must not be empty').notEmpty();
     req.check('username', 'Username must not be empty').notEmpty();
-    req.check('email', 'Must enter a valid email').isEmail().notEmpty();
+    req.check('email', 'Must enter a valid email').notEmpty();
     const errors = req.validationErrors();
 
     if (errors){
@@ -38,9 +38,9 @@ const auth = (passport) => {
     } else {
       User.find({ username: req.body.username })
       .then((user) => {
-        if (user.length){
+        if (user.length) {
           console.log("FOUND USERNAME", user);
-          throw new Error("Username already exists");
+          res.json({success: false, failure: [{msg: "Username already exists", param: "username"}]});
         } else {
           console.log("CREATING NEW USER");
           const newUser = new User({
