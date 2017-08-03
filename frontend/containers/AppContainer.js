@@ -6,6 +6,7 @@ import Welcome from '../pages/Welcome';
 import UserProfile from '../pages/UserProfile';
 import CommunityMarket from '../pages/CommunityMarket';
 import CommunityProfile from '../pages/CommunityProfile';
+import CommunitiesSearch from '../pages/CommunitiesSearch';
 import styles from '../assets/stylesheets/main.less';
 
 class AppContainer extends React.Component {
@@ -13,8 +14,9 @@ class AppContainer extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path='/' exact component={Welcome} />
+          <Route path='/temp' exact component={Welcome} />
           <Route path='/profile' exact component={UserProfile} />
+          <Route path='/' exact component={CommunitiesSearch} />
           <Route path='/community/market/:communityId' component={CommunityMarket} />
           <Route path='/community/profile/:communityId' component={CommunityProfile} />
         </div>

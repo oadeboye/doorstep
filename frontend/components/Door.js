@@ -13,7 +13,12 @@ class Door extends React.Component {
           <p>Lorem ipsum something something at 7th street yay</p>
         </div>
         <div className="doorknob"></div>
-        <div className="button join-button">View Market</div>
+        {
+          this.props.fromSearch ? 
+          <div className="button ask-button">Ask To Join</div>
+          :
+          <div className="button join-button">View Market</div>
+        } 
       </div>
     )
   }

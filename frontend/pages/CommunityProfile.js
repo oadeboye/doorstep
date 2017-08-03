@@ -14,6 +14,8 @@ class CommunityProfile extends React.Component {
         <Navbar />
         <div className="community-splash">
           <h1>COMMUNITY PROFILE</h1>
+          <div className="community-stats">
+          </div>
         </div>
         <Footer />
       </div>

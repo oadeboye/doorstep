@@ -135,6 +135,19 @@
     padding: 10px;
     width: 70%;
   }
+  .ask-button {
+    .button;
+    display: none;
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-size: 22px;
+    text-align: center;
+    padding: 10px;
+    width: 70%;
+  }
   &:hover {
     .door-info {
       background-color: white;
@@ -154,6 +167,14 @@
       transition: 0.3s;
       &:hover {
         background-color: @red - #222;
+      }
+    }
+    .ask-button {
+      background-color: @sky-blue;
+      display: block;
+      transition: 0.3s;
+      &:hover {
+        background-color: @sky-blue - #222;
       }
     }
   }
