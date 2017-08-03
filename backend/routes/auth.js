@@ -83,7 +83,7 @@ const auth = (passport) => {
   // Ends the session and redirects to login
   router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.json({ success: true, message: 'User successfully logged out'});
   });
 
   return router;
