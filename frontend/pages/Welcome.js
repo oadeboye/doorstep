@@ -8,7 +8,8 @@ import { Modal,
          FormControl,
          HelpBlock,
          InputGroup,
-         Form } from 'react-bootstrap';
+         Form,
+          Input } from 'react-bootstrap';
 import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -29,11 +30,24 @@ class Welcome extends React.Component {
       fName: '',
       lName: '',
       failure: '',
-      checkUsername: '',
+      validateUser: '',
       helpBlock: '',
       loginFailure: '',
-      registerFailure: ''
+      registerFailure: '',
+      usernames: []
     };
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/api/users')
+    .then((resp) => {
+      console.log('setting users');
+      var usernames = resp.data.users.map((user) => user.username);
+      this.setState({usernames: usernames});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   closeLogin() {
@@ -83,8 +97,29 @@ class Welcome extends React.Component {
     this.setState({ showRegisterModal: true });
   }
 
+  // checks with database to see if username already exists
+  checkUsername() {
+    var usernames = this.state.usernames;
+    console.log('USERNAMES', usernames);
+    console.log('username', this.state.usernameReg);
+    if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
+      this.setState({validateUser: 'success', helpBlock: "You're good to go!"});
+      console.log('no match', this.state.validateUser);
+    }
+    else if (this.state.usernameReg.trim(' ') === '') {
+      this.setState({validateUser: 'error', helpBlock: 'Username is required'});
+      console.log('no username', this.state.validateUser);
+
+    }
+    else  {
+      this.setState({validateUser: 'error', helpBlock: 'Username already exists'});
+      console.log('match', this.state.validateUser);
+    }
+  }
+
   onUsernameRegChange(e) {
-    this.setState({usernameReg: e.target.value});
+    this.setState({usernameReg: e.target.value}, () =>
+      this.checkUsername());
   }
 
   onEmailChange(e) {
@@ -155,29 +190,9 @@ class Welcome extends React.Component {
     return "warning";
   }
 
-   // checks with database to see if username already exists
-  checkUsername() {
-    axios.get('http://localhost:3000/api/users')
-    .then((resp) => {
-      var usernames = resp.data.users.map(user => user.username);
-      if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
-        this.setState({checkUsername: 'success'});
-        this.setState({helpBlock: "You're good to go!"});
-      }
-      else if (this.state.usernameReg.trim(' ') === '') {
-        this.setState({checkUsername: 'error'});
-        this.setState({helpBlock: 'Username is required'});
-      }
-      else  {
-        this.setState({checkUsername: 'error'});
-        this.setState({helpBlock: 'Username already exists'});
-      }
-    });
-  }
-
   validateUsername() {
-    // this.checkUsername();
-    return this.state.checkUsername;
+    console.log('STATUS', this.state.validateUser);
+    return this.state.validateUser;
   }
 
   validatePassword() {
@@ -293,7 +308,8 @@ class Welcome extends React.Component {
               </FormGroup>
               <FormGroup
                 controlId="username"
-                validationState={this.validateUsername()}>
+                validationState={this.validateUsername()}
+              >
                 <ControlLabel>Username</ControlLabel>
                 <FormControl
                   type="text"
