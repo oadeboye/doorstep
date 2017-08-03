@@ -27,7 +27,7 @@ router.get('/profile/:id', (req, res) => {
 // Req.params.id is user's database id
 router.get('/communities/:id', (req, res) => {
   const id = req.params.id;
-  Community.find({ users: { $elemMatch: id } })
+  Community.find({ users: { $all: [id] } })
   .then((communities) => {
     if (!communities) {
       console.log("User ");

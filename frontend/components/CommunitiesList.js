@@ -17,15 +17,20 @@ class CommunitiesList extends React.Component {
     this.state = {
       showModal: false,
       communityName: '',
-      member: ''
+      member: '',
+      userCommunities: []
     };
   }
 
   componentDidMount() {
+    console.log(process.env);
     console.log("USER ON COMMUNITIES COMPONENT", this.props.user);
-    axios.get(process.env.DOMAIN + '/communities/' + this.props.user._id)
+    axios.get('http://localhost:3000/communities/' + this.props.user._id)
     .then((responseJson) => {
       console.log("INCOMING FROM COMMUNITIES LIST", responseJson);
+      const communities = responseJson.data;
+      this.setState({userCommunities: communities});
+      console.log("USER COMMUNITIES HERE", communities);
     })
     .catch((err) => {
       console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
@@ -94,9 +99,9 @@ class CommunitiesList extends React.Component {
       </Modal>
         <h2>Communities</h2>
         <div className="communities-box">
-          <Door />
-          <Door />
-          <Door />
+          {this.state.userCommunities.map((com, index) => {
+            return <Door key={index} com={com}/>
+          })}
         </div>
       </div>
     );
@@ -104,7 +109,7 @@ class CommunitiesList extends React.Component {
 }
 
 CommunitiesList.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
 export default CommunitiesList;
