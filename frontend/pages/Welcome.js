@@ -56,7 +56,7 @@ class Welcome extends React.Component {
     e.preventDefault();
     console.log('username', this.state.usernameLogin);
     console.log('password', this.state.passwordLogin);
-    axios.post(process.env.DOMAIN + '/login', {
+    axios.post('/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
@@ -176,7 +176,7 @@ class Welcome extends React.Component {
   }
 
   validateUsername() {
-    this.checkUsername();
+    // this.checkUsername();
     return this.state.checkUsername;
   }
 
@@ -212,12 +212,6 @@ class Welcome extends React.Component {
             bsSize="large"
             onClick={() => this.openRegister()}
           >Register
-          </Button>
-          <Button
-            bsStyle="primary"
-            bsSize="large"
-            onClick={(e) => this.onProfileClick(e)}
-          >Go to profile page
           </Button>
         </div>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>

@@ -8,6 +8,7 @@ import { Modal,
          ControlLabel,
          Button,
          FieldGroup } from 'react-bootstrap';
+import axios from 'axios';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class CommunitiesList extends React.Component {
     this.state = {
       showModal: false,
       communityName: '',
-      member: ''
+      desc: ''
     };
   }
 
@@ -32,13 +33,28 @@ class CommunitiesList extends React.Component {
     this.setState({communityName: e.target.value});
   }
 
-  onAddMembersChange(e) {
-    this.setState({member: e.target.value});
+  onCommunityDescChange(e) {
+    this.setState({desc: e.target.value});
   }
 
   onCreate(e) {
     e.preventDefault();
     console.log('creating a new community');
+    console.log('community name', this.state.communityName);
+    console.log('community desc', this.state.desc);
+    axios.post('http://localhost:3000/api/community', {
+      name: this.state.communityName,
+      description: this.state.desc
+    })
+    .then((resp) => {
+      if (resp.data.success) {
+        console.log('SUCCESSFULLY CREATED A NEW COMMUNITY');
+        console.log(resp.data.response);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     this.close();
   }
 
@@ -60,16 +76,11 @@ class CommunitiesList extends React.Component {
                 onChange={(e) => this.onCommunityNameChange(e)}
               />
             </FormGroup>
-            <FormGroup>
-              <ControlLabel>Members</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter a username"
-                onChange={(e) => this.onAddMembersChange(e)}
-              />
-              <Button componentClass={ControlLabel} sm={4}>
-                Add more members
-              </Button>
+            <FormGroup controlId="description">
+              <ControlLabel>Description</ControlLabel>
+              <FormControl componentClass="textarea"
+                placeholder="ex. This is a community for 7th St goofballs"
+                onChange={(e) => this.onCommunityDescChange(e)}/>
             </FormGroup>
           </Form>
         </Modal.Body>

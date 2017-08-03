@@ -4,11 +4,16 @@ import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/userprofile.less';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class UserProfile extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
+
+  componentDidMount() {
+  }
+
   render() {
     console.log("USER: ", this.props.user.fName);
     return (
@@ -16,7 +21,7 @@ class UserProfile extends React.Component {
         <Navbar />
         <div className="profile-wrapper">
           <div className="door-tag">
-            <img src='http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png' />
+            <img src="http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png" />
             <h2 className="name">{this.props.user.fName + ' ' + this.props.user.lName}</h2>
           </div>
           <div className="user-profile-splash">
@@ -47,7 +52,7 @@ class UserProfile extends React.Component {
         <CommunitiesList />
         <Footer />
       </div>
-    )
+    );
   }
 }
 
