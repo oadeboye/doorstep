@@ -1,0 +1,108 @@
+@import 'colorsfonts.less';
+@import (reference) 'generalstyles.less';
+
+.community-profile-page {
+  .community-splash {
+    .splash;
+    background-color: @sorbet-orange;
+    height: 75vh;
+    position: relative;
+    .title {
+      font-weight: 700;
+      font-size: 58px;
+    }
+    .stats-box {
+      margin-top: 60px;
+      display: flex;
+      width: 60%;
+      .stat {
+        flex: 1;
+        text-align: center;
+        font-color: @dark-navy;
+        h1 {
+          font-size: 52px;
+          font-weight: 700;
+        }
+        h3 {
+          font-size: 28px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.members-list {
+  background-color: @beige;
+  padding: 100px 150px;
+  position: relative;
+  h2 {
+    display: block;
+    font-weight: 700;
+  }
+  .add-members-button {
+    .button-blue;
+    width: 350px;
+    text-align: left;
+    position: absolute;
+    top: 7%;
+    right: -20px;
+  }
+  .members-box {
+    display: flex;
+    flex-wrap: wrap;
+    .member-info {
+      font-color: @dark-navy;
+      flex: 1;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      .member-name {
+        margin-top: 15px;
+        text-align: center;
+        font-weight: 600;
+      }
+      .stats-box {
+        flex: 1;
+        display: flex;
+        margin: 0 15px;
+        .stat {
+          flex: 1;
+          margin: 0;
+          text-align: center;
+          h1 {
+            margin: 0;
+            margin-top: 10px;
+            font-size: 24px;
+            font-weight: 600;
+          }
+          h3 {
+            margin: 0;
+            margin-top: 5px;
+            font-size: 18px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.member {
+  margin: 25px 20px;
+  width: 500px;
+  display: flex;
+  align-items: stretch;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  .img-wrapper {
+    position: relative;
+    width: 124px;
+    height: 124px;
+    img {
+      position: absolute;
+      height: 100%;
+    }
+  }
+}
