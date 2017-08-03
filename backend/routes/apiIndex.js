@@ -130,7 +130,6 @@ router.post('/request', (req, res) => {
   });
 });
 
-// Search routes here
 router.get('/users', (req, res) => {
   User.find({})
   .then((users) => {
@@ -140,5 +139,9 @@ router.get('/users', (req, res) => {
     res.json({success: false, failure: err});
   });
 });
+
+
+//Search routes here
+
 
 module.exports = router;

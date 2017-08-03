@@ -65,6 +65,7 @@ const auth = (passport) => {
 
   // POST Login
   router.post('/login', passport.authenticate('local'), (req, res) => {
+    console.log('HERE');
     User.findById(req.session.passport.user)
     .then((user) => {
       res.json({

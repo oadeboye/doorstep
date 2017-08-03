@@ -211,12 +211,6 @@ class Welcome extends React.Component {
             onClick={() => this.openRegister()}
           >Register
           </Button>
-          <Button
-            bsStyle="primary"
-            bsSize="large"
-            onClick={(e) => this.onProfileClick(e)}
-          >Go to profile page
-          </Button>
         </div>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
