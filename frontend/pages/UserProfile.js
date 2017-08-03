@@ -15,10 +15,10 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    console.log("USER: ", this.props.user.fName);
+    console.log("USER: ", this.props.user);
     return (
       <div className="user-profile-page">
-        <Navbar />
+        <Navbar history={this.props.history}/>
         <div className="profile-wrapper">
           <div className="door-tag">
             <img src="http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png" />

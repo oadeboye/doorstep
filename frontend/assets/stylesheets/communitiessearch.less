@@ -1,0 +1,51 @@
+@import 'colorsfonts.less';
+@import (reference) 'generalstyles.less';
+
+.communities-search-page {
+  .search-splash {
+    .splash;
+    align-items: flex-end;
+    text-transform: uppercase;
+    height: 50vh;
+    .title {
+      font-weight: 700;
+      margin-bottom: 60px;
+    }
+  }
+  .create-community-button {
+    .button-purple;
+    position: absolute;
+    z-index: 2;
+    text-align: left;
+    padding: 10px 150px 10px 40px;
+    right: -20px;
+    top: 130px;
+    font-size: 22px;
+  }
+  .search {
+    margin-bottom: 60px;
+    .searchbar {
+      .search-input {
+        display: inline-block;
+        font-size: 18px;
+        padding: 10px 30px;
+        width: 40%;
+        border: 2px solid @beige - #111;
+        border-radius: 2em 0 0 2em;
+        border-right: none;
+      }
+      .search-button {
+        display: inline-block;
+        background-color: white;
+        width: 40px;
+        font-size: 18px;
+        font-weight: 600;
+        color: @beige - #666;
+        border: 2px solid @beige - #111;
+        border-radius: 0 2em 2em 0;
+        padding: 10px;
+        width: 100px;
+      }
+    }
+  }
+}

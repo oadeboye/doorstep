@@ -61,7 +61,20 @@ class CommunitiesList extends React.Component {
   render() {
     return (
       <div className="communities-list">
-      <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
+      {
+        this.props.fromSearch ? 
+        (<div className="search">
+          <div className="searchbar">
+            <input className="search-input"/>
+            <div className="search-button">Search</div>
+          </div>
+          <div className="sortbar">
+          </div>
+        </div>
+        )
+        :
+        <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
+      }
       <Modal show={this.state.showModal} onHide={() => this.close()}>
         <Modal.Header closeButton>
           <Modal.Title>Create a new community!</Modal.Title>
@@ -91,9 +104,9 @@ class CommunitiesList extends React.Component {
       </Modal>
         <h2>Communities</h2>
         <div className="communities-box">
-          <Door />
-          <Door />
-          <Door />
+          <Door fromSearch={this.props.fromSearch}/>
+          <Door fromSearch={this.props.fromSearch}/>
+          <Door fromSearch={this.props.fromSearch}/>
         </div>
       </div>
     );
