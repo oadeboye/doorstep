@@ -12,9 +12,8 @@ const router = express.Router();
 // Create a new community and post to the database
 // Req.body receives: name, description
 router.post('/community', (req, res) => {
-
   // Create the new community from the model
-  const newCommunity = new Community ({
+  const newCommunity = new Community({
     name: req.body.name,
     description: req.body.description,
     users: [],
@@ -25,10 +24,9 @@ router.post('/community', (req, res) => {
   newCommunity.save((err, community) => {
     if (err) {
       res.json({ success: false, failure: err });
-    }
-    else {
+    } else {
       // Send back the newly-created community json object
-      res.json({ success: true, response: community })
+      res.json({ success: true, response: community });
     }
   });
 });
@@ -37,8 +35,7 @@ router.post('/community', (req, res) => {
 // Adds existing user to community object
 // Req.body receives: username, communityId
 router.post('/user', (req, res) => {
-
-    User.findOne({username: req.body.username}, (err, user) => {
+  User.findOne({username: req.body.username}, (err, user) => {
     Community.findById(req.body.communityId)
     .then(community => {
       // If the user already exists in the community, send an error
@@ -69,7 +66,6 @@ router.post('/user', (req, res) => {
 // Update both commmunity and item sections of database
 // Req.body receives: name, imgURL, owner, communityId
 router.post('/item', (req, res) => {
-
   // Create the new item from the model
   const newItem = new Item({
     name: req.body.name,
@@ -92,7 +88,7 @@ router.post('/item', (req, res) => {
         // Send back the community json object with the updated array
         return res.json({ success: true, response: community });
       });
-    })
+    });
   })
   .catch(err => {
     console.log(err);
@@ -105,7 +101,6 @@ router.post('/item', (req, res) => {
 // update both the community and the request section of database
 // Req.body receives: owner, text, communityId
 router.post('/request', (req, res) => {
-
   // Create the new request from the modal
   const newRequest = new Request({
     owner: req.body.owner,
@@ -127,7 +122,7 @@ router.post('/request', (req, res) => {
         // Send back the community json object with the updated array
         return res.json({ success: true, response: community });
       });
-    })
+    });
   })
   .catch(err => {
     console.log(err);
@@ -135,40 +130,7 @@ router.post('/request', (req, res) => {
   });
 });
 
-router.post('/search/users', (req, res) => {
-  // Retrieve 20 users with username containing input string
-  User.find({ $text: { $search: req.body.input } })
-  .limit(20)
-  //ask if this retrieves an array of objects or individual objects
-  .then((foundUsers) => {
-    res.json({success: true, users: foundUsers});
-  })
-  .catch((err) => {
-    res.json({ success: false, failure: err });
-  });
-});
+//Search routes here
 
-router.post('/search/communities', (req, res) => {
-  User.find({ $text: { $search: req.body.input } })
-  .limit(20)
-  .then((foundCommunities) => {
-    res.json({ success: true, communities: foundCommunities});
-  })
-  .catch((error) => {
-    res.json({ success: false, failure: error });
-  });
-});
-
-
-// GET: retrieve all users from database
-router.get('/users', (req, res) => {
-  User.find({})
-  .then((users) => {
-    res.json({ success: true, users: users});
-  })
-  .catch((error) => {
-    res.json({ success: false, failure: error });
-  });
-});
 
 module.exports = router;

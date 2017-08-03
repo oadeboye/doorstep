@@ -56,7 +56,7 @@ class Welcome extends React.Component {
     e.preventDefault();
     console.log('username', this.state.usernameLogin);
     console.log('password', this.state.passwordLogin);
-    axios.post('http://localhost:3000/login', {
+    axios.post(process.env.DOMAIN + '/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
@@ -110,7 +110,7 @@ class Welcome extends React.Component {
   onRegister(e) {
     e.preventDefault();
     console.log('trying to reg');
-    axios.post('http://localhost:3000/register', {
+    axios.post(process.env.DOMAIN + '/register', {
       fName: this.state.fName,
       lName: this.state.lName,
       username: this.state.usernameReg,
