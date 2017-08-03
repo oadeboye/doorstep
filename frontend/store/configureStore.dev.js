@@ -1,10 +1,10 @@
 import { createStore, compose } from 'redux';
-import rootReducer from '../reducers';
+import appReducer from '../reducers/index';
 import DevTools from '../containers/DevTools';
 
 export function configureStore(initialState) {
   return createStore(
-    rootReducer,
+    appReducer,
     initialState,
     compose(
         DevTools.instrument()

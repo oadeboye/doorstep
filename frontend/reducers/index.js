@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux';
-import { routeReducer as routing} from 'react-router-dom';
+const appReducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'SAVE_USER':
+      return action.user;
+    default:
+      return state;
+  }
+}
 
-const rootReducer = combineReducers({
-  routing
-});
-
-export default rootReducer;
+export default appReducer;
