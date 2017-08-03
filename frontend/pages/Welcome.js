@@ -56,7 +56,7 @@ class Welcome extends React.Component {
     e.preventDefault();
     console.log('username', this.state.usernameLogin);
     console.log('password', this.state.passwordLogin);
-    axios.post(process.env.DOMAIN + '/login', {
+    axios.post('/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
@@ -176,7 +176,7 @@ class Welcome extends React.Component {
   }
 
   validateUsername() {
-    this.checkUsername();
+    // this.checkUsername();
     return this.state.checkUsername;
   }
 

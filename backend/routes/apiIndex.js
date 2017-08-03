@@ -130,6 +130,16 @@ router.post('/request', (req, res) => {
   });
 });
 
+router.get('/users', (req, res) => {
+  User.find({})
+  .then((users) => {
+    res.json({success: true, users: users});
+  })
+  .catch((err) => {
+    res.json({success: false, failure: err});
+  });
+});
+
 //Search routes here
 
 
