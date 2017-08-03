@@ -12,6 +12,7 @@ import { Modal,
 import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import { connect } from 'react-redux';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -63,6 +64,9 @@ class Welcome extends React.Component {
       if (resp.data.success) {
         console.log('Logged in!');
         this.closeLogin();
+        this.props.history.push('/profile');
+        console.log(resp);
+        this.props.onSuccessfulLogin(resp.data.user);
       }
     })
     .catch((err) => {
@@ -196,22 +200,18 @@ class Welcome extends React.Component {
         <div className="welcome-splash">
           <h1 className="welcome-title">Welcome to Doorstep</h1>
           <Button
+            className="login-button"
             bsStyle="primary"
             bsSize="large"
             onClick={() => this.openLogin()}
           >Login
           </Button>
           <Button
+            className="register-button"
             bsStyle="primary"
             bsSize="large"
             onClick={() => this.openRegister()}
           >Register
-          </Button>
-          <Button
-            bsStyle="primary"
-            bsSize="large"
-            onClick={(e) => this.onProfileClick(e)}
-          >Go to profile page
           </Button>
         </div>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
@@ -337,4 +337,21 @@ class Welcome extends React.Component {
   }
 }
 
-export default Welcome;
+const mapStateToProps = (state) => {
+  return {
+    user: state
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSuccessfulLogin: (user) => {
+      dispatch({ type: 'SAVE_USER', user })
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Welcome);

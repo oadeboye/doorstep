@@ -1,5 +1,6 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Welcome from '../pages/Welcome';
 import UserProfile from '../pages/UserProfile'
