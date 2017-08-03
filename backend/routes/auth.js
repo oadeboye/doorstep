@@ -19,20 +19,20 @@ const hashPassword = require('../helper/hashPassword');
 
 
 const auth = (passport) => {
-  //POST Registration
+  // POST Registration
   router.post('/register', (req, res) => {
     console.log(req.body.username, req.body.password, req.body.fName, req.body.lName, req.body.email);
     const password = hashPassword(req.body.password);
 
     // Express validation here
-    req.check('password', 'Password must be at least 6 characters long').isLength({min: 6})
+    req.check('password', 'Password must be at least 6 characters long').isLength({min: 6});
     req.check('fName', 'First Name field must not be empty').notEmpty();
     req.check('lName', 'Last Name field must not be empty').notEmpty();
     req.check('username', 'Username must not be empty').notEmpty();
     req.check('email', 'Must enter a valid email').notEmpty();
     const errors = req.validationErrors();
 
-    if (errors){
+    if (errors) {
       console.log(errors);
       res.json({success: false, failure: errors});
     } else {
@@ -49,7 +49,7 @@ const auth = (passport) => {
             fName: req.body.fName,
             lName: req.body.lName
           });
-          return newUser.save()
+          return newUser.save();
         }
       })
       .then(() => {
@@ -61,7 +61,6 @@ const auth = (passport) => {
         res.json({ success: false, failure: err.message });
       });
     }
-
   });
 
   // POST Login
@@ -72,7 +71,7 @@ const auth = (passport) => {
         success: true,
         user
       });
-    })
+    });
     // const redirectUrl = '/profile/' + req.session.passport.user ;
     // res.redirect(redirectUrl);
   });
@@ -85,7 +84,6 @@ const auth = (passport) => {
   });
 
   return router;
-
-}
+};
 
 module.exports = auth;

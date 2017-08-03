@@ -56,7 +56,7 @@ class Welcome extends React.Component {
     e.preventDefault();
     console.log('username', this.state.usernameLogin);
     console.log('password', this.state.passwordLogin);
-    axios.post(process.env.DOMAIN + '/login', {
+    axios.post('/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
@@ -71,7 +71,7 @@ class Welcome extends React.Component {
     })
     .catch((err) => {
       console.log('Error loggin in:', err);
-      this.setState({loginFailure: "Wrong username or password"});
+      this.setState({loginFailure: err});
     });
   }
 
@@ -163,12 +163,10 @@ class Welcome extends React.Component {
       if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
         this.setState({checkUsername: 'success'});
         this.setState({helpBlock: "You're good to go!"});
-      }
-      else if (this.state.usernameReg.trim(' ') === '') {
+      } else if (this.state.usernameReg.trim(' ') === '') {
         this.setState({checkUsername: 'error'});
         this.setState({helpBlock: 'Username is required'});
-      }
-      else  {
+      } else  {
         this.setState({checkUsername: 'error'});
         this.setState({helpBlock: 'Username already exists'});
       }
@@ -176,7 +174,7 @@ class Welcome extends React.Component {
   }
 
   validateUsername() {
-    this.checkUsername();
+    // this.checkUsername();
     return this.state.checkUsername;
   }
 

@@ -22,11 +22,11 @@ class CommunitiesList extends React.Component {
 
   componentDidMount() {
     axios.get(process.env.DOMAIN + '/communities/' + this.props.user._id)
-    .then(() => {
-
+    .then((responseJson) => {
+      console.log("INCOMING FROM COMMUNITIES LIST",responseJson);
     })
-    .catch(() => {
-
+    .catch((err) => {
+      console.log("SOMETHING WENT WRONG", err);
     });
   }
 

@@ -130,7 +130,15 @@ router.post('/request', (req, res) => {
   });
 });
 
-//Search routes here
-
+// Search routes here
+router.get('/users', (req, res) => {
+  User.find({})
+  .then((users) => {
+    res.json({success: true, users: users});
+  })
+  .catch((err) => {
+    res.json({success: false, failure: err});
+  });
+});
 
 module.exports = router;
