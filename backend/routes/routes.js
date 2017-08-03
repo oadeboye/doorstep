@@ -31,12 +31,10 @@ router.get('/communities/:id', (req, res) => {
   .then((communities) => {
     if (!communities) {
       console.log("User ");
-      return res.json({success: false, failure: "community does not exist"})
+      return res.json({success: false, failure: "community does not exist"});
     }
-    else {
-      console.log("Successfully sent community data");
-      return res.json(communities);
-    }
+    console.log("Successfully sent community data");
+    return res.json(communities);
   })
   .catch(err => {
     console.log(err);
@@ -47,7 +45,6 @@ router.get('/communities/:id', (req, res) => {
 // GET specific community information
 // retrieves specific community information from database for the community page
 router.get('/community/:communityId', (req, res) => {
-
   // Find the community by the given id and populate arrays of Object ids
   Community.findById(req.params.communityId)
   .populate('users')
@@ -57,16 +54,15 @@ router.get('/community/:communityId', (req, res) => {
     if (!community) {
       console.log("Community does not exist");
       return res.json({ success: false, failure: "Community does not exist" });
-    } else {
-      // Send the community json object
-      Item.populate(community.items, {path: 'owner'})
-      .then((result) => {
-        Request.populate(community.requests, {path: 'owner'})
-        .then((result) => {
-          return res.json(community);
-        });
-      });
     }
+    // Send the community json object
+    return Item.populate(community.items, {path: 'owner'})
+    .then((result) => {
+      Request.populate(community.requests, {path: 'owner'})
+      .then((result) => {
+        return res.json(community);
+      });
+    });
   })
   .catch(err => {
     console.log(err);
@@ -84,7 +80,7 @@ router.get('/edit-profile/:id', (req, res) => {
     res.json({success: true, profile});
   })
   .catch( err => {
-    res.json({success: false, failure: err})
+    res.json({success: false, failure: err});
   });
 });
 
@@ -114,7 +110,7 @@ router.get('/edit-community/:communityId', (req, res) => {
     res.json({success: true, community});
   })
   .catch( err => {
-    res.json({success: false, failure: err})
+    res.json({success: false, failure: err});
   });
 });
 

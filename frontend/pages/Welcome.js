@@ -8,7 +8,8 @@ import { Modal,
          FormControl,
          HelpBlock,
          InputGroup,
-         Form } from 'react-bootstrap';
+         Form,
+          Input } from 'react-bootstrap';
 import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -23,11 +24,29 @@ class Welcome extends React.Component {
       usernameLogin: '',
       passwordLogin: '',
       usernameReg: '',
+      email: '',
       passwordReg: '',
+      repeatPassword: '',
       fName: '',
       lName: '',
-      failure: ''
+      failure: '',
+      validateUser: '',
+      helpBlock: '',
+      loginFailure: '',
+      registerFailure: '',
+      usernames: []
     };
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3000/api/users')
+    .then((resp) => {
+      var usernames = resp.data.users.map((user) => user.username);
+      this.setState({usernames: usernames});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   closeLogin() {
@@ -48,9 +67,7 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    console.log('username', this.state.usernameLogin);
-    console.log('password', this.state.passwordLogin);
-    axios.post('http://localhost:3000/login', {
+    axios.post('/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
@@ -64,7 +81,8 @@ class Welcome extends React.Component {
       }
     })
     .catch((err) => {
-      console.log('Error logging in:', err);
+      console.log('Error loggin in:', err);
+      this.setState({loginFailure: "Wrong username or password"});
     });
   }
 
@@ -76,15 +94,42 @@ class Welcome extends React.Component {
     this.setState({ showRegisterModal: true });
   }
 
+  // checks with database to see if username already exists
+  checkUsername() {
+    var usernames = this.state.usernames;
+    if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
+      this.setState({validateUser: 'success', helpBlock: "You're good to go!"});
+      console.log('no match', this.state.validateUser);
+    }
+    else if (this.state.usernameReg.trim(' ') === '') {
+      this.setState({validateUser: 'error', helpBlock: 'Username is required'});
+      console.log('no username', this.state.validateUser);
+
+    }
+    else  {
+      this.setState({validateUser: 'error', helpBlock: 'Username already exists'});
+      console.log('match', this.state.validateUser);
+    }
+  }
+
   onUsernameRegChange(e) {
-    this.setState({usernameReg: e.target.value});
+    this.setState({usernameReg: e.target.value}, () =>
+      this.checkUsername());
+  }
+
+  onEmailChange(e) {
+    this.setState({email: e.target.value});
   }
 
   onPasswordRegChange(e) {
     this.setState({passwordReg: e.target.value});
   }
 
-  onFirsNameRegChange(e) {
+  onRepeatPasswordChange(e) {
+    this.setState({repeatPassword: e.target.value});
+  }
+
+  onFirstNameRegChange(e) {
     this.setState({fName: e.target.value});
   }
 
@@ -95,30 +140,67 @@ class Welcome extends React.Component {
   onRegister(e) {
     e.preventDefault();
     console.log('trying to reg');
-    axios.post('http://localhost:3000/register', {
+    axios.post(process.env.DOMAIN + '/register', {
       fName: this.state.fName,
       lName: this.state.lName,
       username: this.state.usernameReg,
       password: this.state.passwordReg,
+      email: this.state.email
     })
     .then((resp) => {
       console.log('HERE');
       if (resp.data.success) {
         console.log('Successful registration:', resp.data);
         this.closeRegister();
-      } else {
-        console.log(resp.data.failure);
-        resp.data.failure.forEach(failure => {
-          var p = document.createElement("p");
-          var textnode = document.createTextNode(failure.msg);
-          p.appendChild(textnode);
-          document.getElementById("failureMsg").appendChild(p);
-        });
       }
     })
     .catch((err) => {
       console.log('Error registering', err);
     });
+  }
+
+  onProfileClick(e) {
+    e.preventDefault();
+    this.props.history.push('/profile');
+  }
+
+  validateFirstName() {
+    if (this.state.fName.trim(' ') !== '') {
+      return 'success';
+    }
+    return 'warning';
+  }
+
+  validateLastName() {
+    if (this.state.lName.trim(' ') !== '') {
+      return 'success';
+    }
+    return 'warning';
+  }
+
+  validateEmail() {
+    if (this.state.email.includes('@')) {
+      return 'success';
+    }
+    return "warning";
+  }
+
+  validateUsername() {
+    return this.state.validateUser;
+  }
+
+  validatePassword() {
+    if (this.state.passwordReg.length >= 6) {
+      return 'success';
+    }
+    return 'error';
+  }
+
+  validateMatchPassword() {
+    if (this.state.passwordReg === this.state.repeatPassword) {
+      return 'success';
+    }
+    return 'error';
   }
 
   render() {
@@ -146,38 +228,18 @@ class Welcome extends React.Component {
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {/* <Form componentClass="fieldset" horizontal>
-              <FormGroup controlId="formValidationError3" validationState="error">
-                <Col componentClass={ControlLabel} xs={3}>
-                  Input with error
-                </Col>
-                <Col xs={9}>
-                  <FormControl type="text" />
-                  <FormControl.Feedback />
-                  <HelpBlock>Help text with validation state.</HelpBlock>
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formValidationSuccess4" validationState="success">
-                <Col componentClass={ControlLabel} xs={3}>
-                  Input group with success
-                </Col>
-                <Col xs={9}>
-                  <InputGroup>
-                    <InputGroup.Addon>@</InputGroup.Addon>
-                    <FormControl type="text" />
-                  </InputGroup>
-                  <FormControl.Feedback />
-                </Col>
-              </FormGroup>
-            </Form> */}
+            <div className="form-group">
+              <div className="col-xs-9 col-xs-offset-3">
+                <div id="loginFailure">{this.state.loginFailure}</div>
+              </div>
+            </div>
             <Form horizontal>
               <FormGroup controlId="formHorizontalEmail">
                 <Col componentClass={ControlLabel} sm={4}>
                   Username
                 </Col>
                 <Col sm={8}>
-                  <FormControl onChange={(e) => this.onUsernameLoginChange(e)} type="email" placeholder="Username" />
+                  <FormControl onChange={(e) => this.onUsernameLoginChange(e)} type="text" placeholder="Username" />
                 </Col>
               </FormGroup>
 
@@ -196,95 +258,84 @@ class Welcome extends React.Component {
             <Button onClick={() => this.closeLogin()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
-
         <Modal show={this.state.showRegisterModal} onHide={() => this.closeRegister()}>
           <Modal.Header closeButton>
             <Modal.Title>Register as a New User!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="form-group">
-              <div className="col-xs-9 col-xs-offset-3">
-                <div id="failureMsg"/>
-              </div>
-            </div>
             <form>
-              <div className="form-group">
-                <label htmlFor="firstName" className="control-label">First name</label>
-                <input onChange={(e) => this.onFirsNameRegChange(e)} type="text" className="form-control" id="fName" placeholder="First Name" required/>
-              </div>
-              <div className="form-group">
-                <label htmlFor="lastName" className="control-label">Last name</label>
-                <input onChange={(e) => this.onLastNameRegChange(e)} type="text" className="form-control" id="lName" placeholder="Last Name" required/>
-              </div>
-              <div className="form-group">
-                <label htmlFor="Username" className="control-label">Username</label>
-                <input onChange={(e) => this.onUsernameRegChange(e)} type="text" className="form-control" id="username" placeholder="Username" required/>
-                <div className="help-block with-errors">Username is required *</div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="inputPassword" className="control-label">Password</label>
-                <div className="form-inline row">
-                  <div className="form-group col-sm-6">
-                    <input onChange={(e) => this.onPasswordRegChange(e)} type="password" className="form-control" id="inputPassword" placeholder="Password" required/>
-                    <div className="help-block">Minimum of 6 characters *</div>
-                  </div>
-                  <div className="form-group col-sm-6">
-                    <input type="password" className="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required/>
-                  </div>
-                </div>
-              </div>
+              <FormGroup
+               controlId="fName"
+               validationState={this.validateFirstName()}>
+               <ControlLabel>First Name</ControlLabel>
+               <FormControl
+                 type="text"
+                 placeholder="ex. Cecilia"
+                 onChange={(e) => this.onFirstNameRegChange(e)}
+               />
+               <FormControl.Feedback />
+               <HelpBlock>First name is required</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                controlId="lName"
+                validationState={this.validateLastName()}>
+                <ControlLabel>Last Name</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="ex. Yu"
+                  onChange={(e) => this.onLastNameRegChange(e)}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Last name is required</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                controlId="email"
+                validationState={this.validateEmail()}>
+                <ControlLabel>Email</ControlLabel>
+                <FormControl
+                  type="email"
+                  placeholder="ex. cyu@gmail.com"
+                  onChange={(e) => this.onEmailChange(e)}
+               />
+               <FormControl.Feedback />
+               <HelpBlock>Email is required</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                controlId="username"
+                validationState={this.validateUsername()}
+              >
+                <ControlLabel>Username</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="ex. icyu"
+                  onChange={(e) => this.onUsernameRegChange(e)}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>{this.state.helpBlock}</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                 controlId="password"
+                 validationState={this.validatePassword()}>
+                 <ControlLabel>Password</ControlLabel>
+                 <FormControl
+                   type="password"
+                   onChange={(e) => this.onPasswordRegChange(e)}
+                 />
+                 <FormControl.Feedback />
+                 <HelpBlock>Password must be at least 6 characters</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                controlId="repeatPassword"
+                validationState={this.validateMatchPassword()}>
+                <ControlLabel>Repeat Password</ControlLabel>
+                <FormControl
+                  type="password"
+                  onChange={(e) => this.onRepeatPasswordChange(e)}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Must match your password</HelpBlock>
+              </FormGroup>
             </form>
-            {/* <Form horizontal>
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={4}>
-                  First name
-                </Col>
-                <Col sm={8}>
-                  <FormControl onChange={(e) => this.onFirsNameRegChange(e)} type="text" placeholder="First name" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Last name
-                </Col>
-                <Col sm={8}>
-                  <FormControl onChange={(e) => this.onLastNameRegChange(e)} type="text" placeholder="Last name" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalEmail">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Username
-                </Col>
-                <Col sm={8}>
-                  <FormControl onChange={(e) => this.onUsernameRegChange(e)} type="text" placeholder="Username" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Password
-                </Col>
-                <Col sm={8}>
-                  <FormControl data-minlength="6" onChange={(e) => this.onPasswordRegChange(e)} type="password" placeholder="Password" />
-                </Col>
-              </FormGroup>
-
-              <FormGroup controlId="formHorizontalPassword">
-                <Col componentClass={ControlLabel} sm={4}>
-                  Repeat password
-                </Col>
-                <Col sm={8}>
-                  <FormControl type="password" placeholder="Repeat password" />
-                </Col>
-              </FormGroup>
-              <div className="form-group">
-                <div className="col-xs-9 col-xs-offset-3">
-                  <div id="failureMsg"></div>
-                </div>
-              </div>
-            </Form> */}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={(e) => this.onRegister(e)}>Register</Button>
@@ -314,4 +365,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   )(Welcome);
-
