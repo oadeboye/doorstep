@@ -8,10 +8,10 @@ class Member extends React.Component {
     return (
       <div className="member">
         <div className="img-wrapper">
-          <img src='https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg' />
+          <img src={this.props.user.imgURL || 'https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg'} />
         </div>
         <div className="member-info">
-          <h3 className="member-name">First Last</h3>
+          <h3 className="member-name">{this.props.user.fName + ' ' + this.props.user.lName}</h3>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>

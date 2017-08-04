@@ -17,7 +17,6 @@ class MembersList extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:3000/api/users')
     .then((resp) => {
-      console.log('USERS', resp.data.users);
       this.setState({users: resp.data.users});
     })
     .catch((err) => console.log('cannot get all users'));
@@ -88,11 +87,9 @@ class MembersList extends React.Component {
         <button onClick={() => this.open()} className="add-members-button">Add members</button>
         <h2>Members</h2>
         <div className="members-box">
-          <Member />
-          <Member />
-          <Member />
-          <Member />
-          <Member />
+          {this.state.users.map((user, index) =>
+            <Member key={index} user={user}/>
+          )}
         </div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
