@@ -7,7 +7,6 @@ class Market extends React.Component {
   }
   render() {
     const areThereItems = this.props.community.items;
-    console.log("HERE ARE THE ITEMS!", areThereItems);
     return (
       <div className="market">
         <div className="item-list">

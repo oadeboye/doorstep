@@ -78,7 +78,6 @@ class Welcome extends React.Component {
         this.closeLogin();
         const user = resp.data.user;
         this.props.onSuccessfulLogin(user);
-        console.log("RESP FROM WELCOME PAGE!", user);
         this.props.history.push('/profile');
       }
     })
@@ -101,13 +100,10 @@ class Welcome extends React.Component {
     var usernames = this.state.usernames;
     if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
       this.setState({validateUser: 'success', helpBlock: "You're good to go!"});
-      console.log('no match', this.state.validateUser);
     } else if (this.state.usernameReg.trim(' ') === '') {
       this.setState({validateUser: 'error', helpBlock: 'Username is required'});
-      console.log('no username', this.state.validateUser);
     } else  {
       this.setState({validateUser: 'error', helpBlock: 'Username already exists'});
-      console.log('match', this.state.validateUser);
     }
   }
 
@@ -138,7 +134,6 @@ class Welcome extends React.Component {
 
   onRegister(e) {
     e.preventDefault();
-    console.log('trying to reg');
     axios.post('http://localhost:3000/api/auth/register', {
       fName: this.state.fName,
       lName: this.state.lName,
@@ -147,9 +142,7 @@ class Welcome extends React.Component {
       email: this.state.email
     })
     .then((resp) => {
-      console.log('HERE AT REGISTRATION');
       if (resp.data.success) {
-        console.log('Successful registration:', resp.data);
         this.closeRegister();
       }
     })

@@ -17,7 +17,6 @@ class MembersList extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:3000/api/users')
     .then((resp) => {
-      console.log('USERS', resp.data.users);
       this.setState({users: resp.data.users});
     })
     .catch((err) => console.log('cannot get all users'));

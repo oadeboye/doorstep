@@ -4,12 +4,8 @@ import { Link } from 'react-router-dom';
 class Door extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   community: this.props.com
-    // };
   }
   render() {
-    console.log("INSIDE THE DOOR", this.props.com);
     const profileUrl = '/community/profile/' + this.props.com._id;
     return (
       <div className="door">

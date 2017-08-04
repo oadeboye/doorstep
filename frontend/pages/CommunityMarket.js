@@ -14,13 +14,11 @@ class CommunityMarket extends React.Component {
       id: this.props.match.params.communityId,
       community: {}
     };
-    console.log("FINDING PARAMS", this.props.match);
   }
 
   componentDidMount(){
     axios.get('http://localhost:3000/api/community/' + this.state.id)
     .then((responseJson) => {
-      console.log("RECEIVED COMMUNITY INFORMATION ON MARKET PAGE", responseJson);
       this.setState({community: responseJson.data});
     })
     .catch((err) => {
@@ -29,7 +27,6 @@ class CommunityMarket extends React.Component {
   }
 
   render() {
-    console.log("RENDERING COMMUNITY MARKET PLACE", this.state.community);
     return (
       <div className="community-market-page">
         <Navbar />

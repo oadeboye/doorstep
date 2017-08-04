@@ -17,10 +17,8 @@ class CommunityProfile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("COMMUNITY PROFILE PAGE", this.props.match.params);
     axios.get('/community/'+this.props.match.params.communityId)
     .then((responseJson) => {
-      console.log("JSON RESPONSE RECEIVED COMMUNITY PROFILE PAGE", responseJson);
       this.setState({community: responseJson.data});
     })
     .catch((err) => {
@@ -48,7 +46,7 @@ class CommunityProfile extends React.Component {
               <h3>Given</h3>
             </div>
           </div>
-          <Link to={'/community/' + this.state.community._id}>
+          <Link to={'/community/' + this.props.match.params.communityId}>
           <Button
             // className="-button"
             bsStyle="primary"
