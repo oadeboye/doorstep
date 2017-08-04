@@ -6,18 +6,18 @@ class Market extends React.Component {
     super(props);
   }
   render() {
+    const areThereItems = this.props.community.items;
     return (
       <div className="market">
         <div className="item-list">
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          
+          { areThereItems ? this.props.community.items.map((item, index) =>
+            <Item key={index} item={item}/>
+          ) :
+          <p>No Items :(</p>
+        }
         </div>
       </div>
-    )
+    );
   }
 }
 

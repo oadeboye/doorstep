@@ -1,10 +1,12 @@
+
 const appReducer = (state = {}, action) => {
   switch(action.type) {
     case 'SAVE_USER':
       return action.user;
     case 'LOGOUT_USER':
-      console.log("LOGOUT");
       return {};
+    case 'persist/REHYDRATE':
+      return action.payload;
     default:
       return state;
   }

@@ -8,8 +8,6 @@ import axios from 'axios';
 // import { saveUser } from '../actions/index';
 
 const UserProfile = ({ user }) => {
-  // componentDidMount() {
-  // }
   return (
     <div className="user-profile-page">
       <Navbar />

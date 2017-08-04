@@ -24,16 +24,13 @@ class CommunitiesList extends React.Component {
   }
 
   componentDidMount() {
-    console.log("USER ON COMMUNITIES COMPONENT", this.props.user);
-    axios.get('http://localhost:3000/communities/' + this.props.user._id)
+    axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
     .then((responseJson) => {
-      console.log("INCOMING FROM COMMUNITIES LIST", responseJson);
       const communities = responseJson.data;
       this.setState({
         userCommunities: communities,
         userHasCommunities: true
       });
-      console.log("USER COMMUNITIES HERE", communities);
     })
     .catch((err) => {
       console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
@@ -60,6 +57,21 @@ class CommunitiesList extends React.Component {
   onCreate(e) {
     e.preventDefault();
     console.log('creating a new community');
+    console.log('community name', this.state.communityName);
+    console.log('community desc', this.state.desc);
+    axios.post('http://localhost:3000/api/community', {
+      name: this.state.communityName,
+      description: this.state.desc
+    })
+    .then((resp) => {
+      if (resp.data.success) {
+        console.log('SUCCESSFULLY CREATED A NEW COMMUNITY');
+        console.log(resp.data.response);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     this.close();
   }
 

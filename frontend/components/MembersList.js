@@ -11,7 +11,8 @@ class MembersList extends React.Component {
       showModal: false,
       usernames: [],
       suggestions: [],
-      value: ''
+      value: '',
+      users: []
     };
   }
 
@@ -20,7 +21,8 @@ class MembersList extends React.Component {
     .then((resp) => {
       console.log('USERS', resp.data.users);
       var usernames = resp.data.users.map((user) => user.username);
-      this.setState({usernames: usernames});
+      this.setState({usernames: usernames, users: resp.data.users});
+
     })
     .catch((err) => console.log('cannot get all users'));
   }
@@ -115,11 +117,9 @@ class MembersList extends React.Component {
           <button onClick={() => this.open()} className="add-members-button">Add members</button>
           <h2>Members</h2>
           <div className="members-box">
-            <Member />
-            <Member />
-            <Member />
-            <Member />
-            <Member />
+            {this.state.users.map((user, index) =>
+              <Member key={index} user={user}/>
+            )}
           </div>
           <Modal show={this.state.showModal} onHide={() => this.close()}>
             <Modal.Header closeButton>

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -8,11 +9,9 @@ class Navbar extends React.Component {
   }
 
   logoutUser() {
-    axios.get('http://localhost:3000/logout')
+    axios.get('http://localhost:3000/api/auth/logout')
     .then(resp => {
-      console.log(resp);
       this.props.onLogout();
-      this.props.history.push('/');
     })
   }
 
@@ -21,7 +20,7 @@ class Navbar extends React.Component {
       <div className="navbar">
         <div className="corner-logo">Doorstep</div>
         <div className="profile nav-item">Profile</div>
-        <div className="nav-item" onClick={() => this.logoutUser()}>Logout</div>
+        <Link to={'/'} className="nav-item-link"><div className="nav-item" onClick={() => this.logoutUser()}>Logout</div></Link>
       </div>
     )
   }
@@ -45,4 +44,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   )(Navbar)
-
