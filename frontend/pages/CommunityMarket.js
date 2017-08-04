@@ -9,7 +9,22 @@ import styles from '../assets/stylesheets/communitymarket.less';
 class CommunityMarket extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      id: this.props.match.params.communityId,
+      community: {}
+    };
   }
+
+  componentDidMount(){
+    axios.get('http://localhost:3000/community/' + this.state.id)
+    .then((responseJson) => {
+      this.setState({community: responseJson.data})
+    })
+    .catch((err) => {
+      console.log("SOMETHING WENT WRONG IN MARKETPLACE", err);
+    })
+  }
+
   render() {
     return (
       <div className="community-market-page">
