@@ -69,7 +69,7 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    axios.post('/login', {
+    axios.post('/api/auth/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })
@@ -139,7 +139,7 @@ class Welcome extends React.Component {
   onRegister(e) {
     e.preventDefault();
     console.log('trying to reg');
-    axios.post(process.env.DOMAIN + '/register', {
+    axios.post('http://localhost:3000/api/auth/register', {
       fName: this.state.fName,
       lName: this.state.lName,
       username: this.state.usernameReg,
