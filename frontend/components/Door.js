@@ -7,6 +7,7 @@ class Door extends React.Component {
   }
   render() {
     const profileUrl = '/community/profile/' + this.props.com._id;
+    console.log('com ID in door', this.props);
     return (
       <div className="door">
         <div className="door-inner"></div>

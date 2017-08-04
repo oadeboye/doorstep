@@ -12,7 +12,8 @@ class MembersList extends React.Component {
       usernames: [],
       suggestions: [],
       value: '',
-      users: []
+      users: [],
+      communityId: ''
     };
   }
 
@@ -22,14 +23,13 @@ class MembersList extends React.Component {
       console.log('USERS', resp.data.users);
       var usernames = resp.data.users.map((user) => user.username);
       this.setState({usernames: usernames, users: resp.data.users});
-
     })
     .catch((err) => console.log('cannot get all users'));
   }
 
-  addMember(e) {
-    e.preventDefault();
-    // e.currentTarget.textContent};
+  componentWillReceiveProps(props) {
+    console.log('PROPS', props);
+    this.setState({communityId: props.communityId});
   }
 
   escapeRegexCharacters(str) {
@@ -102,6 +102,7 @@ class MembersList extends React.Component {
   }
 
   render() {
+    console.log('community ID', this.props.communityId);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const suggestions = this.state.suggestions;
@@ -111,45 +112,42 @@ class MembersList extends React.Component {
       value,
       onChange: this.onValueChange.bind(this)
     };
-    // if (usernames) {
-      return (
-        <div className="members-list">
-          <button onClick={() => this.open()} className="add-members-button">Add members</button>
-          <h2>Members</h2>
-          <div className="members-box">
-            {this.state.users.map((user, index) =>
-              <Member key={index} user={user}/>
-            )}
-          </div>
-          <Modal show={this.state.showModal} onHide={() => this.close()}>
-            <Modal.Header closeButton>
-              <Modal.Title>More neighbors! More fun!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <FormGroup>
-                  <ControlLabel>Add memebers</ControlLabel>
-                  <Autosuggest
-                    ref={(input) => {this.input = input;}}
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
-                    getSuggestionValue={this.getSuggestionValue.bind(this)}
-                    renderSuggestion={this.renderSuggestion.bind(this)}
-                    inputProps={inputProps}
-                  />
-                  <Button onClick={(e) => this.onAdd(e)}>Add</Button>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => this.close()}>Cancel</Button>
-            </Modal.Footer>
-          </Modal>
+    return (
+      <div className="members-list">
+        <button onClick={() => this.open()} className="add-members-button">Add members</button>
+        <h2>Members</h2>
+        <div className="members-box">
+          {this.state.users.map((user, index) =>
+            <Member key={index} user={user}/>
+          )}
         </div>
-      );
-    // }
-    // return (<div></div>);
+        <Modal show={this.state.showModal} onHide={() => this.close()}>
+          <Modal.Header closeButton>
+            <Modal.Title>More neighbors! More fun!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <FormGroup>
+                <ControlLabel>Add memebers</ControlLabel>
+                <Autosuggest
+                  ref={(input) => {this.input = input;}}
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+                  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+                  getSuggestionValue={this.getSuggestionValue.bind(this)}
+                  renderSuggestion={this.renderSuggestion.bind(this)}
+                  inputProps={inputProps}
+                />
+                <Button onClick={(e) => this.onAdd(e)}>Add</Button>
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => this.close()}>Cancel</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
   }
 }
 
