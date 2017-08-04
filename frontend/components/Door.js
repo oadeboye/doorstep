@@ -22,7 +22,7 @@ class Door extends React.Component {
           this.props.fromSearch ?
           <Link><div className="button ask-button">Ask To Join</div></Link>
           :
-          <Link to={'/community/' + this.state.community._id}><div className="button join-button">View Market</div></Link>
+          <Link to={'/community/profile/' + this.state.community._id}><div className="button join-button">View Market</div></Link>
         }
       </div>
     );
