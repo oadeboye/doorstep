@@ -83,20 +83,7 @@ class CommunitiesList extends React.Component {
     console.log("BOO", this.state.userCommunities)
     return (
       <div className="communities-list">
-      {
-        this.props.fromSearch ?
-        (<div className="search">
-          <div className="searchbar">
-            <input className="search-input"/>
-            <div className="search-button">Search</div>
-          </div>
-          <div className="sortbar">
-          </div>
-        </div>
-        )
-        :
         <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
-      }
       <Modal show={this.state.showModal} onHide={() => this.close()}>
         <Modal.Header closeButton>
           <Modal.Title>Create a new community!</Modal.Title>
