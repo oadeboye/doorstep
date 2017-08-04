@@ -60,6 +60,21 @@ class CommunitiesList extends React.Component {
   onCreate(e) {
     e.preventDefault();
     console.log('creating a new community');
+    console.log('community name', this.state.communityName);
+    console.log('community desc', this.state.desc);
+    axios.post('http://localhost:3000/api/community', {
+      name: this.state.communityName,
+      description: this.state.desc
+    })
+    .then((resp) => {
+      if (resp.data.success) {
+        console.log('SUCCESSFULLY CREATED A NEW COMMUNITY');
+        console.log(resp.data.response);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
     this.close();
   }
 
