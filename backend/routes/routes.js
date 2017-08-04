@@ -27,13 +27,13 @@ router.get('/profile/:id', (req, res) => {
 // Req.params.id is user's database id
 router.get('/communities/:id', (req, res) => {
   const id = req.params.id;
-  Community.find({ users: { $elemMatch: id } })
+  Community.find({ users: { $all: [id] } })
   .then((communities) => {
     if (!communities) {
       console.log("User ");
       return res.json({success: false, failure: "community does not exist"});
     }
-    console.log("Successfully sent community data");
+    console.log("Successfully sent community data", communities);
     return res.json(communities);
   })
   .catch(err => {

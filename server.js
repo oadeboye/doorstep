@@ -57,7 +57,6 @@ passport.deserializeUser((id, done) => {
 
 passport.use(new LocalStrategy((username, password, done) => {
   const hash = hashPassword(password);
-  console.log('USERNAME', username);
   // Find the user with the given username
   User.findOne({username: username})
     .then((user) => {
