@@ -30,7 +30,7 @@ class UserProfile extends React.Component {
           <div className="user-info">
             <div className="info-box">
               <div className="about-me">
-                <h3>Hello! I am cool.</h3>
+                <h3 className="user-description">Hello! I am cool.</h3>
               </div>
               <div className="stats-box">
                 <div className="stat">
