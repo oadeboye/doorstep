@@ -155,6 +155,20 @@ router.get('/profile/:id', (req, res) => {
   );
 });
 
+// GET all communities
+// Retrieves all the communities in the database for the users to search through
+router.get('/communities/all', (req, res) => {
+  console.log("COMMUNITIES ALL");
+  Community.find({})
+  .then((communities) => {
+    return res.json({success: true, communities: communities});
+  })
+  .catch(err => {
+    console.log(err);
+    return res.json({success: false, failure: err});
+  });
+});
+
 // GET communities
 // Retrieves all the communities belonging to a specific user
 // Req.params.id is user's database id
