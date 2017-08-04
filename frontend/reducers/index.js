@@ -8,6 +8,6 @@ const appReducer = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 export default appReducer;

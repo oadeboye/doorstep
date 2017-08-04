@@ -11,7 +11,7 @@
       flex-direction: row;
       align-items: flex-end;
       .profile-title {
-        font-size: 42px;
+        font-size: 36px;
         font-weight: 700;
         padding-left: 300px;
       }
@@ -21,9 +21,13 @@
       justify-content: flex-end;
       background-color: white;
       color: @dark-navy;
-      padding: 40px 20px 90px 20px;
+      padding: 40px 20px 40px 20px;
       .info-box {
         width: 50%;
+      }
+      .user-description {
+        font-size: 18px;
+        margin-bottom: 30px;
       }
       .stats-box {
         display: flex;
@@ -32,11 +36,12 @@
           font-color: @dark-navy;
           margin-right: 20%;
           h1 {
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 700;
           }
           h3 {
-            font-size: 24px;
+            margin-top: 5px;
+            font-size: 20px;
             font-weight: 700;
           }
         }
@@ -44,7 +49,7 @@
     }
     .door-tag {
       position: absolute;
-      top: 13%;
+      top: 20%;
       left: 10%;
       height: 66%;
       width: 30%;
@@ -57,10 +62,12 @@
       align-items: center;
       padding: 20px;
       .name {
+        text-align: center;
+        font-size: 24px;
         font-weight: 600;
       }
       img {
-        height: 200px;
+        height: 140px;
       }
     }
   }
@@ -68,9 +75,10 @@
 
 .communities-list {
   background-color: @beige;
-  padding: 100px 150px;
+  padding: 100px 7%;
   .communities-box {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
   }
   h2 {
@@ -85,13 +93,16 @@
   }
 }
 .door {
-  height: 400px;
-  width: 300px;
-  margin: 20px;
+  height: 300px;
+  width: 220px;
+  margin: 15px;
   background-color: @sorbet-orange;
   position: relative;
   color: @dark-navy;
   transition: 0.5s;
+  h2 {
+    font-size: 24px;
+  }
   .door-inner {
     position: absolute;
     height: 90%;
@@ -102,19 +113,19 @@
   }
   .door-info {
     background-color: white;
-    height: 200px;
+    height: 170px;
     position: absolute;
     width: 100%;
     border-top: 5px solid @burnt-orange;
-    padding: 20px 30px;
+    padding: 5px 15px;
     h2 {
       font-weight: 700;
     }
   }
   .doorknob {
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
     background-color: @gold;
     border: 10px solid @dark-gold;
     position: absolute;
@@ -130,9 +141,8 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    font-size: 22px;
+    font-size: 16px;
     text-align: center;
-    padding: 10px;
     width: 70%;
   }
   .ask-button {
@@ -143,18 +153,17 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
-    font-size: 22px;
+    font-size: 16px;
     text-align: center;
-    padding: 10px;
     width: 70%;
   }
   &:hover {
     .door-info {
       background-color: white;
-      height: 300px;
+      height: 250px;
       position: absolute;
       width: 100%;
-      padding: 20px 30px;
+      padding: 5px 15px;
       h2 {
         font-weight: 700;
       }

@@ -14,6 +14,8 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
+import saveUser from '../actions/index';
+import PropTypes from 'prop-types';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -73,16 +75,16 @@ class Welcome extends React.Component {
     })
     .then((resp) => {
       if (resp.data.success) {
-        console.log('Logged in!');
         this.closeLogin();
+        const user = resp.data.user;
+        this.props.onSuccessfulLogin(user);
+        console.log("RESP FROM WELCOME PAGE!", user);
         this.props.history.push('/profile');
-        console.log(resp);
-        this.props.onSuccessfulLogin(resp.data.user);
       }
     })
     .catch((err) => {
       console.log('Error loggin in:', err);
-      this.setState({loginFailure: "Wrong username or password"});
+      this.setState({loginFailure: err});
     });
   }
 
@@ -100,13 +102,10 @@ class Welcome extends React.Component {
     if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
       this.setState({validateUser: 'success', helpBlock: "You're good to go!"});
       console.log('no match', this.state.validateUser);
-    }
-    else if (this.state.usernameReg.trim(' ') === '') {
+    } else if (this.state.usernameReg.trim(' ') === '') {
       this.setState({validateUser: 'error', helpBlock: 'Username is required'});
       console.log('no username', this.state.validateUser);
-
-    }
-    else  {
+    } else  {
       this.setState({validateUser: 'error', helpBlock: 'Username already exists'});
       console.log('match', this.state.validateUser);
     }
@@ -148,7 +147,7 @@ class Welcome extends React.Component {
       email: this.state.email
     })
     .then((resp) => {
-      console.log('HERE');
+      console.log('HERE AT REGISTRATION');
       if (resp.data.success) {
         console.log('Successful registration:', resp.data);
         this.closeRegister();
@@ -183,6 +182,24 @@ class Welcome extends React.Component {
       return 'success';
     }
     return "warning";
+  }
+
+   // checks with database to see if username already exists
+  checkUsername() {
+    axios.get('http://localhost:3000/api/users')
+    .then((resp) => {
+      var usernames = resp.data.users.map(user => user.username);
+      if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
+        this.setState({checkUsername: 'success'});
+        this.setState({helpBlock: "You're good to go!"});
+      } else if (this.state.usernameReg.trim(' ') === '') {
+        this.setState({checkUsername: 'error'});
+        this.setState({helpBlock: 'Username is required'});
+      } else  {
+        this.setState({checkUsername: 'error'});
+        this.setState({helpBlock: 'Username already exists'});
+      }
+    });
   }
 
   validateUsername() {
@@ -356,9 +373,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSuccessfulLogin: (user) => {
-      dispatch({ type: 'SAVE_USER', user })
+      dispatch(saveUser(user));
     }
   };
+};
+
+Welcome.proptypes = {
+  onSuccessfulLogin: PropTypes.function
 };
 
 export default connect(

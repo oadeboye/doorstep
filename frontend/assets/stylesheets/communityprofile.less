@@ -7,12 +7,14 @@
     background-color: @sorbet-orange;
     height: 75vh;
     position: relative;
+    flex-direction: column;
+    justify-content: flex-end;
     .title {
       font-weight: 700;
-      font-size: 58px;
+      font-size: 38px;
     }
     .stats-box {
-      margin-top: 60px;
+      margin: 50px;
       display: flex;
       width: 60%;
       .stat {
@@ -20,12 +22,15 @@
         text-align: center;
         font-color: @dark-navy;
         h1 {
-          font-size: 52px;
-          font-weight: 700;
+          margin: 0;
+          font-size: 44px;
+          font-weight: 600;
         }
         h3 {
-          font-size: 28px;
-          font-weight: 700;
+          margin: 0;
+          margin-top: 15px;
+          font-size: 22px;
+          font-weight: 600;
         }
       }
     }
@@ -34,10 +39,11 @@
 
 .members-list {
   background-color: @beige;
-  padding: 100px 150px;
+  padding: 100px 7%;
   position: relative;
   h2 {
     display: block;
+    font-size: 20px;
     font-weight: 700;
   }
   .add-members-button {
@@ -50,37 +56,44 @@
   }
   .members-box {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     .member-info {
       font-color: @dark-navy;
+      background-color: white;
       flex: 1;
       padding: 10px;
       display: flex;
       flex-direction: column;
       padding: 0;
       .member-name {
-        margin-top: 15px;
+        margin-top: 12px;
         text-align: center;
         font-weight: 600;
+        font-size: 18px;
       }
       .stats-box {
         flex: 1;
         display: flex;
-        margin: 0 15px;
+        margin: 0 10px;
+        .member-name {
+          font-size: 10px;
+        }
         .stat {
           flex: 1;
           margin: 0;
           text-align: center;
+          font-size: 14px;
           h1 {
             margin: 0;
-            margin-top: 10px;
-            font-size: 24px;
+            margin-top: 6px;
+            font-size: 16px;
             font-weight: 600;
           }
           h3 {
             margin: 0;
-            margin-top: 5px;
-            font-size: 18px;
+            margin-top: 4px;
+            font-size: 12px;
             font-weight: 500;
           }
         }
@@ -89,17 +102,16 @@
   }
 }
 
-
 .member {
   margin: 25px 20px;
-  width: 500px;
+  width: 400px;
   display: flex;
   align-items: stretch;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
   .img-wrapper {
     position: relative;
-    width: 124px;
-    height: 124px;
+    width: 100px;
+    height: 100px;
     img {
       position: absolute;
       height: 100%;

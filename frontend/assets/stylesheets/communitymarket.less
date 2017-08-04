@@ -1,0 +1,98 @@
+@import 'colorsfonts.less';
+@import (reference) 'generalstyles.less';
+
+.market-splash {
+  .splash;
+  height: 42vh;
+  background-color: @sorbet-orange;
+  flex-direction: row;
+  align-items: flex-end;
+  .market-title {
+    font-weight: 700;
+    font-size: 32px;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+  }
+  .view-community-button {
+    .button;
+    width: 350px;
+    text-align: right;
+    position: absolute;
+    top: 13%;
+    left: -20px;
+  }
+  .give-item-button {
+    .button-blue;
+    width: 350px;
+    text-align: right;
+    position: absolute;
+    top: 20%;
+    left: -20px;
+  }
+}
+
+.requests-bar {
+  background-color: white;
+  padding: 14px 10%;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid @gray;
+  .add-request-button {
+    .button;
+    padding: 8px 15px;
+    margin-right: 20px;
+  }
+}
+
+.request {
+  margin-left: 20px;
+  padding: 3px 20px;
+  border-radius: 2em;
+  border: 2px solid @gray + #222;
+  &:hover {
+    border: 2px solid @gray + #222;
+    background-color: @purple;
+    color: white;
+    border: 2px solid @purple;
+  }
+}
+
+.market {
+  padding: 100px 5%;
+}
+.item-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.item {
+  min-width: 200px;
+  flex-shrink: 0;
+  margin: 20px;
+  border: 1px solid @gray;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  .img-wrapper {
+    position: relative;
+    height: 157px;
+    img {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .item-info {
+    padding: 5px 0px;
+    .item-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .description {
+
+    }
+  }
+}
