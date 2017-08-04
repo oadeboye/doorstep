@@ -19,11 +19,11 @@ class CommunityMarket extends React.Component {
   componentDidMount(){
     axios.get('http://localhost:3000/api/community/' + this.state.id)
     .then((responseJson) => {
-      this.setState({community: responseJson.data})
+      this.setState({community: responseJson.data});
     })
     .catch((err) => {
       console.log("SOMETHING WENT WRONG IN MARKETPLACE", err);
-    })
+    });
   }
 
   render() {
@@ -31,15 +31,15 @@ class CommunityMarket extends React.Component {
       <div className="community-market-page">
         <Navbar />
         <div className="market-splash">
-          <h1 className="market-title">Community Market</h1>
+          <h1 className="market-title">{this.state.community.name || 'Community Market'}</h1>
           <div className="view-community-button">View Profile</div>
           <div className="give-item-button">Give an Item</div>
         </div>
-        <RequestsBar />
-        <Market />
+        <RequestsBar requests={this.state.community.requests}/>
+        <Market community={this.state.community}/>
         <Footer />
       </div>
-    )
+    );
   }
 }
 

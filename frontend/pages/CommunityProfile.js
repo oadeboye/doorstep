@@ -1,13 +1,29 @@
 import React from 'react';
+import axios from 'axios';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import MembersList from '../components/MembersList';
 import styles from '../assets/stylesheets/communityprofile.less';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      community: {}
+    }
+  }
+
+  componentDidMount() {
+    axios.get('/community/'+this.props.match.params.communityId)
+    .then((responseJson) => {
+      this.setState({community: responseJson.data});
+    })
+    .catch((err) => {
+      console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
+    });
   }
 
   render() {
@@ -30,6 +46,14 @@ class CommunityProfile extends React.Component {
               <h3>Given</h3>
             </div>
           </div>
+          <Link to={'/community/' + this.props.match.params.communityId}>
+          <Button
+            // className="-button"
+            bsStyle="primary"
+            bsSize="large"
+          >Open Doorstep
+          </Button>
+          </Link>
         </div>
         <MembersList />
         <Footer />

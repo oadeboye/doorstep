@@ -11,7 +11,6 @@ class Navbar extends React.Component {
   logoutUser() {
     axios.get('http://localhost:3000/api/auth/logout')
     .then(resp => {
-      console.log(resp);
       this.props.onLogout();
     })
   }
@@ -46,4 +45,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   )(Navbar)
-

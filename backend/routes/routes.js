@@ -38,7 +38,6 @@ router.post('/user', (req, res) => {
     Community.findById(req.body.communityId)
     .then(community => {
       // If the user already exists in the community, send an error
-      console.log('found user', user);
       if (community.users.indexOf(user._id) !== -1) {
         console.log("Error: user already exists");
         res.json({ success: true, response: community });
@@ -178,7 +177,6 @@ router.get('/communities/:id', (req, res) => {
   Community.find({ users: { $all: [id] } })
   .then((communities) => {
     if (!communities) {
-      console.log("User ");
       return res.json({success: false, failure: "community does not exist"});
     }
     console.log("Successfully sent community data", communities);

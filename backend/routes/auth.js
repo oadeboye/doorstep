@@ -21,7 +21,6 @@ const hashPassword = require('../helper/hashPassword');
 const auth = (passport) => {
   // POST Registration
   router.post('/register', (req, res) => {
-    console.log(req.body.username, req.body.password, req.body.fName, req.body.lName, req.body.email);
     const password = hashPassword(req.body.password);
 
     // Express validation here
