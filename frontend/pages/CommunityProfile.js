@@ -27,6 +27,7 @@ class CommunityProfile extends React.Component {
   }
 
   render() {
+    console.log("COMMUNITY DATA", this.state.community);
     return (
       <div className="community-profile-page">
         <Navbar />
@@ -55,7 +56,7 @@ class CommunityProfile extends React.Component {
           </Button>
           </Link>
         </div>
-        <MembersList />
+        <MembersList commUsers={this.state.community.users}/>
         <Footer />
       </div>
     );

@@ -77,7 +77,6 @@ class CommunitiesList extends React.Component {
 
 
   render() {
-    console.log("BOO", this.state.userCommunities)
     return (
       <div className="communities-list">
       {

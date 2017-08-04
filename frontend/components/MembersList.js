@@ -75,6 +75,7 @@ class MembersList extends React.Component {
   }
 
   render() {
+    console.log("COMMUNITY USERS", this.props.commUsers);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const inputProps = {
