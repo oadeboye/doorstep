@@ -39,6 +39,7 @@
     "passport-local": "^1.0.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
+    "react-autosuggest": "^9.3.2",
     "react-bootstrap": "^0.31.1",
     "react-bootstrap-validation": "^0.1.11",
     "react-dom": "^15.5.4",

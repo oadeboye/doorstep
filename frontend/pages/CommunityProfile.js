@@ -9,6 +9,7 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <div className="community-profile-page">
@@ -33,7 +34,7 @@ class CommunityProfile extends React.Component {
         <MembersList />
         <Footer />
       </div>
-    )
+    );
   }
 }
 
