@@ -14,7 +14,7 @@ class AppContainer extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path="/" exact component={Welcome} />
+          <Route path="/" exact component={CommunityProfile} />
           <Route path="/profile" exact component={UserProfile} />
           <Route path="/temp" exact component={CommunitiesSearch} />
           <Route path="/community/:communityId" component={CommunityMarket} />
