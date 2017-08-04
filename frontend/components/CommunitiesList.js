@@ -25,7 +25,7 @@ class CommunitiesList extends React.Component {
 
   componentDidMount() {
     console.log("USER ON COMMUNITIES COMPONENT", this.props.user);
-    axios.get('http://localhost:3000/communities/' + this.props.user._id)
+    axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
     .then((responseJson) => {
       console.log("INCOMING FROM COMMUNITIES LIST", responseJson);
       const communities = responseJson.data;

@@ -10,7 +10,6 @@ const expressValidator = require('express-validator');
 
 const PORT = process.env.PORT || 3000;
 const routes = require('./backend/routes/routes');
-const apiIndex = require('./backend/routes/apiIndex');
 const auth = require('./backend/routes/auth');
 const { User } = require('./backend/models/models');
 const hashPassword = require('./backend/helper/hashPassword');
@@ -24,10 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
-
-app.get('/', (request, response) => {
-    response.sendFile(__dirname + '/public/index.html'); // For React/Redux
-});
 
 //passport setup
 app.use(session({
@@ -79,9 +74,12 @@ passport.use(new LocalStrategy((username, password, done) => {
 }));
 
 // Use the API and authentication routes
-app.use('/', auth(passport));
-app.use('/api', apiIndex);
-app.use('/', routes);
+app.use('/api/auth', auth(passport));
+app.use('/api', routes);
+
+app.use('/', (request, response) => {
+    response.sendFile(__dirname + '/public/index.html'); // For React/Redux
+});
 
 app.listen(PORT, error => {
     error

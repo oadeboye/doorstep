@@ -5,6 +5,7 @@ import RequestsBar from '../components/RequestsBar';
 import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/communitymarket.less';
+import axios from 'axios';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class CommunityMarket extends React.Component {
   }
 
   componentDidMount(){
-    axios.get('http://localhost:3000/community/' + this.state.id)
+    axios.get('http://localhost:3000/api/community/' + this.state.id)
     .then((responseJson) => {
       this.setState({community: responseJson.data})
     })
