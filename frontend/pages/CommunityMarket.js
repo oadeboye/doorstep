@@ -17,9 +17,8 @@ class CommunityMarket extends React.Component {
     console.log("FINDING PARAMS", this.props.match);
   }
 
-  componentDidMount() {
-    console.log("MOUNTING ON COMMUNITY PROFILE PAGE");
-    axios.get('http://localhost:3000/community/' + this.state.id)
+  componentDidMount(){
+    axios.get('http://localhost:3000/api/community/' + this.state.id)
     .then((responseJson) => {
       console.log("RECEIVED COMMUNITY INFORMATION ON MARKET PAGE", responseJson);
       this.setState({community: responseJson.data});

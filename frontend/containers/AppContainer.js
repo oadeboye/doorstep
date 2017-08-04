@@ -17,7 +17,7 @@ class AppContainer extends React.Component {
           <Switch>
             <Route path="/" exact component={Welcome} />
             <Route path="/profile" exact component={UserProfile} />
-            <Route path="/temp" exact component={CommunitiesSearch} />
+            <Route path="/search" exact component={CommunitiesSearch} />
             <Route path="/community/profile/:communityId" exact component={CommunityProfile} />
             <Route path="/community/:communityId" exact component={CommunityMarket} />
           </Switch>
