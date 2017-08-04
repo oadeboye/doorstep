@@ -88,11 +88,9 @@ class MembersList extends React.Component {
         <button onClick={() => this.open()} className="add-members-button">Add members</button>
         <h2>Members</h2>
         <div className="members-box">
-          <Member />
-          <Member />
-          <Member />
-          <Member />
-          <Member />
+          {this.state.users.map((user, index) =>
+            <Member key={index} user={user}/>
+          )}
         </div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>

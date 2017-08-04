@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Welcome from '../pages/Welcome';
 import UserProfile from '../pages/UserProfile';
 import CommunityMarket from '../pages/CommunityMarket';
@@ -14,11 +14,13 @@ class AppContainer extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Route path="/" exact component={Welcome} />
-          <Route path="/profile" exact component={UserProfile} />
-          <Route path="/temp" exact component={CommunitiesSearch} />
-          <Route path="/community/:communityId" component={CommunityMarket} />
-          <Route path="/community/profile/:communityId" component={CommunityProfile} />
+          <Switch>
+            <Route path="/" exact component={Welcome} />
+            <Route path="/profile" exact component={UserProfile} />
+            <Route path="/temp" exact component={CommunitiesSearch} />
+            <Route path="/community/profile/:communityId" exact component={CommunityProfile} />
+            <Route path="/community/:communityId" exact component={CommunityMarket} />
+          </Switch>
         </div>
       </BrowserRouter>
     );

@@ -8,11 +8,11 @@ class Item extends React.Component {
     return (
       <div className="item">
         <div className="img-wrapper">
-          <img src="https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg"/>
+          <img alt="someImage" src={this.props.item.imgURL || "https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg"}/>
         </div>
         <div className="item-info">
-          <div className="item-title">Item Title</div>
-          <div className="description">About the item</div>
+          <div className="item-title">{this.props.item.name}</div>
+          {/* <div className="description">{this.props.item.description}</div> */}
         </div>
       </div>
     )

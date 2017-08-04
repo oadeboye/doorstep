@@ -60,6 +60,7 @@ router.get('/community/:communityId', (req, res) => {
     .then((result) => {
       Request.populate(community.requests, {path: 'owner'})
       .then((result) => {
+        console.log("JSON COMMUNITY ITEM SENT TO YOU", community);
         return res.json(community);
       });
     });
