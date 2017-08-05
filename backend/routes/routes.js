@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const expressValidator = require('express-validator');
 const models = require('../models/models');
@@ -12,22 +13,24 @@ const router = express.Router();
 // Req.body receives: name, description
 router.post('/community', (req, res) => {
   // Create the new community from the model
+  console.log("COM", req.body.owner);
+  var newUser = mongoose.Types.ObjectId(req.body.owner)
   const newCommunity = new Community({
     name: req.body.name,
     description: req.body.description,
-    users: [],
+    users: [newUser],
     items: [],
     requests: []
   });
   // Save the community to the database
-  newCommunity.save((err, community) => {
-    if (err) {
-      res.json({ success: false, failure: err });
-    } else {
-      // Send back the newly-created community json object
-      res.json({ success: true, response: community });
-    }
-  });
+  newCommunity.save()
+  .then(community => {
+    res.json({ success: true, response: community });
+  })
+  .catch(err => {
+    console.log("Error saving community", err);
+    res.json({ success: false, failure: err })
+  })
 });
 
 // POST create new user
@@ -173,7 +176,7 @@ router.get('/communities/all', (req, res) => {
 // Retrieves all the communities belonging to a specific user
 // Req.params.id is user's database id
 router.get('/communities/:id', (req, res) => {
-  const id = req.params.id;
+  let id = req.params.id;
   Community.find({ users: { $all: [id] } })
   .then((communities) => {
     if (!communities) {

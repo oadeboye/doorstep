@@ -13,11 +13,11 @@ class CommunityProfile extends React.Component {
     super(props);
     this.state = {
       community: {}
-    }
+    };
   }
 
   componentWillMount() {
-    axios.get('http://localhost:3000/api/community/'+this.props.match.params.communityId)
+    axios.get('http://localhost:3000/api/community/' + this.props.match.params.communityId)
     .then((responseJson) => {
       console.log("COMMUNITY PROFILE DATA", responseJson.data);
       this.setState({community: responseJson.data});
