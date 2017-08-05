@@ -21,8 +21,24 @@ class CommunitiesList extends React.Component {
       communityDescription: '',
       member: '',
       userCommunities: [],
-      userHasCommunities: false
+      userHasCommunities: false,
+      loaded: false
     };
+  }
+  componentWillMount() {
+    axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
+    .then((responseJson) => {
+      const communities = responseJson.data;
+      console.log("COMMUNITIES", communities)
+      this.setState({
+        userCommunities: communities,
+        userHasCommunities: true,
+        loaded: true
+      }, () => (console.log("CALLBACKS")));
+    })
+    .catch((err) => {
+      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
+    });
   }
 
   componentWillReceiveProps(props) {
@@ -32,8 +48,9 @@ class CommunitiesList extends React.Component {
       console.log("COMMUNITIES", communities)
       this.setState({
         userCommunities: communities,
-        userHasCommunities: true
-      });
+        userHasCommunities: true,
+        loaded: true
+      }, () => (console.log("CALLBACKS")));
     })
     .catch((err) => {
       console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
@@ -135,8 +152,10 @@ class CommunitiesList extends React.Component {
         <h2>Communities</h2>
         <div className="communities-box">
           {
-            this.state.userCommunities.map((com, index) =>
-            <Door key={index} com={com} />)
+            this.state.loaded ? <div>{this.state.userCommunities.map((com, index) =>
+            <Door key={index} com={com} />)}</div>
+            :
+            <h1>Loading...</h1>
           }
         </div>
       </div>
@@ -148,12 +167,5 @@ CommunitiesList.propTypes = {
   user: PropTypes.object,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    user: state
-  };
-};
 
-export default connect(
-  mapStateToProps
-)(CommunitiesList);
+export default CommunitiesList;

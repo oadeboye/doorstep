@@ -41,7 +41,7 @@ const UserProfile = ({ user }) => {
           </div>
         </div>
       </div>
-      <CommunitiesList />
+      <CommunitiesList user={user}/>
       <Footer />
     </div>
   );
