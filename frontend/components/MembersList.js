@@ -22,7 +22,7 @@ class MembersList extends React.Component {
       console.log('USERS', resp.data.users);
       var usernames = resp.data.users.map((user) => user.username);
       this.setState({usernames: usernames, users: resp.data.users});
-
+      console.log("STATE SET IN MEMBERSLIST");
     })
     .catch((err) => console.log('cannot get all users'));
   }
@@ -118,7 +118,7 @@ class MembersList extends React.Component {
           <button onClick={() => this.open()} className="add-members-button">Add members</button>
           <h2>Members</h2>
           <div className="members-box">
-            {this.state.users.map((user, index) =>
+            {this.props.commUsers.map((user, index) =>
               <Member key={index} user={user}/>
             )}
           </div>

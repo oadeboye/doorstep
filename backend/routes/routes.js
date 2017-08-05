@@ -206,6 +206,7 @@ router.get('/community/:communityId', (req, res) => {
     .then((result) => {
       Request.populate(community.requests, {path: 'owner'})
       .then((result) => {
+        console.log("COMMUNITY!!!", community);
         return res.json(community);
       });
     });

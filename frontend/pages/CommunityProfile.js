@@ -16,9 +16,10 @@ class CommunityProfile extends React.Component {
     }
   }
 
-  componentDidMount() {
-    axios.get('/community/'+this.props.match.params.communityId)
+  componentWillMount() {
+    axios.get('http://localhost:3000/api/community/'+this.props.match.params.communityId)
     .then((responseJson) => {
+      console.log("COMMUNITY PROFILE DATA", responseJson.data);
       this.setState({community: responseJson.data});
     })
     .catch((err) => {
