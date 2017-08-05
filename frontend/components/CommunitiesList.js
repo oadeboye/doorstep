@@ -150,14 +150,12 @@ class CommunitiesList extends React.Component {
         </Modal.Footer>
       </Modal>
         <h2>Communities</h2>
-        <div className="communities-box">
           {
-            this.state.loaded ? <div>{this.state.userCommunities.map((com, index) =>
+            this.state.loaded ? <div className="communities-box">{this.state.userCommunities.map((com, index) =>
             <Door key={index} com={com} />)}</div>
             :
-            <h1>Loading...</h1>
+            <div className="communities-box"><h1>Loading...</h1></div>
           }
-        </div>
       </div>
     );
   }
@@ -166,6 +164,5 @@ class CommunitiesList extends React.Component {
 CommunitiesList.propTypes = {
   user: PropTypes.object,
 };
-
 
 export default CommunitiesList;
