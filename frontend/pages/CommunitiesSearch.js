@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import SearchCommunities from '../components/SearchCommunities';
+import SearchCommunitiesList from '../components/SearchCommunitiesList';
 import styles from '../assets/stylesheets/communitiessearch.less';
 import axios from 'axios';
 
@@ -36,7 +36,7 @@ class CommunitySearch extends React.Component {
           <div className="create-community-button">Create a community</div>
           <h1 className="title">Join a community</h1>
         </div>
-        <SearchCommunities communities={this.state.communities}/>
+        <SearchCommunitiesList communities={this.state.communities}/>
         <Footer />
       </div>
     )

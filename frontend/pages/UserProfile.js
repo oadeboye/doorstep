@@ -41,7 +41,7 @@ const UserProfile = ({ user }) => {
           </div>
         </div>
       </div>
-      <CommunitiesList user={user}/>
+      <CommunitiesList />
       <Footer />
     </div>
   );
@@ -53,13 +53,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     saveUser: (user) => {
-//       dispatch(saveUser(user));
-//     }
-//   };
-// };
 
 export default connect(
   mapStateToProps
