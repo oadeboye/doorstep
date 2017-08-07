@@ -18,14 +18,14 @@ class CommunityProfile extends React.Component {
 
   componentWillMount() {
     console.log('ID', this.props);
-    axios.get('/community/' + this.props.match.params.communityId)
-    .then((responseJson) => {
-      this.setState({community: responseJson.data});
-      console.log('COMMUNITY', responseJson);
-    })
-    .catch((err) => {
-      console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
-    });
+    // axios.get('/community/' + this.props.match.params.communityId)
+    // .then((responseJson) => {
+    //   this.setState({community: responseJson.data});
+    //   console.log('COMMUNITY', responseJson);
+    // })
+    // .catch((err) => {
+    //   console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
+    // });
   }
 
   render() {
@@ -57,7 +57,7 @@ class CommunityProfile extends React.Component {
           </Button>
           </Link>
         </div>
-        <MembersList communityId={this.state.community._id}/>
+        <MembersList communityId={this.props.match.params.communityId}/>
         <Footer />
       </div>
     );

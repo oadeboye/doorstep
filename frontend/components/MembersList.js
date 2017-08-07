@@ -12,8 +12,7 @@ class MembersList extends React.Component {
       usernames: [],
       suggestions: [],
       value: '',
-      users: [],
-      communityId: ''
+      users: []
     };
   }
 
@@ -94,10 +93,18 @@ class MembersList extends React.Component {
 
   onAdd(e) {
     e.preventDefault();
-    var username = this.input.input.defaultValue;
+    const username = this.input.input.defaultValue;
+    const communityId = this.props.communityId;
     console.log('adding', username);
     axios.post('http://localhost:3000/api/user', {
-      username
+      username,
+      communityId
+    })
+    .then((resp) => {
+      console.log('ADDING MEMBERS TO COMMUNITY', resp);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 
