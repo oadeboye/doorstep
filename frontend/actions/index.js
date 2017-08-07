@@ -5,4 +5,11 @@ const saveUser = (user) => {
   };
 };
 
-export default saveUser;
+const editUser = (editObj) => {
+  return {
+    type: 'EDIT_USER',
+    editObj
+  };
+};
+
+export { saveUser, editUser };

@@ -9,9 +9,26 @@ import CommunitiesList from '../components/CommunitiesList';
 import EditUserModal from '../components/EditUserModal';
 import styles from '../assets/stylesheets/userprofile.less';
 
-import { saveUser } from '../actions/index';
+import { editUser } from '../actions/index';
 
 const UserProfile = ({ user, saveUserEdits }) => {
+  console.log("USER ID HERE", user._id);
+  const onEdit = (editObj) => {
+    axios.post('http://localhost:3000/api/edit-profile/' + user._id, editObj)
+    .then((resp) => {
+      if (resp.data.success) {
+        console.log("SUCCESS HERE!");
+        saveUserEdits(editObj);
+      } else {
+        console.log("FAILURE MESSAGE", resp.data.failure);
+      }
+      console.log("SUCCESSFULLY EDITED USER DATA", user);
+    })
+    .catch((err) => {
+      console.log("ERROR ON EDIT USER MODAL", err);
+    });
+  };
+
   return (
     <div className="user-profile-page">
       <Navbar />
@@ -21,7 +38,16 @@ const UserProfile = ({ user, saveUserEdits }) => {
           <h2 className="name">{user.fName + ' ' + user.lName}</h2>
         </div>
         <div className="user-profile-splash">
-          <div className="edit-profile-button">Edit Profile</div>
+          <div className="edit-profile-button">
+            { user ?
+              <EditUserModal
+                user={user}
+                onEdit={onEdit}
+              />
+              :
+              <p>Load</p>
+            }
+          </div>
           <h1 className="profile-title">YOUR PROFILE</h1>
         </div>
         <div className="user-info">
@@ -47,7 +73,6 @@ const UserProfile = ({ user, saveUserEdits }) => {
         </div>
       </div>
       <CommunitiesList user={user}/>
-      <EditUserModal user={user} saveUserEdits={saveUserEdits}/>
       <Footer />
     </div>
   );
@@ -62,7 +87,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     saveUserEdits: (edits) => {
-      dispatch(saveUser(edits));
+      dispatch(editUser(edits));
     }
   };
 };
@@ -74,5 +99,5 @@ UserProfile.propTypes = {
 
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(UserProfile);

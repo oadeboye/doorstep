@@ -14,7 +14,7 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
-import saveUser from '../actions/index';
+import { saveUser } from '../actions/index';
 import PropTypes from 'prop-types';
 
 class Welcome extends React.Component {
@@ -69,7 +69,7 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    axios.post('/api/auth/login', {
+    axios.post('http://localhost:3000/api/auth/login', {
       username: this.state.usernameLogin,
       password: this.state.passwordLogin,
     })

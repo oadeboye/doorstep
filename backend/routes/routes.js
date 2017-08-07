@@ -246,13 +246,12 @@ router.get('/edit-profile/:id', (req, res) => {
 // POST edit user profile
 // Updates user model in database with user information from body
 // Req.body receives: id, username, fName, lName, aboutMe
-router.post('/edit-profile', (req, res) => {
-  User.findById(req.body.id)
+router.post('/edit-profile/:id', (req, res) => {
+  User.findById(req.params.id)
   .then( profile => {
-    profile.username = req.body.username;
     profile.fName = req.body.fName;
     profile.lName = req.body.lName;
-    profile.aboutMe = req.body.aboutMe;
+    profile.edit = req.body.edit;
     profile.save();
   })
   .catch((err) => {

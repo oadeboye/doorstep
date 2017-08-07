@@ -29,7 +29,6 @@ class CommunitiesList extends React.Component {
     axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
     .then((responseJson) => {
       const communities = responseJson.data;
-      console.log("COMMUNITIES", communities);
       this.setState({
         userCommunities: communities,
         userHasCommunities: true,
@@ -45,7 +44,6 @@ class CommunitiesList extends React.Component {
     axios.get('http://localhost:3000/api/communities/' + props.user._id)
     .then((responseJson) => {
       const communities = responseJson.data;
-      console.log("COMMUNITIES", communities);
       this.setState({
         userCommunities: communities,
         userHasCommunities: true,
