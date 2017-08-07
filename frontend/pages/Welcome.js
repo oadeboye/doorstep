@@ -9,7 +9,7 @@ import { Modal,
          HelpBlock,
          InputGroup,
          Form,
-          Input } from 'react-bootstrap';
+         Input } from 'react-bootstrap';
 import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';

@@ -1,14 +1,17 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import CommunitiesList from '../components/CommunitiesList';
-import styles from '../assets/stylesheets/userprofile.less';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-// import { saveUser } from '../actions/index';
 
-const UserProfile = ({ user }) => {
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import CommunitiesList from '../components/CommunitiesList';
+import EditUserModal from '../components/EditUserModal';
+import styles from '../assets/stylesheets/userprofile.less';
+
+import { saveUser } from '../actions/index';
+
+const UserProfile = ({ user, saveUserEdits }) => {
   return (
     <div className="user-profile-page">
       <Navbar />
@@ -43,6 +46,7 @@ const UserProfile = ({ user }) => {
         </div>
       </div>
       <CommunitiesList user={user}/>
+      <EditUserModal user={user} saveUserEdits={saveUserEdits}/>
       <Footer />
     </div>
   );
@@ -54,8 +58,17 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveUserEdits: (edits) => {
+      dispatch(saveUser(edits));
+    }
+  };
+};
+
 UserProfile.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  saveUserEdits: PropTypes.func
 };
 
 
