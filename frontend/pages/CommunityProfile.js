@@ -7,25 +7,28 @@ import MembersList from '../components/MembersList';
 import styles from '../assets/stylesheets/communityprofile.less';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      community: {}
-    }
+      community: {},
+      loaded: false
+    };
   }
 
   componentWillMount() {
-    console.log('ID', this.props);
-    // axios.get('/community/' + this.props.match.params.communityId)
-    // .then((responseJson) => {
-    //   this.setState({community: responseJson.data});
-    //   console.log('COMMUNITY', responseJson);
-    // })
-    // .catch((err) => {
-    //   console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
-    // });
+    axios.get('http://localhost:3000/api/community/' + this.props.match.params.communityId)
+    .then((responseJson) => {
+      this.setState({
+        community: responseJson.data,
+        loaded: true
+      });
+    })
+    .catch((err) => {
+      console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
+    });
   }
 
   render() {
@@ -57,11 +60,15 @@ class CommunityProfile extends React.Component {
           </Button>
           </Link>
         </div>
-        <MembersList communityId={this.props.match.params.communityId}/>
+        {this.state.loaded ? <MembersList commUsers={this.state.community.users} /> : <p>Loading...</p>}
         <Footer />
       </div>
     );
   }
 }
+
+CommunityProfile.propTypes = {
+  match: PropTypes.object
+};
 
 export default CommunityProfile;

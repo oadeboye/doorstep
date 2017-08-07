@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require('express');
 const expressValidator = require('express-validator');
 const models = require('../models/models');
@@ -8,25 +9,26 @@ const Request = models.Request;
 const router = express.Router();
 
 // POST create new community
-// Create a new community and post to the database
-// Req.body receives: name, description
+// Create a new community in the database
+// Req.body receives: name, description, owner (oid)
 router.post('/community', (req, res) => {
   // Create the new community from the model
+  var newUser = mongoose.Types.ObjectId(req.body.owner);
   const newCommunity = new Community({
     name: req.body.name,
     description: req.body.description,
-    users: [],
+    users: [newUser],
     items: [],
     requests: []
   });
   // Save the community to the database
-  newCommunity.save((err, community) => {
-    if (err) {
-      res.json({ success: false, failure: err });
-    } else {
-      // Send back the newly-created community json object
-      res.json({ success: true, response: community });
-    }
+  newCommunity.save()
+  .then(community => {
+    res.json({ success: true, response: community });
+  })
+  .catch(err => {
+    console.log("Error saving community", err);
+    res.json({ success: false, failure: err });
   });
 });
 
@@ -71,7 +73,8 @@ router.post('/item', (req, res) => {
     owner: req.body.owner
   });
 
-  // Save the new item to the Item section in database
+  // Save the new item to the database,
+  // also update the community to include this item
   newItem.save()
   .then(item => {
     Community.findById(req.body.communityId)
@@ -128,6 +131,8 @@ router.post('/request', (req, res) => {
   });
 });
 
+// GET all users
+// Used to pull usernames from database for username search
 router.get('/users', (req, res) => {
   User.find({})
   .then((users) => {
@@ -189,7 +194,7 @@ router.get('/communities/:id', (req, res) => {
 });
 
 // GET specific community information
-// retrieves specific community information from database for the community page
+// Used for Community Profile information
 router.get('/community/:communityId', (req, res) => {
   // Find the community by the given id and populate arrays of Object ids
   Community.findById(req.params.communityId)
@@ -206,6 +211,7 @@ router.get('/community/:communityId', (req, res) => {
     .then((result) => {
       Request.populate(community.requests, {path: 'owner'})
       .then((result) => {
+        console.log("COMMUNITY!!!", community);
         return res.json(community);
       });
     });

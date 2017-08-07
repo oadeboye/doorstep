@@ -5,6 +5,7 @@ import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/userprofile.less';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 // import { saveUser } from '../actions/index';
 
 const UserProfile = ({ user }) => {
@@ -13,7 +14,7 @@ const UserProfile = ({ user }) => {
       <Navbar />
       <div className="profile-wrapper">
         <div className="door-tag">
-          <img src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
+          <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
           <h2 className="name">{user.fName + ' ' + user.lName}</h2>
         </div>
         <div className="user-profile-splash">
@@ -45,7 +46,7 @@ const UserProfile = ({ user }) => {
       <Footer />
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -53,13 +54,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     saveUser: (user) => {
-//       dispatch(saveUser(user));
-//     }
-//   };
-// };
+UserProfile.propTypes = {
+  user: PropTypes.object
+};
+
 
 export default connect(
   mapStateToProps

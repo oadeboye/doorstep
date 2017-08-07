@@ -3,6 +3,7 @@ import Member from './Member';
 import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -11,8 +12,7 @@ class MembersList extends React.Component {
       showModal: false,
       usernames: [],
       suggestions: [],
-      value: '',
-      users: []
+      value: ''
     };
   }
 
@@ -119,14 +119,41 @@ class MembersList extends React.Component {
       value,
       onChange: this.onValueChange.bind(this)
     };
-    return (
-      <div className="members-list">
-        <button onClick={() => this.open()} className="add-members-button">Add members</button>
-        <h2>Members</h2>
-        <div className="members-box">
-          {this.state.users.map((user, index) =>
-            <Member key={index} user={user}/>
-          )}
+    // if (usernames) {
+      return (
+        <div className="members-list">
+          <button onClick={() => this.open()} className="add-members-button">Add members</button>
+          <h2>Members</h2>
+          <div className="members-box">
+            {this.props.commUsers.map((user, index) =>
+              <Member key={index} user={user}/>
+            )}
+          </div>
+          <Modal show={this.state.showModal} onHide={() => this.close()}>
+            <Modal.Header closeButton>
+              <Modal.Title>More neighbors! More fun!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <FormGroup>
+                  <ControlLabel>Add memebers</ControlLabel>
+                  <Autosuggest
+                    ref={(input) => {this.input = input;}}
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+                    getSuggestionValue={this.getSuggestionValue.bind(this)}
+                    renderSuggestion={this.renderSuggestion.bind(this)}
+                    inputProps={inputProps}
+                  />
+                  <Button onClick={(e) => this.onAdd(e)}>Add</Button>
+                </FormGroup>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => this.close()}>Cancel</Button>
+            </Modal.Footer>
+          </Modal>
         </div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
@@ -157,5 +184,9 @@ class MembersList extends React.Component {
     );
   }
 }
+
+MembersList.propTypes = {
+  commUsers: PropTypes.array,
+};
 
 export default MembersList;

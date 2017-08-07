@@ -10,6 +10,7 @@ import { Modal,
          FieldGroup } from 'react-bootstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
@@ -17,20 +18,39 @@ class CommunitiesList extends React.Component {
     this.state = {
       showModal: false,
       communityName: '',
+      communityDescription: '',
       member: '',
       userCommunities: [],
-      userHasCommunities: false
+      userHasCommunities: false,
+      loaded: false
     };
   }
-
-  componentDidMount() {
+  componentWillMount() {
     axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
     .then((responseJson) => {
       const communities = responseJson.data;
+      console.log("COMMUNITIES", communities);
       this.setState({
         userCommunities: communities,
-        userHasCommunities: true
-      });
+        userHasCommunities: true,
+        loaded: true
+      }, () => (console.log("CALLBACKS")));
+    })
+    .catch((err) => {
+      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
+    });
+  }
+
+  componentWillReceiveProps(props) {
+    axios.get('http://localhost:3000/api/communities/' + props.user._id)
+    .then((responseJson) => {
+      const communities = responseJson.data;
+      console.log("COMMUNITIES", communities);
+      this.setState({
+        userCommunities: communities,
+        userHasCommunities: true,
+        loaded: true
+      }, () => (console.log("CALLBACKS")));
     })
     .catch((err) => {
       console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
@@ -50,6 +70,10 @@ class CommunitiesList extends React.Component {
     this.setState({communityName: e.target.value});
   }
 
+  onCommunityDescriptionChange(e) {
+    this.setState({communityDescription: e.target.value});
+  }
+
   onAddMembersChange(e) {
     this.setState({member: e.target.value});
   }
@@ -58,15 +82,19 @@ class CommunitiesList extends React.Component {
     e.preventDefault();
     console.log('creating a new community');
     console.log('community name', this.state.communityName);
-    console.log('community desc', this.state.desc);
+    console.log('community desc', this.state.communityDescription);
     axios.post('http://localhost:3000/api/community', {
       name: this.state.communityName,
-      description: this.state.desc
+      description: this.state.communityDescription,
+      owner: this.props.user._id
     })
     .then((resp) => {
       if (resp.data.success) {
-        console.log('SUCCESSFULLY CREATED A NEW COMMUNITY');
-        console.log(resp.data.response);
+        const newUserCommunities = JSON.parse(JSON.stringify(this.state.userCommunities));
+        newUserCommunities.push(resp.data.response);
+        this.setState({
+          userCommunities: newUserCommunities
+        });
       }
     })
     .catch((err) => {
@@ -77,6 +105,7 @@ class CommunitiesList extends React.Component {
 
 
   render() {
+    console.log("HERE", this.state.userCommunities);
     return (
       <div className="communities-list">
         <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
@@ -95,13 +124,21 @@ class CommunitiesList extends React.Component {
               />
             </FormGroup>
             <FormGroup>
+              <ControlLabel>Community description</ControlLabel>
+              <FormControl
+                type="text"
+                placeholder="Enter description"
+                onChange={(e) => this.onCommunityDescriptionChange(e)}
+              />
+            </FormGroup>
+            <FormGroup>
               <ControlLabel>Members</ControlLabel>
               <FormControl
                 type="text"
                 placeholder="Enter a username"
                 onChange={(e) => this.onAddMembersChange(e)}
               />
-              <Button componentClass={ControlLabel} sm={4}>
+              <Button componentClass={ControlLabel}>
                 Add more members
               </Button>
             </FormGroup>
@@ -113,13 +150,12 @@ class CommunitiesList extends React.Component {
         </Modal.Footer>
       </Modal>
         <h2>Communities</h2>
-        <div className="communities-box">
-          {this.state.userCommunities.map((com, index) =>
-            <Door key={index} com={com} />)}
-          {/* <Door fromSearch={this.props.fromSearch}/>
-          <Door fromSearch={this.props.fromSearch}/>
-          <Door fromSearch={this.props.fromSearch}/> */}
-        </div>
+          {
+            this.state.loaded ? <div className="communities-box">{this.state.userCommunities.map((com, index) =>
+            <Door key={index} com={com} />)}</div>
+            :
+            <div className="communities-box"><h1>Loading...</h1></div>
+          }
       </div>
     );
   }

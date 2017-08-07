@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Item extends React.Component {
   constructor(props) {
@@ -15,8 +16,12 @@ class Item extends React.Component {
           {/* <div className="description">{this.props.item.description}</div> */}
         </div>
       </div>
-    )
+    );
   }
 }
+
+Item.propTypes = {
+  item: PropTypes.object
+};
 
 export default Item;
