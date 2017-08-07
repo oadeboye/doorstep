@@ -12,8 +12,7 @@ class MembersList extends React.Component {
       showModal: false,
       usernames: [],
       suggestions: [],
-      value: '',
-      users: []
+      value: ''
     };
   }
 
@@ -27,9 +26,9 @@ class MembersList extends React.Component {
     .catch((err) => console.log('cannot get all users'));
   }
 
-  addMember(e) {
-    e.preventDefault();
-    // e.currentTarget.textContent};
+  componentWillReceiveProps(props) {
+    console.log('PROPS', props);
+    this.setState({communityId: props.communityId});
   }
 
   escapeRegexCharacters(str) {
@@ -94,14 +93,23 @@ class MembersList extends React.Component {
 
   onAdd(e) {
     e.preventDefault();
-    var username = this.input.input.defaultValue;
+    const username = this.input.input.defaultValue;
+    const communityId = this.props.communityId;
     console.log('adding', username);
     axios.post('http://localhost:3000/api/user', {
-      username
+      username,
+      communityId
+    })
+    .then((resp) => {
+      console.log('ADDING MEMBERS TO COMMUNITY', resp);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 
   render() {
+    console.log('community ID', this.props.communityId);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const suggestions = this.state.suggestions;
@@ -147,9 +155,33 @@ class MembersList extends React.Component {
             </Modal.Footer>
           </Modal>
         </div>
-      );
-    // }
-    // return (<div></div>);
+        <Modal show={this.state.showModal} onHide={() => this.close()}>
+          <Modal.Header closeButton>
+            <Modal.Title>More neighbors! More fun!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <FormGroup>
+                <ControlLabel>Add memebers</ControlLabel>
+                <Autosuggest
+                  ref={(input) => {this.input = input;}}
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+                  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+                  getSuggestionValue={this.getSuggestionValue.bind(this)}
+                  renderSuggestion={this.renderSuggestion.bind(this)}
+                  inputProps={inputProps}
+                />
+                <Button onClick={(e) => this.onAdd(e)}>Add</Button>
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => this.close()}>Cancel</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
   }
 }
 
