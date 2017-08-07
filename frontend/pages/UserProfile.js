@@ -18,6 +18,7 @@ const UserProfile = ({ user }) => {
           <h2 className="name">{user.fName + ' ' + user.lName}</h2>
         </div>
         <div className="user-profile-splash">
+          <div className="edit-profile-button">Edit Profile</div>
           <h1 className="profile-title">YOUR PROFILE</h1>
         </div>
         <div className="user-info">
