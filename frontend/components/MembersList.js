@@ -3,6 +3,7 @@ import Member from './Member';
 import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -116,7 +117,7 @@ class MembersList extends React.Component {
           <button onClick={() => this.open()} className="add-members-button">Add members</button>
           <h2>Members</h2>
           <div className="members-box">
-            {this.state.users.map((user, index) =>
+            {this.props.commUsers.map((user, index) =>
               <Member key={index} user={user}/>
             )}
           </div>
@@ -151,5 +152,9 @@ class MembersList extends React.Component {
     // return (<div></div>);
   }
 }
+
+MembersList.propTypes = {
+  commUsers: PropTypes.array,
+};
 
 export default MembersList;

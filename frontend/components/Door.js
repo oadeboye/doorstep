@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Door extends React.Component {
   constructor(props) {
@@ -25,5 +26,9 @@ class Door extends React.Component {
     );
   }
 }
+
+Door.propTypes = {
+  com: PropTypes.object
+};
 
 export default Door;

@@ -9,7 +9,7 @@ class Request extends React.Component {
       <div className="request">
         <div className="request-title">Cheese!</div>
       </div>
-    )
+    );
   }
 }
 

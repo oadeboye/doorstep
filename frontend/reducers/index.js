@@ -1,4 +1,3 @@
-
 const appReducer = (state = {}, action) => {
   switch(action.type) {
     case 'SAVE_USER':
