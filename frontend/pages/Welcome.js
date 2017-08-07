@@ -243,7 +243,7 @@ class Welcome extends React.Component {
                 <div id="loginFailure">{this.state.loginFailure}</div>
               </div>
             </div>
-            <Form horizontal>
+            <Form horizontal >
               <FormGroup controlId="formHorizontalEmail">
                 <Col componentClass={ControlLabel} sm={4}>
                   Username
@@ -264,7 +264,7 @@ class Welcome extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onLogin(e)}>Login</Button>
+            <Button type="submit" onClick={(e) => this.onLogin(e)}>Login</Button>
             <Button onClick={() => this.closeLogin()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
