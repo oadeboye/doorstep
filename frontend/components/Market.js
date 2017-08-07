@@ -1,5 +1,6 @@
 import React from 'react';
 import Item from '../components/Item';
+import PropTypes from 'prop-types';
 
 class Market extends React.Component {
   constructor(props) {
@@ -20,5 +21,9 @@ class Market extends React.Component {
     );
   }
 }
+
+Market.propTypes = {
+  community: PropTypes.object
+};
 
 export default Market;

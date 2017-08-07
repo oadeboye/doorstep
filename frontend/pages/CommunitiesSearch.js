@@ -10,7 +10,7 @@ class CommunitySearch extends React.Component {
     super(props);
     this.state = {
       communities: []
-    }
+    };
   }
 
   componentDidMount() {
@@ -21,11 +21,11 @@ class CommunitySearch extends React.Component {
       console.log("COMMUNITIES ALL", response.data.communities);
       this.setState({
         communities: response.data.communities
-      })
+      });
     })
     .catch(err => {
       console.log("Error getting all the communities", err);
-    })
+    });
   }
 
   render() {
@@ -39,7 +39,7 @@ class CommunitySearch extends React.Component {
         <SearchCommunitiesList communities={this.state.communities}/>
         <Footer />
       </div>
-    )
+    );
   }
 }
 

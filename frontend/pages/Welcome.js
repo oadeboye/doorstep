@@ -371,8 +371,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-Welcome.proptypes = {
-  onSuccessfulLogin: PropTypes.function
+Welcome.propTypes = {
+  onSuccessfulLogin: PropTypes.func,
+  history: PropTypes.array
 };
 
 export default connect(

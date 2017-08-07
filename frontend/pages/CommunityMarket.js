@@ -6,6 +6,7 @@ import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/communitymarket.less';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class CommunityMarket extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     axios.get('http://localhost:3000/api/community/' + this.state.id)
     .then((responseJson) => {
       this.setState({community: responseJson.data});
@@ -42,5 +43,9 @@ class CommunityMarket extends React.Component {
     );
   }
 }
+
+CommunityMarket.propTypes = {
+  match: PropTypes.object
+};
 
 export default CommunityMarket;

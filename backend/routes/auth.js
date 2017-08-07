@@ -20,6 +20,7 @@ const hashPassword = require('../helper/hashPassword');
 
 const auth = (passport) => {
   // POST Registration
+  // Req.body receives: username, fName, lName, password, email
   router.post('/register', (req, res) => {
     const password = hashPassword(req.body.password);
 
@@ -63,6 +64,7 @@ const auth = (passport) => {
   });
 
   // POST Login
+  // Req.body receives: username, password
   router.post('/login', passport.authenticate('local'), (req, res) => {
     User.findById(req.session.passport.user)
     .then((user) => {

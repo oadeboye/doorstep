@@ -9,12 +9,11 @@ const Request = models.Request;
 const router = express.Router();
 
 // POST create new community
-// Create a new community and post to the database
-// Req.body receives: name, description
+// Create a new community in the database
+// Req.body receives: name, description, owner (oid)
 router.post('/community', (req, res) => {
   // Create the new community from the model
-  console.log("COM", req.body.owner);
-  var newUser = mongoose.Types.ObjectId(req.body.owner)
+  var newUser = mongoose.Types.ObjectId(req.body.owner);
   const newCommunity = new Community({
     name: req.body.name,
     description: req.body.description,
@@ -29,8 +28,8 @@ router.post('/community', (req, res) => {
   })
   .catch(err => {
     console.log("Error saving community", err);
-    res.json({ success: false, failure: err })
-  })
+    res.json({ success: false, failure: err });
+  });
 });
 
 // POST create new user
@@ -74,7 +73,8 @@ router.post('/item', (req, res) => {
     owner: req.body.owner
   });
 
-  // Save the new item to the Item section in database
+  // Save the new item to the database,
+  // also update the community to include this item
   newItem.save()
   .then(item => {
     Community.findById(req.body.communityId)
@@ -131,6 +131,8 @@ router.post('/request', (req, res) => {
   });
 });
 
+// GET all users
+// Used to pull usernames from database for username search
 router.get('/users', (req, res) => {
   User.find({})
   .then((users) => {
@@ -176,7 +178,7 @@ router.get('/communities/all', (req, res) => {
 // Retrieves all the communities belonging to a specific user
 // Req.params.id is user's database id
 router.get('/communities/:id', (req, res) => {
-  let id = req.params.id;
+  const id = req.params.id;
   Community.find({ users: { $all: [id] } })
   .then((communities) => {
     if (!communities) {
@@ -192,7 +194,7 @@ router.get('/communities/:id', (req, res) => {
 });
 
 // GET specific community information
-// retrieves specific community information from database for the community page
+// Used for Community Profile information
 router.get('/community/:communityId', (req, res) => {
   // Find the community by the given id and populate arrays of Object ids
   Community.findById(req.params.communityId)

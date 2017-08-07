@@ -15,7 +15,7 @@ class RequestsBar extends React.Component {
         <Request />
         <Request />
       </div>
-    )
+    );
   }
 }
 

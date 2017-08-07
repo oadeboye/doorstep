@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="footer">
       <div>&copy; Copyright: The girlfriends</div>
     </div>
-  )
-}
+  );
+};
 
 export default Footer;

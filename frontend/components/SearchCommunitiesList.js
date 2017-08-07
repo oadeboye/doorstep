@@ -41,6 +41,7 @@ class CommunitiesList extends React.Component {
 
 CommunitiesList.propTypes = {
   user: PropTypes.object,
+  communities: PropTypes.array
 };
 
 export default CommunitiesList;

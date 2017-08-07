@@ -3,6 +3,7 @@ import Member from './Member';
 import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -101,7 +102,6 @@ class MembersList extends React.Component {
   }
 
   render() {
-    console.log("COMMUNITY USERS", this.props.commUsers);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const suggestions = this.state.suggestions;
@@ -152,5 +152,9 @@ class MembersList extends React.Component {
     // return (<div></div>);
   }
 }
+
+MembersList.propTypes = {
+  commUsers: PropTypes.array,
+};
 
 export default MembersList;
