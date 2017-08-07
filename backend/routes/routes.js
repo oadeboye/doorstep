@@ -86,8 +86,15 @@ router.post('/item', (req, res) => {
       .then(result => {
         community.items = resultItemsArray;
         console.log("You created an item in the commmunity!");
-        // Send back the community json object with the updated array
-        return res.json({ success: true, response: community });
+        User.findById(req.body.owner)
+        .then((user) => {
+          user.stats[0] = user.stats[0] + 1;
+          user.save()
+          .then(() => {
+            // Send back the community json object with the updated array
+            return res.json({ success: true, response: community });
+          });
+        });
       });
     });
   })
@@ -278,6 +285,29 @@ router.post('/edit-community', (req, res) => {
   })
   .catch((err) => {
     res.json({success: false, failure: err});
+  });
+});
+
+// POST user stats
+// Used to calculate user's posted items
+// Req.params.id: user id
+router.get('/calculate-stats/:id', (req, res) => {
+  User.findById(req.params.id)
+  .then((user) => {
+    console.log("USER: ", user.fName);
+    Item.find({ owner: req.params.id })
+    .then((item) => {
+      console.log("ITEMS", item);
+      user.stats[0] = item.length;
+
+      user.save()
+      .then(() => {
+        res.json({ success: true, given: item.length });
+      });
+    });
+  })
+  .catch((err) => {
+    res.json({ success: false, failure: err });
   });
 });
 

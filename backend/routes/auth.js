@@ -47,7 +47,8 @@ const auth = (passport) => {
             password,
             email: req.body.email,
             fName: req.body.fName,
-            lName: req.body.lName
+            lName: req.body.lName,
+            stats: [0, 0, 0]
           });
           return newUser.save();
         }
