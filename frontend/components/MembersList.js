@@ -19,7 +19,6 @@ class MembersList extends React.Component {
   componentWillMount() {
     axios.get('http://localhost:3000/api/users')
     .then((resp) => {
-      console.log('USERS', resp.data.users);
       var usernames = resp.data.users.map((user) => user.username);
       this.setState({usernames: usernames, users: resp.data.users});
     })
@@ -27,7 +26,6 @@ class MembersList extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('PROPS', props);
     this.setState({communityId: props.communityId});
   }
 
@@ -43,8 +41,6 @@ class MembersList extends React.Component {
   }
 
   getSuggestions(value) {
-    console.log('value', value);
-    console.log('SUGGESTIONS', this.state.suggestions);
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
     // returns an array of matches
@@ -69,7 +65,6 @@ class MembersList extends React.Component {
     });
   }
 
-
   // Autosuggest will call this function every time you need to clear suggestions.
   onSuggestionsClearRequested() {
     this.setState({
@@ -87,21 +82,24 @@ class MembersList extends React.Component {
 
   onValueChange(e) {
     var newValue = e.target.value || e.currentTarget.textContent;
-    console.log('NEW VALUE', newValue);
     this.setState({value: newValue});
   }
 
   onAdd(e) {
     e.preventDefault();
     const username = this.input.input.defaultValue;
-    const communityId = this.props.communityId;
-    console.log('adding', username);
+    const communityId = this.props.commId;
     axios.post('http://localhost:3000/api/user', {
       username,
       communityId
     })
     .then((resp) => {
-      console.log('ADDING MEMBERS TO COMMUNITY', resp);
+      axios.get('http://localhost:3000/api/users/' + username)
+      .then((resp) => {
+        var user = resp.data.user;
+        this.props.handleAddUsers(user);
+        this.close();
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -109,51 +107,23 @@ class MembersList extends React.Component {
   }
 
   render() {
-    console.log('community ID', this.props.communityId);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const suggestions = this.state.suggestions;
-    console.log('VALUE', value);
     const inputProps = {
       placeholder: 'Type a username',
       value,
       onChange: this.onValueChange.bind(this)
     };
     // if (usernames) {
-      return (
-        <div className="members-list">
-          <button onClick={() => this.open()} className="add-members-button">Add members</button>
-          <h2>Members</h2>
-          <div className="members-box">
-            {this.props.commUsers.map((user, index) =>
-              <Member key={index} user={user}/>
-            )}
-          </div>
-          <Modal show={this.state.showModal} onHide={() => this.close()}>
-            <Modal.Header closeButton>
-              <Modal.Title>More neighbors! More fun!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <FormGroup>
-                  <ControlLabel>Add memebers</ControlLabel>
-                  <Autosuggest
-                    ref={(input) => {this.input = input;}}
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
-                    getSuggestionValue={this.getSuggestionValue.bind(this)}
-                    renderSuggestion={this.renderSuggestion.bind(this)}
-                    inputProps={inputProps}
-                  />
-                  <Button onClick={(e) => this.onAdd(e)}>Add</Button>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => this.close()}>Cancel</Button>
-            </Modal.Footer>
-          </Modal>
+    return (
+      <div className="members-list">
+        <button onClick={() => this.open()} className="add-members-button">Add members</button>
+        <h2>Members</h2>
+        <div className="members-box">
+          {this.props.commUsers.map((user, index) =>
+            <Member key={index} user={user}/>
+          )}
         </div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>

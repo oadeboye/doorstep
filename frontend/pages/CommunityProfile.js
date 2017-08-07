@@ -31,6 +31,12 @@ class CommunityProfile extends React.Component {
     });
   }
 
+  handleAddUsers(user) {
+    var users = this.state.community.users.concat(user);
+    var newComm = Object.assign({}, this.state.community, {users});
+    this.setState({community: newComm});
+  }
+
   render() {
     return (
       <div className="community-profile-page">
@@ -60,7 +66,12 @@ class CommunityProfile extends React.Component {
           </Button>
           </Link>
         </div>
-        {this.state.loaded ? <MembersList commUsers={this.state.community.users} /> : <p>Loading...</p>}
+        {this.state.loaded ?
+          <MembersList
+            handleAddUsers={this.handleAddUsers.bind(this)}
+            commId={this.props.match.params.communityId}
+            commUsers={this.state.community.users} /> :
+          <p>Loading...</p>}
         <Footer />
       </div>
     );

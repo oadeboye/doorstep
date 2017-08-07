@@ -104,26 +104,36 @@ router.post('/item', (req, res) => {
 router.post('/request', (req, res) => {
   // Create the new request from the modal
   const newRequest = new Request({
-    owner: req.body.owner,
-    text: req.body.text
+    requester: req.body.requester,
+    text: req.body.text,
+    datePosted: req.body.datePosted
   });
 
   // Save the new request in database
   newRequest.save()
   .then(request => {
+    console.log('1');
     Community.findById(req.body.communityId)
     .then(community => {
+      console.log('2');
       const resultRequestArray = [...community.requests];
       resultRequestArray.push(request._id);
       // Push the request id into the community requests array then update in database
       community.update({requests: resultRequestArray})
       .then(result => {
+        console.log('3');
         community.requests = resultRequestArray;
         console.log("Request added to database");
         // Send back the community json object with the updated array
         return res.json({ success: true, response: community });
-      });
-    });
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+    })
+    .catch((e) => {
+      console.log('second', e)
+    })
   })
   .catch(err => {
     console.log(err);
@@ -137,6 +147,16 @@ router.get('/users', (req, res) => {
   User.find({})
   .then((users) => {
     res.json({success: true, users: users});
+  })
+  .catch((err) => {
+    res.json({success: false, failure: err});
+  });
+});
+
+router.get('/users/:username', (req, res) => {
+  User.findOne({username: req.params.username})
+  .then((user) => {
+    res.json({sucess: true, user: user});
   })
   .catch((err) => {
     res.json({success: false, failure: err});
