@@ -28,6 +28,10 @@ class CommunityMarket extends React.Component {
     });
   }
 
+  updateRequests() {
+    console.log('updating requests');
+  }
+
   render() {
     return (
       <div className="community-market-page">
@@ -37,7 +41,7 @@ class CommunityMarket extends React.Component {
           <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
           <div className="give-item-button">Give an Item</div>
         </div>
-        <RequestsBar requests={this.state.community.requests}/>
+        <RequestsBar commId={this.state.id} handleRequest={this.updateRequests.bind(this)} requests={this.state.community.requests}/>
         <Market community={this.state.community}/>
         <Footer />
       </div>

@@ -72,13 +72,17 @@ var communitySchema = mongoose.Schema({
 });
 
 var requestSchema = mongoose.Schema({
-  owner: {
+  requester: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true
   },
   text: {
     type: String,
+    required: true
+  },
+  datePosted: {
+    type: Date,
     required: true
   }
 });
