@@ -11,7 +11,7 @@ const appReducer = combineReducers({
   allCommunities: allCommunitiesReducer,
   currentComm: oneCommunityReducer,
   usersCommunities: usersCommunitiesReducer,
-  createCommunityStatus: postCreateCommunityReducer
+  createCommunityStatus: postCreateCommunityReducer,
   allUsers: allUsersReducer
 });
 
