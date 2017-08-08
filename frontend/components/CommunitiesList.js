@@ -152,7 +152,7 @@ class CommunitiesList extends React.Component {
         <h2>Communities</h2>
           {
             this.state.loaded ? <div className="communities-box">{this.state.userCommunities.map((com, index) =>
-            <Door key={index} com={com} />)}</div>
+            <Door key={index} com={com} isMember/>)}</div>
             :
             <div className="communities-box"><h1>Loading...</h1></div>
           }
