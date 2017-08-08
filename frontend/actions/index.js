@@ -12,4 +12,11 @@ const editUser = (edits) => {
   };
 };
 
-export { saveUser, editUser };
+const editCommunity = (commEdits) => {
+  return {
+    type: 'EDIT_COMMUNITY',
+    commEdits
+  };
+};
+
+export { saveUser, editUser, editCommunity };
