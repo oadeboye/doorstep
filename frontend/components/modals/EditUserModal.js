@@ -29,7 +29,12 @@ class EditUserModal extends React.Component {
   }
 
   closeEdit() {
-    this.setState({ showEditModal: false });
+    this.setState({
+      showEditModal: false,
+      fName: this.props.thisUser.fName,
+      lName: this.props.thisUser.lName,
+      email: this.props.thisUser.email
+    });
   }
 
   openEdit() {
