@@ -4,6 +4,8 @@ import Footer from '../components/Footer';
 import SearchCommunitiesList from '../components/SearchCommunitiesList';
 import styles from '../assets/stylesheets/communitiessearch.less';
 import axios from 'axios';
+import { getAllCommunities } from '../actions/actions';
+import { connect } from 'react-redux';
 
 class CommunitySearch extends React.Component {
   constructor(props) {
@@ -14,18 +16,7 @@ class CommunitySearch extends React.Component {
   }
 
   componentDidMount() {
-    console.log("HERE");
-    axios.get('http://localhost:3000/api/communities/all')
-    .then((response) => {
-      console.log(response);
-      console.log("COMMUNITIES ALL", response.data.communities);
-      this.setState({
-        communities: response.data.communities
-      });
-    })
-    .catch(err => {
-      console.log("Error getting all the communities", err);
-    });
+    
   }
 
   render() {
@@ -43,4 +34,15 @@ class CommunitySearch extends React.Component {
   }
 }
 
-export default CommunitySearch;
+const mapStateToProps = (state) => {
+  return {
+    allCommunities: state.allCommunities
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllCommunitiesDispatch: dispatch(getAllCommunities());
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommunitySearch);

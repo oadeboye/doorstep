@@ -51,7 +51,7 @@ const UserProfile = ({ user }) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state
+    user: state.user
   };
 };
 

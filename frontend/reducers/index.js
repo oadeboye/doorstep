@@ -1,14 +1,10 @@
-const appReducer = (state = {}, action) => {
-  switch(action.type) {
-    case 'SAVE_USER':
-      return action.user;
-    case 'LOGOUT_USER':
-      return {};
-    case 'persist/REHYDRATE':
-      return action.payload;
-    default:
-      return state;
-  }
-};
+import { combineReducers } from 'redux';
+import userReducer from './userReducer';
+import allCommunitiesReducer from './allCommunitiesReducer';
+
+const appReducer = combineReducers({
+  user: userReducer,
+  allCommunities: allCommunitiesReducer
+});
 
 export default appReducer;
