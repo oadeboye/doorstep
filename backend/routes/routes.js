@@ -86,8 +86,15 @@ router.post('/item', (req, res) => {
       .then(result => {
         community.items = resultItemsArray;
         console.log("You created an item in the commmunity!");
-        // Send back the community json object with the updated array
-        return res.json({ success: true, response: community });
+        User.findById(req.body.owner)
+        .then((user) => {
+          user.stats[0] = user.stats[0] + 1;
+          user.save()
+          .then(() => {
+            // Send back the community json object with the updated array
+            return res.json({ success: true, response: community });
+          });
+        });
       });
     });
   })
@@ -266,14 +273,16 @@ router.get('/edit-profile/:id', (req, res) => {
 // POST edit user profile
 // Updates user model in database with user information from body
 // Req.body receives: id, username, fName, lName, aboutMe
-router.post('/edit-profile', (req, res) => {
-  User.findById(req.body.id)
+router.post('/edit-profile/:id', (req, res) => {
+  User.findById(req.params.id)
   .then( profile => {
-    profile.username = req.body.username;
     profile.fName = req.body.fName;
     profile.lName = req.body.lName;
-    profile.aboutMe = req.body.aboutMe;
-    profile.save();
+    profile.email = req.body.email;
+    profile.save()
+    .then(() => {
+      res.json({ success: true });
+    });
   })
   .catch((err) => {
     res.json({success: false, failure: err});
@@ -305,6 +314,29 @@ router.post('/edit-community', (req, res) => {
   })
   .catch((err) => {
     res.json({success: false, failure: err});
+  });
+});
+
+// POST user stats
+// Used to calculate user's posted items
+// Req.params.id: user id
+router.get('/calculate-stats/:id', (req, res) => {
+  User.findById(req.params.id)
+  .then((user) => {
+    console.log("USER: ", user.fName);
+    Item.find({ owner: req.params.id })
+    .then((item) => {
+      console.log("ITEMS", item);
+      user.stats[0] = item.length;
+
+      user.save()
+      .then(() => {
+        res.json({ success: true, given: item.length });
+      });
+    });
+  })
+  .catch((err) => {
+    res.json({ success: false, failure: err });
   });
 });
 

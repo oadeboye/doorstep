@@ -1,14 +1,31 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import CommunitiesList from '../components/CommunitiesList';
-import styles from '../assets/stylesheets/userprofile.less';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-// import { saveUser } from '../actions/index';
 
-const UserProfile = ({ user }) => {
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import CommunitiesList from '../components/CommunitiesList';
+import EditUserModal from '../components/EditUserModal';
+import styles from '../assets/stylesheets/userprofile.less';
+
+import { editUser } from '../actions/index';
+
+
+const UserProfile = ({ user, saveUserEdits }) => {
+  function onEdit(editObj) {
+    axios.post('http://localhost:3000/api/edit-profile/' + user._id, editObj)
+    .then((resp) => {
+      if (resp.data.success) {
+        saveUserEdits(editObj);
+      } else {
+        console.log("FAILURE MESSAGE", resp.data.failure);
+      }
+    })
+    .catch((err) => {
+      console.log("ERROR ON EDIT USER MODAL", err);
+    });
+  }
   return (
     <div className="user-profile-page">
       <Navbar />
@@ -18,7 +35,16 @@ const UserProfile = ({ user }) => {
           <h2 className="name">{user.fName + ' ' + user.lName}</h2>
         </div>
         <div className="user-profile-splash">
-          <div className="edit-profile-button">Edit Profile</div>
+          <div className="edit-profile-button">
+            { user ?
+              <EditUserModal
+                user={user}
+                onEdit={(edits) => onEdit(edits)}
+              />
+              :
+              <p>Load</p>
+            }
+          </div>
           <h1 className="profile-title">YOUR PROFILE</h1>
         </div>
         <div className="user-info">
@@ -55,11 +81,20 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    saveUserEdits: (edits) => {
+      dispatch(editUser(edits));
+    }
+  };
+};
+
 UserProfile.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  saveUserEdits: PropTypes.func
 };
 
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(UserProfile);
