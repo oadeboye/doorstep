@@ -15,23 +15,11 @@ import { getOneCommunity } from '../actions/getOneCommunity';
 class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      community: {}
-    };
   }
 
   componentDidMount() {
+    // console.log('HELLO');
     this.props.getOneCommunity(this.props.match.params.communityId);
-    // axios.get('http://localhost:3000/api/community/' + this.props.match.params.communityId)
-    // .then((responseJson) => {
-    //   this.setState({
-    //     community: responseJson.data,
-    //     loaded: true
-    //   });
-    // })
-    // .catch((err) => {
-    //   console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
-    // });
   }
 
   handleAddUsers(user) {
@@ -52,22 +40,11 @@ class CommunityProfile extends React.Component {
   }
 
   render() {
-    console.log('CURRENT COMM', this.props.currentComm);
+    // console.log('CURRENT COMM', this.props.currentComm);
     return (
       <div className="community-profile-page">
         <Navbar />
         <div className="community-splash">
-          <div className="edit-profile-button">
-            {
-              this.state.loaded ?
-              <EditCommunityModal
-                community={this.state.community}
-                onCommunityEdit={(edits) => this.onCommunityEdit(edits)}
-              />
-              :
-              <p>Edit Community Profile</p>
-            }
-          </div>
           <h1 className="title">COMMUNITY PROFILE</h1>
           <div className="stats-box">
             <div className="stat">
@@ -82,19 +59,17 @@ class CommunityProfile extends React.Component {
               <h1>4</h1>
               <h3>Given</h3>
             </div>
-            <Link to={'/community/' + this.props.match.params.communityId}>
-            <div className="market-button">Go to Marketplace</div>
-            </Link>
           </div>
-          {
-            this.props.currentComm.pending ? <h1>Loading...</h1> :
-            // <h1>Working</h1>
-          <MembersList
-            commId={this.props.match.params.communityId}
-            commUsers={this.props.currentComm.community.users} />
-          }
-          <Footer />
+          <Link to={'/community/' + this.props.match.params.communityId}>
+          <div className="market-button">Go to Marketplace</div>
+          </Link>
         </div>
+        {
+          this.props.currentComm.pending ? <h1>Loading...</h1> :
+          <MembersList
+            commId={this.props.match.params.communityId}/>
+        }
+        <Footer />
       </div>
     );
   }

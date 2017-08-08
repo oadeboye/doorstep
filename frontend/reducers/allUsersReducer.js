@@ -8,19 +8,19 @@ const allUsersReducer = (state = {pending: true, users: []}, action) => {
         users: []
       };
       return pendingState;
-    case Types.getAllCommunitiesFulfilled:
+    case Types.getAllUsersFulfilled:
       const fulfilledState = {
         pending: false,
         users: action.users
       };
-      console.log('FULFILLED', fulfilledState);
+      // console.log('FULFILLED ALL USERS', fulfilledState);
       return fulfilledState;
-    case Types.getAllCommunitiesRejected:
+    case Types.getAllUsersRejected:
       const rejectedState = {
         pending: false,
         users: action.error
       };
-      console.log('REJECTED', rejectedState);
+      // console.log('REJECTED', rejectedState);
       return rejectedState;
     default:
       return state;
