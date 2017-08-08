@@ -11,145 +11,31 @@ import { Modal,
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getUsersCommunities } from '../actions/getUsersCommunities';
+import CreateCommunityModal from './CreateCommunityModal';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showModal: false,
-      communityName: '',
-      communityDescription: '',
-      member: '',
-      userCommunities: [],
-      userHasCommunities: false,
-      loaded: false
-    };
   }
-  componentWillMount() {
-    axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
-    .then((responseJson) => {
-      const communities = responseJson.data;
-      this.setState({
-        userCommunities: communities,
-        userHasCommunities: true,
-        loaded: true
-      }, () => (console.log("CALLBACKS")));
-    })
-    .catch((err) => {
-      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
-    });
+  componentDidMount() {
+    this.props.getUsersCommunitiesDispatch(this.props.user._id);
   }
-
-  componentWillReceiveProps(props) {
-    axios.get('http://localhost:3000/api/communities/' + props.user._id)
-    .then((responseJson) => {
-      const communities = responseJson.data;
-      this.setState({
-        userCommunities: communities,
-        userHasCommunities: true,
-        loaded: true
-      }, () => (console.log("CALLBACKS")));
-    })
-    .catch((err) => {
-      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
-    });
-  }
-
-  onCreateCommunity(e) {
-    e.preventDefault();
-    this.setState({showModal: true});
-  }
-
-  close() {
-    this.setState({showModal: false});
-  }
-
-  onCommunityNameChange(e) {
-    this.setState({communityName: e.target.value});
-  }
-
-  onCommunityDescriptionChange(e) {
-    this.setState({communityDescription: e.target.value});
-  }
-
-  onAddMembersChange(e) {
-    this.setState({member: e.target.value});
-  }
-
-  onCreate(e) {
-    e.preventDefault();
-    axios.post('http://localhost:3000/api/community', {
-      name: this.state.communityName,
-      description: this.state.communityDescription,
-      owner: this.props.user._id
-    })
-    .then((resp) => {
-      if (resp.data.success) {
-        const newUserCommunities = JSON.parse(JSON.stringify(this.state.userCommunities));
-        newUserCommunities.push(resp.data.response);
-        this.setState({
-          userCommunities: newUserCommunities
-        });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    this.close();
-  }
-
 
   render() {
-    console.log("HERE", this.state.userCommunities);
+    console.log("HERE", this.props.usersCommunities);
     return (
       <div className="communities-list">
-        <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
-      <Modal show={this.state.showModal} onHide={() => this.close()}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create a new community!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <FormGroup>
-              <ControlLabel>Community name</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter name"
-                onChange={(e) => this.onCommunityNameChange(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Community description</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter description"
-                onChange={(e) => this.onCommunityDescriptionChange(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Members</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter a username"
-                onChange={(e) => this.onAddMembersChange(e)}
-              />
-              <Button componentClass={ControlLabel}>
-                Add more members
-              </Button>
-            </FormGroup>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={(e) => this.onCreate(e)}>Create a new community</Button>
-          <Button onClick={() => this.close()}>Cancel</Button>
-        </Modal.Footer>
-      </Modal>
+        <CreateCommunityModal />
         <h2>Communities</h2>
           {
-            this.state.loaded ? <div className="communities-box">{this.state.userCommunities.map((com, index) =>
-            <Door key={index} com={com} isMember/>)}</div>
+            !this.props.usersCommunities.pending ? 
+            <div className="communities-box">
+            {this.props.usersCommunities.data.map((com, index) =>
+              <Door key={index} com={com} isMember/>)}
+            </div>
             :
-            <div className="communities-box"><h1>Loading...</h1></div>
+            <div className="communities-box"><h1 className="loader">Loading...</h1></div>
           }
       </div>
     );
@@ -158,10 +44,23 @@ class CommunitiesList extends React.Component {
 
 CommunitiesList.propTypes = {
   user: PropTypes.object,
+  usersCommunities: PropTypes.object
 };
 
-// export default connect(
-//   mapStateToProps, mapDispatchToProps
-// )(CommunitiesList);
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    usersCommunities: state.usersCommunities
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUsersCommunitiesDispatch: (userId) => dispatch(getUsersCommunities(userId))
+  };
+};
 
-export default CommunitiesList;
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(CommunitiesList);
+
