@@ -9,6 +9,7 @@ import { Modal,
          FieldGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import domain from '../domain';
 
 class CreateCommunityModal extends React.Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class CreateCommunityModal extends React.Component {
 
   onCreate(e) {
     e.preventDefault();
-    axios.post('http://localhost:3000/api/community', {
+    axios.post(domain + '/api/community', {
       name: this.state.communityName,
       description: this.state.communityDescription,
       owner: this.props.user._id

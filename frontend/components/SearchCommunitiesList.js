@@ -17,7 +17,6 @@ class CommunitiesList extends React.Component {
     super(props);
   }
 
-
   render() {
     console.log("BBBOOOo", this.props.communities);
     return (
@@ -27,8 +26,7 @@ class CommunitiesList extends React.Component {
           {this.props.communities.map((com, index) => {
             if (com.users.includes(this.props.user._id)) {
               return (<Door key={index} com={com} isMember={true}/>);
-            }
-            else {
+            } else {
               return (<Door key={index} com={com} isMember={false}/>);
             }
           })}
