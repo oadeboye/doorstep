@@ -11,6 +11,7 @@ import { Modal,
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import domain from '../domain';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class CommunitiesList extends React.Component {
     };
   }
   componentWillMount() {
-    axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
+    axios.get(domain + '/api/communities/' + this.props.user._id)
     .then((responseJson) => {
       const communities = responseJson.data;
       this.setState({

@@ -4,6 +4,7 @@ import { Modal, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } 
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import domain from '../domain';
 
 class RequestsBar extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class RequestsBar extends React.Component {
     e.preventDefault();
     console.log('REQUESTING ITEM');
     console.log('HISTORy', this.props.commId);
-    axios.post('http://localhost:3000/api/request/', {
+    axios.post(domain + '/api/request/', {
       requester: this.props.user._id,
       text: this.state.request,
       datePosted: new Date(),

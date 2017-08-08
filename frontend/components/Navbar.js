@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import domain from '../domain';
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Navbar extends React.Component {
   }
 
   logoutUser() {
-    axios.get('http://localhost:3000/api/auth/logout')
+    axios.get(domain + '/api/auth/logout')
     .then(resp => {
       this.props.onLogout();
     });

@@ -4,6 +4,7 @@ import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import domain from '../domain';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -89,12 +90,12 @@ class MembersList extends React.Component {
     e.preventDefault();
     const username = this.input.input.defaultValue;
     const communityId = this.props.commId;
-    axios.post('http://localhost:3000/api/user', {
+    axios.post(domain + '/api/user', {
       username,
       communityId
     })
     .then((resp) => {
-      axios.get('http://localhost:3000/api/users/' + username)
+      axios.get(domain + '/api/users/' + username)
       .then((resp) => {
         var user = resp.data.user;
         this.props.handleAddUsers(user);

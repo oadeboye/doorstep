@@ -14,7 +14,7 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
-import saveUser from '../actions/index';
+import { saveUser } from '../actions/saveUser';
 import getAllCommunities from '../actions/getAllCommunities';
 import PropTypes from 'prop-types';
 
@@ -70,22 +70,24 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    axios.post('http://localhost:3000/api/auth/login', {
-      username: this.state.usernameLogin,
-      password: this.state.passwordLogin,
-    })
-    .then((resp) => {
-      if (resp.data.success) {
-        this.closeLogin();
-        const user = resp.data.user;
-        this.props.onSuccessfulLogin(user);
-        this.props.history.push('/profile');
-      }
-    })
-    .catch((err) => {
-      console.log('Error loggin in:', err);
-      this.setState({loginFailure: err});
-    });
+    // axios.post('http://localhost:3000/api/auth/login', {
+    //   username: this.state.usernameLogin,
+    //   password: this.state.passwordLogin,
+    // })
+    // .then((resp) => {
+    //   if (resp.data.success) {
+    //     this.closeLogin();
+    //     const user = resp.data.user;
+    //     this.props.onSuccessfulLogin(user);
+    //     this.props.history.push('/profile');
+    //   }
+    // })
+    // .catch((err) => {
+    //   console.log('Error loggin in:', err);
+    //   this.setState({loginFailure: err});
+    // });
+    this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
+    this.props.history.push('/profile');
   }
 
   closeRegister() {
@@ -215,6 +217,7 @@ class Welcome extends React.Component {
   }
 
   render() {
+    console.log("PROPS HERE", this.props);
     return (
       <div className="welcome-page">
         <div className="welcome-splash">
@@ -366,8 +369,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSuccessfulLogin: (user) => {
-      dispatch(saveUser(user));
+    onSuccessfulLogin: (username, password) => {
+      console.log("INSIDE DISPATCH");
+      dispatch(saveUser(username, password));
     }
   };
 };
