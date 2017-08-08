@@ -4,6 +4,9 @@ import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getAllUsers } from '../actions/getAllUsers';
+import { addUsers } from '../actions/addUsers';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -16,17 +19,18 @@ class MembersList extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // axios.get('http://localhost:3000/api/users')
     // .then((resp) => {
     //   var usernames = resp.data.users.map((user) => user.username);
     //   this.setState({usernames: usernames, users: resp.data.users});
     // })
     // .catch((err) => console.log('cannot get all users'));
+    this.props.getAllUsersDispatch();
   }
 
   componentWillReceiveProps(props) {
-    this.setState({communityId: props.communityId});
+    // this.setState({communityId: props.communityId});
   }
 
   escapeRegexCharacters(str) {
@@ -184,6 +188,22 @@ class MembersList extends React.Component {
 
 MembersList.propTypes = {
   commUsers: PropTypes.array,
+  commId: PropTypes.string,
+  getAllUsersDispatch: PropTypes.func,
+  addUsersDispatch: PropTypes.func
 };
 
-export default MembersList;
+const mapStateToProps = (state) => {
+  return {
+    allUsers: state.allUsers
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllUsersDispatch: () => dispatch(getAllUsers()),
+    addUsersDispatch: () => dispatch(addUsers())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MembersList);

@@ -1,5 +1,4 @@
 import Types from '../actions/actionTypes';
-import axios from 'axios';
 
 const oneCommunityReducer = (state = {pending: false, community: {}}, action) => {
   switch(action.type) {
