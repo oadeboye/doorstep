@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
-import EditUserModal from '../components/EditUserModal';
+import EditUserModal from '../components/modals/EditUserModal';
 import styles from '../assets/stylesheets/userprofile.less';
 
 import { editUser } from '../actions/index';
@@ -77,7 +77,7 @@ const UserProfile = ({ user, saveUserEdits }) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state
+    user: state.user
   };
 };
 

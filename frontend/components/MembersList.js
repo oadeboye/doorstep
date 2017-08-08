@@ -18,12 +18,12 @@ class MembersList extends React.Component {
   }
 
   componentWillMount() {
-    axios.get(domain + '/api/users')
-    .then((resp) => {
-      var usernames = resp.data.users.map((user) => user.username);
-      this.setState({usernames: usernames, users: resp.data.users});
-    })
-    .catch((err) => console.log('cannot get all users'));
+    // axios.get('http://localhost:3000/api/users')
+    // .then((resp) => {
+    //   var usernames = resp.data.users.map((user) => user.username);
+    //   this.setState({usernames: usernames, users: resp.data.users});
+    // })
+    // .catch((err) => console.log('cannot get all users'));
   }
 
   componentWillReceiveProps(props) {

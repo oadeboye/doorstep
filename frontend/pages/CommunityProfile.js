@@ -10,27 +10,32 @@ import CommunitiesList from '../components/CommunitiesList';
 import MembersList from '../components/MembersList';
 import EditCommunityModal from '../components/EditCommunityModal';
 import styles from '../assets/stylesheets/communityprofile.less';
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getOneCommunity } from '../actions/getOneCommunity';
 
 class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      community: {},
-      loaded: false
+      community: {}
     };
   }
 
-  componentWillMount() {
-    axios.get('http://localhost:3000/api/community/' + this.props.match.params.communityId)
-    .then((responseJson) => {
-      this.setState({
-        community: responseJson.data,
-        loaded: true
-      });
-    })
-    .catch((err) => {
-      console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
-    });
+  componentDidMount() {
+    this.props.getOneCommunity(this.props.match.params.communityId);
+    // axios.get('http://localhost:3000/api/community/' + this.props.match.params.communityId)
+    // .then((responseJson) => {
+    //   this.setState({
+    //     community: responseJson.data,
+    //     loaded: true
+    //   });
+    // })
+    // .catch((err) => {
+    //   console.log("ERROR ON MOUNT ON COMMUNITY PROFILE PAGE", err);
+    // });
   }
 
   handleAddUsers(user) {
@@ -51,6 +56,7 @@ class CommunityProfile extends React.Component {
   }
 
   render() {
+    console.log('CURRENT COMM', this.props.currentComm);
     return (
       <div className="community-profile-page">
         <Navbar />
@@ -80,25 +86,40 @@ class CommunityProfile extends React.Component {
               <h1>4</h1>
               <h3>Given</h3>
             </div>
+            <Link to={'/community/' + this.props.match.params.communityId}>
+            <div className="market-button">Go to Marketplace</div>
+            </Link>
           </div>
-          <Link to={'/community/' + this.props.match.params.communityId}>
-          <div className="market-button">Go to Marketplace</div>
-          </Link>
+          {
+            this.props.currentComm.pending ? <h1>Loading...</h1> : <h1>Working</h1>
+          // (<MembersList
+          //   handleAddUsers={this.handleAddUsers.bind(this)}
+          //   commId={this.props.match.params.communityId}
+          //   commUsers={this.props.currentComm.community.users} />)
+          }
+          <Footer />
         </div>
-        {this.state.loaded ?
-          <MembersList
-            handleAddUsers={this.handleAddUsers.bind(this)}
-            commId={this.props.match.params.communityId}
-            commUsers={this.state.community.users} /> :
-          <p>Loading...</p>}
-        <Footer />
       </div>
     );
   }
 }
 
 CommunityProfile.propTypes = {
-  match: PropTypes.object
+  match: PropTypes.object,
+  currentComm: PropTypes.object,
+  getOneCommunity: PropTypes.func
 };
 
-export default CommunityProfile;
+const mapStateToProps = (state) => {
+  return {
+    currentComm: state.currentComm
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getOneCommunity: (communityId) => dispatch(getOneCommunity(communityId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfile);
