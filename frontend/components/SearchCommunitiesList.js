@@ -9,6 +9,7 @@ import { Modal,
          Button,
          FieldGroup } from 'react-bootstrap';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class CommunitiesList extends React.Component {
@@ -21,18 +22,16 @@ class CommunitiesList extends React.Component {
     console.log("BBBOOOo", this.props.communities);
     return (
       <div className="communities-list">
-        <div className="search">
-          <div className="searchbar">
-            <input className="search-input"/>
-            <div className="search-button">Search</div>
-          </div>
-          <div className="sortbar">
-          </div>
-        </div>
         <h2>Communities</h2>
         <div className="communities-box">
-          {this.props.communities.map((com, index) =>
-            <Door key={index} com={com} fromSearch/>)}
+          {this.props.communities.map((com, index) => {
+            if (com.users.includes(this.props.user._id)) {
+              return (<Door key={index} com={com} isMember={true}/>);
+            }
+            else {
+              return (<Door key={index} com={com} isMember={false}/>);
+            }
+          })}
         </div>
       </div>
     );
@@ -44,4 +43,12 @@ CommunitiesList.propTypes = {
   communities: PropTypes.array
 };
 
-export default CommunitiesList;
+const mapStateToProps = (state) => {
+  return {
+    user: state
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(CommunitiesList);

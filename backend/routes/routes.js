@@ -148,12 +148,19 @@ router.get('/users', (req, res) => {
 // Retrieves user information from database for their profile
 // Req.params.id is user's database id
 router.get('/profile/:id', (req, res) => {
+  let userObject = {};
+  const id = req.params.id;
   User.findById(req.params.id)
   .then( userProfile => {
-    if (!userProfile) {
-      return res.json({ success: false, failure: "Profile not found." });
-    }
-    return res.json({success: true, user: userProfile});
+    userObject = JSON.parse(JSON.stringify(userProfile));
+    return Community.find({ users: { $all: [id] } })
+  })
+  .then((communities) => {
+    console.log("COMMS", communities);
+    console.log("USER OBJECT", userObject);
+    userObject['communities'] = JSON.parse(JSON.stringify(communities));
+    console.log("USER OBJECT2", userObject);
+    return res.json({success: true, user: userObject});
   })
   .catch( err =>
     res.json({ success: false, failure: err })

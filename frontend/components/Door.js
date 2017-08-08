@@ -18,10 +18,10 @@ class Door extends React.Component {
         </div>
         <div className="doorknob"></div>
         {
-          this.props.fromSearch ?
-          <div className="button ask-button">Ask To Join</div>
-          :
+          this.props.isMember ?
           <Link to={profileUrl}><div className="button join-button">View Market</div></Link>
+          :
+          <div className="button ask-button">Ask To Join</div>
         }
       </div>
     );
