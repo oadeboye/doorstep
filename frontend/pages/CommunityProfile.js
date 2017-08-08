@@ -8,11 +8,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import MembersList from '../components/MembersList';
-import EditCommunityModal from '../components/EditCommunityModal';
+import EditCommunityModal from '../components/modals/EditCommunityModal';
 import styles from '../assets/stylesheets/communityprofile.less';
-import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getOneCommunity } from '../actions/getOneCommunity';
 

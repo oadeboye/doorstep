@@ -9,23 +9,21 @@ import CommunitiesList from '../components/CommunitiesList';
 import EditUserModal from '../components/modals/EditUserModal';
 import styles from '../assets/stylesheets/userprofile.less';
 
-import { editUser } from '../actions/index';
-
-
-const UserProfile = ({ user, saveUserEdits }) => {
-  function onEdit(editObj) {
-    axios.post('http://localhost:3000/api/edit-profile/' + user._id, editObj)
-    .then((resp) => {
-      if (resp.data.success) {
-        saveUserEdits(editObj);
-      } else {
-        console.log("FAILURE MESSAGE", resp.data.failure);
-      }
-    })
-    .catch((err) => {
-      console.log("ERROR ON EDIT USER MODAL", err);
-    });
-  }
+const UserProfile = ({ user, pending, saveUserEdits }) => {
+  // function onEdit(editObj) {
+  //   axios.post('http://localhost:3000/api/edit-profile/' + user._id, editObj)
+  //   .then((resp) => {
+  //     if (resp.data.success) {
+  //       saveUserEdits(editObj);
+  //     } else {
+  //       console.log("FAILURE MESSAGE", resp.data.failure);
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log("ERROR ON EDIT USER MODAL", err);
+  //   });
+  // }
+  const ready = user && !pending;
   return (
     <div className="user-profile-page">
       <Navbar />
@@ -36,10 +34,8 @@ const UserProfile = ({ user, saveUserEdits }) => {
         </div>
         <div className="user-profile-splash">
           <div className="edit-profile-button">
-            { user ?
+            { ready ?
               <EditUserModal
-                user={user}
-                onEdit={(edits) => onEdit(edits)}
               />
               :
               <p>Load</p>
@@ -76,25 +72,28 @@ const UserProfile = ({ user, saveUserEdits }) => {
 };
 
 const mapStateToProps = (state) => {
+  console.log("USER HERE", state.user);
   return {
-    user: state.user
+    user: state.user.user,
+    pending: state.user.pending
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    saveUserEdits: (edits) => {
-      dispatch(editUser(edits));
-    }
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     saveUserEdits: (edits) => {
+//       dispatch(editUser(edits));
+//     }
+//   };
+// };
 
 UserProfile.propTypes = {
   user: PropTypes.object,
-  saveUserEdits: PropTypes.func
+  saveUserEdits: PropTypes.func,
+  pending: PropTypes.bool
 };
 
 
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps
 )(UserProfile);

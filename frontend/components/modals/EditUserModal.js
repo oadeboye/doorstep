@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import { Modal,
          Button,
          FieldGroup,
@@ -10,19 +13,19 @@ import { Modal,
          InputGroup,
          Form,
          Input } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { saveUser } from '../actions/index';
+
+import { editUser } from '../../actions/editUser';
 
 class EditUserModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showEditModal: false,
-      fName: this.props.user.fName,
-      lName: this.props.user.lName,
-      email: this.props.user.email
+      fName: this.props.thisUser.fName,
+      lName: this.props.thisUser.lName,
+      email: this.props.thisUser.email,
     };
+    console.log("EDIT USER MODAL LIVETH", this.state);
   }
 
   closeEdit() {
@@ -53,7 +56,7 @@ class EditUserModal extends React.Component {
       email: this.state.email
     };
     console.log("EDITING HERE");
-    this.props.onEdit(editObj);
+    this.props.editUser(editObj, this.props.thisUser._id);
     this.closeEdit();
   }
 
@@ -79,6 +82,7 @@ class EditUserModal extends React.Component {
   }
 
   render() {
+    console.log("INSIDE RENDER OF EDIT USER MODAL");
     return (
       <div>
         <div onClick={() => this.openEdit()}>Edit Profile</div>
@@ -136,10 +140,26 @@ class EditUserModal extends React.Component {
   }
 }
 
+const mapStateToProps = ( state ) => {
+  return {
+    thisUser: state.user.user
+  };
+};
+
+const mapDispatchToProps = ( dispatch ) => {
+  return {
+    editUser: (editObject, id) => {
+      dispatch(editUser(editObject, id));
+    }
+  };
+};
+
 EditUserModal.propTypes = {
-  user: PropTypes.object,
+  thisUser: PropTypes.object,
   saveUserEdits: PropTypes.func,
   onEdit: PropTypes.func
 };
 
-export default EditUserModal;
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(EditUserModal);
