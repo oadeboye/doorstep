@@ -1,25 +1,25 @@
-import Types from '../actions/actions'
+import Types from '../actions/actionTypes';
 
 const allCommunitiesReducer = (state = {pending: false, data: []}, action) => {
   switch(action.type) {
     case Types.getAllCommunitiesRequested:
-      const newState = {
+      const pendingState = {
         pending: true,
         data: []
-      }
-      return newState;
+      };
+      return pendingState;
     case Types.getAllCommunitiesFulfilled:
-      const newState = {
+      const fulfilledState = {
         pending: false,
         data: action.data
-      }
-      return state;
+      };
+      return fulfilledState;
     case Types.getAllCommunitiesRejected:
-      const newState = {
+      const rejectedState = {
         pending: false,
-        error: action.error
-      }
-      return state;
+        data: action.error
+      };
+      return rejectedState;
     default:
       return state;
   }

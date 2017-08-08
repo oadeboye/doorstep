@@ -15,6 +15,7 @@ import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
 import saveUser from '../actions/index';
+import getAllCommunities from '../actions/getAllCommunities';
 import PropTypes from 'prop-types';
 
 class Welcome extends React.Component {
