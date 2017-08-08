@@ -4,6 +4,10 @@ import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getAllUsers } from '../actions/getAllUsers';
+import { addUser } from '../actions/addUser';
+import { getCommUsers } from '../actions/getCommUsers';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -16,17 +20,21 @@ class MembersList extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // axios.get('http://localhost:3000/api/users')
     // .then((resp) => {
     //   var usernames = resp.data.users.map((user) => user.username);
     //   this.setState({usernames: usernames, users: resp.data.users});
     // })
-    // .catch((err) => console.log('cannot get all users'));
+    // .catch((err) => ('cannot get all users'));
+    // ('MEMBERSLIST', this.props.commId);
+    this.props.getCommUsersDispatch(this.props.commId);
+    this.props.getAllUsersDispatch();
+    // ('USERNAMEs', this.state.usernames);
   }
 
   componentWillReceiveProps(props) {
-    this.setState({communityId: props.communityId});
+    // this.setState({communityId: props.communityId});
   }
 
   escapeRegexCharacters(str) {
@@ -44,7 +52,9 @@ class MembersList extends React.Component {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
     // returns an array of matches
-    return inputLength === 0 ? [] : this.state.usernames.filter(user =>
+    ('USER LIST', this.props.allUsers);
+    var usernames = this.props.allUsers.map(user => user.username);
+    return inputLength === 0 ? [] : usernames.filter(user =>
       user.slice(0, inputLength) === inputValue
     );
   }
@@ -89,24 +99,13 @@ class MembersList extends React.Component {
     e.preventDefault();
     const username = this.input.input.defaultValue;
     const communityId = this.props.commId;
-    axios.post('http://localhost:3000/api/user', {
-      username,
-      communityId
-    })
-    .then((resp) => {
-      axios.get('http://localhost:3000/api/users/' + username)
-      .then((resp) => {
-        var user = resp.data.user;
-        this.props.handleAddUsers(user);
-        this.close();
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    this.props.addUserDispatch(username, communityId);
+    this.close();
+    this.setState({value: ''});
   }
 
   render() {
+    // ('ALL USERS', this.props.allUsers);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const suggestions = this.state.suggestions;
@@ -118,39 +117,18 @@ class MembersList extends React.Component {
     // if (usernames) {
       return (
         <div className="members-list">
-          <div>
-            <button onClick={() => this.open()} className="add-members-button">Add members</button>
-            <h2>Members</h2>
-            <div className="members-box">
-              {this.props.commUsers.map((user, index) =>
-                <Member key={index} user={user}/>
-              )}
+          <button onClick={() => this.open()} className="add-members-button">Add members</button>
+          <h2>Members</h2>
+          <div className="members-box">
+            {
+              this.props.commUsers.pending ? <h1>Loading users...</h1> :
+            <div>
+              {
+                this.props.commUsers.commUsers.map((user, index) =>
+                <Member key={index} user={user}/>)
+              }
             </div>
-            <Modal show={this.state.showModal} onHide={() => this.close()}>
-              <Modal.Header closeButton>
-                <Modal.Title>More neighbors! More fun!</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  <FormGroup>
-                    <ControlLabel>Add members</ControlLabel>
-                    <Autosuggest
-                      ref={(input) => {this.input = input;}}
-                      suggestions={suggestions}
-                      onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
-                      onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
-                      getSuggestionValue={this.getSuggestionValue.bind(this)}
-                      renderSuggestion={this.renderSuggestion.bind(this)}
-                      inputProps={inputProps}
-                    />
-                    <Button onClick={(e) => this.onAdd(e)}>Add</Button>
-                  </FormGroup>
-                </Form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={() => this.close()}>Cancel</Button>
-              </Modal.Footer>
-            </Modal>
+            }
           </div>
           <Modal show={this.state.showModal} onHide={() => this.close()}>
             <Modal.Header closeButton>
@@ -183,7 +161,28 @@ class MembersList extends React.Component {
 }
 
 MembersList.propTypes = {
-  commUsers: PropTypes.array,
+  commId: PropTypes.string,
+  getAllUsersDispatch: PropTypes.func,
+  addUserDispatch: PropTypes.func,
+  allUsers: PropTypes.array,
+  getCommUsersDispatch: PropTypes.func,
+  commUsers: PropTypes.object
 };
 
-export default MembersList;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    allUsers: state.allUsers.users,
+    commId: ownProps.commId,
+    commUsers: state.commUsers
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllUsersDispatch: () => dispatch(getAllUsers()),
+    addUserDispatch: (username, communityId) => dispatch(addUser(username, communityId)),
+    getCommUsersDispatch: (commId) => dispatch(getCommUsers(commId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MembersList);
