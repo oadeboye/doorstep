@@ -1,17 +1,17 @@
 import Types from '../actions/actionTypes';
 
-const allCommunitiesReducer = (state = {pending: false, data: []}, action) => {
+const allCommunitiesReducer = (state = {pending: false, communities: []}, action) => {
   switch(action.type) {
     case Types.getAllCommunitiesRequested:
       const pendingState = {
         pending: true,
-        data: []
+        communities: []
       };
       return pendingState;
     case Types.getAllCommunitiesFulfilled:
       const fulfilledState = {
         pending: false,
-        data: action.data
+        communities: action.data
       };
       return fulfilledState;
     case Types.getAllCommunitiesRejected:
