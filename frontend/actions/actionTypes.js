@@ -12,4 +12,7 @@ export default {
   postCreateCommunityFulfilled: 'POST_CREATE_COMMUNITY_FULFILLED',
   postCreateCommunityRejected: 'POST_CREATE_COMMUNITY_REJECTED',
   clearCreateCommunityStatus: 'CLEAR_CREATE_COMMUNITY_STATUS'
+  getAllUsersRequested: 'GET_ALL_USERS_REQUESTED',
+  getAllUsersFulfilled: 'GET_ALL_USERS_FULFILLED',
+  getAllUsersRejected: 'GET_ALL_USERS_REJECTED'
 };

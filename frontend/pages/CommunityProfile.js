@@ -87,11 +87,11 @@ class CommunityProfile extends React.Component {
             </Link>
           </div>
           {
-            this.props.currentComm.pending ? <h1>Loading...</h1> : <h1>Working</h1>
-          // (<MembersList
-          //   handleAddUsers={this.handleAddUsers.bind(this)}
-          //   commId={this.props.match.params.communityId}
-          //   commUsers={this.props.currentComm.community.users} />)
+            this.props.currentComm.pending ? <h1>Loading...</h1> :
+            // <h1>Working</h1>
+          <MembersList
+            commId={this.props.match.params.communityId}
+            commUsers={this.props.currentComm.community.users} />
           }
           <Footer />
         </div>
