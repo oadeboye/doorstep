@@ -14,5 +14,11 @@ export default {
   clearCreateCommunityStatus: 'CLEAR_CREATE_COMMUNITY_STATUS',
   getAllUsersRequested: 'GET_ALL_USERS_REQUESTED',
   getAllUsersFulfilled: 'GET_ALL_USERS_FULFILLED',
-  getAllUsersRejected: 'GET_ALL_USERS_REJECTED'
+  getAllUsersRejected: 'GET_ALL_USERS_REJECTED',
+  getCommUsersRequested: 'GET_COMM_USERS_REQUESTED',
+  getCommUsersFulfilled: 'GET_COMM_USERS_FULFILLED',
+  getCommUsersRejected: 'GET_COMM_USERS_REJECTED',
+  addUserRequested: 'ADD_USER_REQUESTED',
+  addUserFulfilled: 'ADD_USER_FULFILLED',
+  addUserRejected: 'ADD_USER_REJECTED'
 };
