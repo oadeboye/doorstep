@@ -1,9 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';

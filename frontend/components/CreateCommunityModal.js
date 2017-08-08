@@ -9,6 +9,9 @@ import { Modal,
          FieldGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { postCreateCommunity, clearCreateCommunityStatus } from '../actions/postCreateCommunity';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class CreateCommunityModal extends React.Component {
   constructor(props) {
@@ -45,76 +48,95 @@ class CreateCommunityModal extends React.Component {
     this.setState({member: e.target.value});
   }
 
-  onCreate(e) {
+  onCreate(e, name, description, userId) {
     e.preventDefault();
-    axios.post('http://localhost:3000/api/community', {
-      name: this.state.communityName,
-      description: this.state.communityDescription,
-      owner: this.props.user._id
-    })
-    .then((resp) => {
-      if (resp.data.success) {
-        const newUserCommunities = JSON.parse(JSON.stringify(this.state.userCommunities));
-        newUserCommunities.push(resp.data.response);
-        this.setState({
-          userCommunities: newUserCommunities
-        });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    this.props.postCreateCommunityDispatch(name, description, userId);
     this.close();
   }
 
+  navigateToCommunityProfile() {
+    console.log("CLEARING")
+    this.props.clearCreateCommunityStatusDispatch();
+  }
+
   render() {
+    console.log("ID???", this.props.createCommunityStatus);
     return (
-      <Modal show={this.state.showModal} onHide={() => this.close()}>
-        <Modal.Header closeButton>
-          <Modal.Title>Create a new community!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <FormGroup>
-              <ControlLabel>Community name</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter name"
-                onChange={(e) => this.onCommunityNameChange(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Community description</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter description"
-                onChange={(e) => this.onCommunityDescriptionChange(e)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Members</ControlLabel>
-              <FormControl
-                type="text"
-                placeholder="Enter a username"
-                onChange={(e) => this.onAddMembersChange(e)}
-              />
-              <Button componentClass={ControlLabel}>
-                Add more members
-              </Button>
-            </FormGroup>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={(e) => this.onCreate(e)}>Create a new community</Button>
-          <Button onClick={() => this.close()}>Cancel</Button>
-        </Modal.Footer>
-      </Modal>
+      <div>
+        {
+          this.props.createCommunityStatus.success &&
+           <Modal show>
+            <Modal.Title>Community Created</Modal.Title>
+            <Link to={'/community/profile/' + this.props.createCommunityStatus.data._id}><Button onClick={() => this.navigateToCommunityProfile()}>Go to page</Button></Link>
+           </Modal> 
+        }
+        <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
+        <Modal show={this.state.showModal} onHide={() => this.close()}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create a new community!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <FormGroup>
+                <ControlLabel>Community name</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter name"
+                  onChange={(e) => this.onCommunityNameChange(e)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Community description</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter description"
+                  onChange={(e) => this.onCommunityDescriptionChange(e)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Members</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter a username"
+                  onChange={(e) => this.onAddMembersChange(e)}
+                />
+                <Button componentClass={ControlLabel}>
+                  Add more members
+                </Button>
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={(e) => this.onCreate(e, this.state.communityName, this.state.communityDescription, this.props.user._id)}>Create a new community</Button>
+            <Button onClick={() => this.close()}>Cancel</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 }
 
 CreateCommunityModal.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  postCreateCommunityDispatch: PropTypes.func,
+  clearCreateCommunityStatusDispatch: PropTypes.func
 };
 
-export default CreateCommunityModal;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    createCommunityStatus: state.createCommunityStatus,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postCreateCommunityDispatch: (name, description, owner) => dispatch(postCreateCommunity(name, description, owner)),
+    clearCreateCommunityStatusDispatch: () => dispatch(clearCreateCommunityStatus())
+  };
+};
+
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(CreateCommunityModal);
+
