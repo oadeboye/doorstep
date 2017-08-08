@@ -11,24 +11,21 @@ import styles from '../assets/stylesheets/userprofile.less';
 
 import { editUser } from '../actions/index';
 
+
 const UserProfile = ({ user, saveUserEdits }) => {
-  console.log("USER ID HERE", user._id);
-  const onEdit = (editObj) => {
+  function onEdit(editObj) {
     axios.post('http://localhost:3000/api/edit-profile/' + user._id, editObj)
     .then((resp) => {
       if (resp.data.success) {
-        console.log("SUCCESS HERE!");
         saveUserEdits(editObj);
       } else {
         console.log("FAILURE MESSAGE", resp.data.failure);
       }
-      console.log("SUCCESSFULLY EDITED USER DATA", user);
     })
     .catch((err) => {
       console.log("ERROR ON EDIT USER MODAL", err);
     });
-  };
-
+  }
   return (
     <div className="user-profile-page">
       <Navbar />
@@ -42,7 +39,7 @@ const UserProfile = ({ user, saveUserEdits }) => {
             { user ?
               <EditUserModal
                 user={user}
-                onEdit={onEdit}
+                onEdit={(edits) => onEdit(edits)}
               />
               :
               <p>Load</p>

@@ -6,9 +6,9 @@ const appReducer = (state = {}, action) => {
       return {};
     case 'EDIT_USER':
       const currState = Object.assign({}, state, {
-        fName: action.editObj.fName,
-        lName: action.editObj.lName,
-        email: action.editObj.email
+        fName: action.edits.fName,
+        lName: action.edits.lName,
+        email: action.edits.email
       });
       return currState;
     case 'persist/REHYDRATE':

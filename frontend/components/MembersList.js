@@ -137,7 +137,7 @@ class MembersList extends React.Component {
               <Modal.Body>
                 <Form>
                   <FormGroup>
-                    <ControlLabel>Add memebers</ControlLabel>
+                    <ControlLabel>Add members</ControlLabel>
                     <Autosuggest
                       ref={(input) => {this.input = input;}}
                       suggestions={suggestions}
@@ -163,7 +163,7 @@ class MembersList extends React.Component {
             <Modal.Body>
               <Form>
                 <FormGroup>
-                  <ControlLabel>Add memebers</ControlLabel>
+                  <ControlLabel>Add members</ControlLabel>
                   <Autosuggest
                     ref={(input) => {this.input = input;}}
                     suggestions={suggestions}

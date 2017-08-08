@@ -5,10 +5,10 @@ const saveUser = (user) => {
   };
 };
 
-const editUser = (editObj) => {
+const editUser = (edits) => {
   return {
     type: 'EDIT_USER',
-    editObj
+    edits
   };
 };
 

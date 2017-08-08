@@ -251,8 +251,11 @@ router.post('/edit-profile/:id', (req, res) => {
   .then( profile => {
     profile.fName = req.body.fName;
     profile.lName = req.body.lName;
-    profile.edit = req.body.edit;
-    profile.save();
+    profile.email = req.body.email;
+    profile.save()
+    .then(() => {
+      res.json({ success: true });
+    });
   })
   .catch((err) => {
     res.json({success: false, failure: err});
