@@ -77,7 +77,7 @@ const UserProfile = ({ user, saveUserEdits }) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state
+    user: state.user
   };
 };
 
