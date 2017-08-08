@@ -26,7 +26,9 @@ class CommunitiesList extends React.Component {
     console.log("HERE", this.props.usersCommunities);
     return (
       <div className="communities-list">
-        <CreateCommunityModal />
+        <div className="create-community-button">
+          <CreateCommunityModal />
+        </div>
         <h2>Communities</h2>
           {
             !this.props.usersCommunities.pending ? 

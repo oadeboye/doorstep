@@ -70,7 +70,7 @@ class CreateCommunityModal extends React.Component {
             <Link to={'/community/profile/' + this.props.createCommunityStatus.data._id}><Button onClick={() => this.navigateToCommunityProfile()}>Go to page</Button></Link>
            </Modal> 
         }
-        <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
+        <div onClick={(e) => this.onCreateCommunity(e)}>Create a community</div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Create a new community!</Modal.Title>
