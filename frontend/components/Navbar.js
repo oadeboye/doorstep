@@ -20,7 +20,7 @@ class Navbar extends React.Component {
     return (
       <div className="navbar">
         <div className="corner-logo">Doorstep</div>
-        <div className="profile nav-item">Profile</div>
+        <Link to={'/profile'} className="nav-item-link"><div className="nav-item">Your Profile</div></Link>
         <Link to={'/search'} className="nav-item-link"><div className="nav-item">Search Communities</div></Link>
         <Link to={'/'} className="nav-item-link"><div className="nav-item" onClick={() => this.logoutUser()}>Logout</div></Link>
       </div>

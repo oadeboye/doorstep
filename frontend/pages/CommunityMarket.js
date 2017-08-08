@@ -7,6 +7,7 @@ import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/communitymarket.less';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class CommunityMarket extends React.Component {
         <Navbar />
         <div className="market-splash">
           <h1 className="market-title">{this.state.community.name || 'Community Market'}</h1>
-          <div className="view-community-button">View Profile</div>
+          <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
           <div className="give-item-button">Give an Item</div>
         </div>
         <RequestsBar commId={this.state.id} handleRequest={this.updateRequests.bind(this)} requests={this.state.community.requests}/>

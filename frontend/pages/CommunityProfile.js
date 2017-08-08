@@ -42,6 +42,7 @@ class CommunityProfile extends React.Component {
       <div className="community-profile-page">
         <Navbar />
         <div className="community-splash">
+          <div className="edit-profile-button">Edit Community Profile</div>
           <h1 className="title">COMMUNITY PROFILE</h1>
           <div className="stats-box">
             <div className="stat">
@@ -58,12 +59,7 @@ class CommunityProfile extends React.Component {
             </div>
           </div>
           <Link to={'/community/' + this.props.match.params.communityId}>
-          <Button
-            // className="-button"
-            bsStyle="primary"
-            bsSize="large"
-          >Open Doorstep
-          </Button>
+          <div className="market-button">Go to Marketplace</div>
           </Link>
         </div>
         {this.state.loaded ?

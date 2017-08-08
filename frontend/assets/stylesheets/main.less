@@ -12,6 +12,18 @@ input:focus {
   outline: none;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
+.loader {
+  text-align: center;
+  padding: 50px;
+  font-weight: 700;
+  font-size: 24px;
+  color: @gray;
+}
+
 .welcome-page {
   .login-button {
     margin-bottom: 15px;
@@ -21,11 +33,13 @@ input:focus {
     &:extend(.button-red all);
   }
   .welcome-splash {
-    &:extend(.splash all);
+    .splash;
   }
   .welcome-title {
     margin-bottom: 25px;
-    &:extend(.title all);
+    .title;
+    width: 100vw;
+    text-align: center;
   }
 }
 
@@ -56,34 +70,18 @@ input:focus {
   align-items: center;
   .corner-logo {
     margin-left: 30px;
+    margin-right: auto;
   }
-  .profile {
-    margin-left: auto;
+  .nav-item-link {
     margin-right: 30px;
-  }
-  .nav-item {
+    color: @dark-navy;
     display: flex;
     align-items: center;
     height: 100%;
-    position: relative;
-    &:hover {
-      border-bottom: 4px solid @dark-navy;
-      margin-bottom: -4px;
-    }
-  }
-  .nav-item-link {
-    color: @dark-navy;
-    margin-right: 40px;
   }
   .nav-item-link:hover {
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    height: 100%;
-    position: relative;
-    &:hover {
-      border-bottom: 4px solid @dark-navy;
-      margin-bottom: -4px;
-    }
+    border-bottom: 4px solid @dark-navy;
+    margin-bottom: -4px;
   }
 }
