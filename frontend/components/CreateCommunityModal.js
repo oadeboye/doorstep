@@ -1,5 +1,4 @@
 import React from 'react';
-import Door from './Door';
 import { Modal,
          Form,
          FormGroup,
@@ -8,11 +7,10 @@ import { Modal,
          ControlLabel,
          Button,
          FieldGroup } from 'react-bootstrap';
-import axios from 'axios';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import axios from 'axios';
 
-class CommunitiesList extends React.Component {
+class CreateCommunityModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,35 +22,6 @@ class CommunitiesList extends React.Component {
       userHasCommunities: false,
       loaded: false
     };
-  }
-  componentWillMount() {
-    axios.get('http://localhost:3000/api/communities/' + this.props.user._id)
-    .then((responseJson) => {
-      const communities = responseJson.data;
-      this.setState({
-        userCommunities: communities,
-        userHasCommunities: true,
-        loaded: true
-      }, () => (console.log("CALLBACKS")));
-    })
-    .catch((err) => {
-      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
-    });
-  }
-
-  componentWillReceiveProps(props) {
-    axios.get('http://localhost:3000/api/communities/' + props.user._id)
-    .then((responseJson) => {
-      const communities = responseJson.data;
-      this.setState({
-        userCommunities: communities,
-        userHasCommunities: true,
-        loaded: true
-      }, () => (console.log("CALLBACKS")));
-    })
-    .catch((err) => {
-      console.log("SOMETHING WENT WRONG WITH COMMUNITIES LIST", err);
-    });
   }
 
   onCreateCommunity(e) {
@@ -98,12 +67,8 @@ class CommunitiesList extends React.Component {
     this.close();
   }
 
-
   render() {
-    console.log("HERE", this.state.userCommunities);
     return (
-      <div className="communities-list">
-        <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
       <Modal show={this.state.showModal} onHide={() => this.close()}>
         <Modal.Header closeButton>
           <Modal.Title>Create a new community!</Modal.Title>
@@ -144,24 +109,12 @@ class CommunitiesList extends React.Component {
           <Button onClick={() => this.close()}>Cancel</Button>
         </Modal.Footer>
       </Modal>
-        <h2>Communities</h2>
-          {
-            this.state.loaded ? <div className="communities-box">{this.state.userCommunities.map((com, index) =>
-            <Door key={index} com={com} isMember/>)}</div>
-            :
-            <div className="communities-box"><h1>Loading...</h1></div>
-          }
-      </div>
     );
   }
 }
 
-CommunitiesList.propTypes = {
-  user: PropTypes.object,
+CreateCommunityModal.propTypes = {
+  user: PropTypes.object
 };
 
-// export default connect(
-//   mapStateToProps, mapDispatchToProps
-// )(CommunitiesList);
-
-export default CommunitiesList;
+export default CreateCommunityModal;

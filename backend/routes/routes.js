@@ -86,8 +86,15 @@ router.post('/item', (req, res) => {
       .then(result => {
         community.items = resultItemsArray;
         console.log("You created an item in the commmunity!");
-        // Send back the community json object with the updated array
-        return res.json({ success: true, response: community });
+        User.findById(req.body.owner)
+        .then((user) => {
+          user.stats[0] = user.stats[0] + 1;
+          user.save()
+          .then(() => {
+            // Send back the community json object with the updated array
+            return res.json({ success: true, response: community });
+          });
+        });
       });
     });
   })
@@ -128,12 +135,12 @@ router.post('/request', (req, res) => {
         return res.json({ success: true, response: community });
       })
       .catch((e) => {
-        console.log(e)
-      })
+        console.log(e);
+      });
     })
     .catch((e) => {
-      console.log('second', e)
-    })
+      console.log('second', e);
+    });
   })
   .catch(err => {
     console.log(err);
@@ -173,7 +180,7 @@ router.get('/profile/:id', (req, res) => {
   User.findById(req.params.id)
   .then( userProfile => {
     userObject = JSON.parse(JSON.stringify(userProfile));
-    return Community.find({ users: { $all: [id] } })
+    return Community.find({ users: { $all: [id] } });
   })
   .then((communities) => {
     console.log("COMMS", communities);
@@ -265,15 +272,17 @@ router.get('/edit-profile/:id', (req, res) => {
 
 // POST edit user profile
 // Updates user model in database with user information from body
-// Req.body receives: id, username, fName, lName, aboutMe
-router.post('/edit-profile', (req, res) => {
-  User.findById(req.body.id)
+// Req.body receives: fName, lName, email; Req.params: id
+router.post('/edit-profile/:id', (req, res) => {
+  User.findById(req.params.id)
   .then( profile => {
-    profile.username = req.body.username;
     profile.fName = req.body.fName;
     profile.lName = req.body.lName;
-    profile.aboutMe = req.body.aboutMe;
-    profile.save();
+    profile.email = req.body.email;
+    profile.save()
+    .then(() => {
+      res.json({ success: true });
+    });
   })
   .catch((err) => {
     res.json({success: false, failure: err});
@@ -295,16 +304,42 @@ router.get('/edit-community/:communityId', (req, res) => {
 
 // POST edit community profile
 // Updates community model in database with community information from body
-// Req.body receives: name, description, communityId
-router.post('/edit-community', (req, res) => {
-  Community.findById(req.body.communityId)
+// Req.body receives: name, description; Req.params: communityId
+router.post('/edit-community/:communityId', (req, res) => {
+  Community.findById(req.params.communityId)
   .then( community => {
     community.name = req.body.name;
     community.description = req.body.description;
-    community.save();
+    community.save()
+    .then(() => {
+      res.json({ success: true, community });
+    });
   })
   .catch((err) => {
-    res.json({success: false, failure: err});
+    res.json({ success: false, failure: err });
+  });
+});
+
+// POST user stats
+// Used to calculate user's posted items
+// Req.params.id: user id
+router.get('/calculate-stats/:id', (req, res) => {
+  User.findById(req.params.id)
+  .then((user) => {
+    console.log("USER: ", user.fName);
+    Item.find({ owner: req.params.id })
+    .then((item) => {
+      console.log("ITEMS", item);
+      user.stats[0] = item.length;
+
+      user.save()
+      .then(() => {
+        res.json({ success: true, given: item.length });
+      });
+    });
+  })
+  .catch((err) => {
+    res.json({ success: false, failure: err });
   });
 });
 

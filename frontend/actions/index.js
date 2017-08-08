@@ -5,4 +5,18 @@ const saveUser = (user) => {
   };
 };
 
-export default saveUser;
+const editUser = (edits) => {
+  return {
+    type: 'EDIT_USER',
+    edits
+  };
+};
+
+const editCommunity = (commEdits) => {
+  return {
+    type: 'EDIT_COMMUNITY',
+    commEdits
+  };
+};
+
+export { saveUser, editUser, editCommunity };
