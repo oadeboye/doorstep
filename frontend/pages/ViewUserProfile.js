@@ -13,7 +13,7 @@ class ViewUserProfile extends React.Component {
     super(props);
     this.state = {
       user: ''
-    }
+    };
   }
   componentDidMount() {
     axios.get('/api/profile/' + this.props.match.params.userId)
@@ -21,12 +21,12 @@ class ViewUserProfile extends React.Component {
       console.log("USER", response.data.user);
       this.setState({
         user: response.data.user
-      }, () => console.log("DONE, ", this.state.user))
-    })
+      }, () => console.log("DONE, ", this.state.user));
+    });
   }
 
   render() {
-    let user = this.state.user;
+    const user = this.state.user;
     console.log("USER RENDERED", user);
     return (
       <div>
@@ -70,9 +70,13 @@ class ViewUserProfile extends React.Component {
           )
         }
         <Footer />
-      </div>  
-    )
+      </div>
+    );
   }
 }
+
+ViewUserProfile.propTypes = {
+  match: PropTypes.object
+};
 
 export default ViewUserProfile;

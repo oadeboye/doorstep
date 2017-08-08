@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getUsersCommunities } from '../actions/getUsersCommunities';
 import CreateCommunityModal from './CreateCommunityModal';
+import domain from '../domain';
 
 class CommunitiesList extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class CommunitiesList extends React.Component {
         <CreateCommunityModal />
         <h2>Communities</h2>
           {
-            !this.props.usersCommunities.pending ? 
+            !this.props.usersCommunities.pending ?
             <div className="communities-box">
             {this.props.usersCommunities.data.map((com, index) =>
               <Door key={index} com={com} isMember/>)}
@@ -49,7 +50,7 @@ CommunitiesList.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.user.user,
     usersCommunities: state.usersCommunities
   };
 };
@@ -63,4 +64,3 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(CommunitiesList);
-
