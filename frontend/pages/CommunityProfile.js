@@ -21,22 +21,22 @@ class CommunityProfile extends React.Component {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
-  handleAddUsers(user) {
-    var users = this.state.community.users.concat(user);
-    var newComm = Object.assign({}, this.state.community, {users});
-    this.setState({community: newComm});
-  }
-
-  onCommunityEdit(editObj) {
-    const commId = this.state.community._id;
-    axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
-    .then((respJson) => {
-      this.setState({ commmunity: respJson.data.commmunity });
-    })
-    .catch((err) => {
-      console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
-    });
-  }
+  // handleAddUsers(user) {
+  //   var users = this.state.community.users.concat(user);
+  //   var newComm = Object.assign({}, this.state.community, {users});
+  //   this.setState({community: newComm});
+  // }
+  //
+  // onCommunityEdit(editObj) {
+  //   const commId = this.state.community._id;
+  //   axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
+  //   .then((respJson) => {
+  //     this.setState({ commmunity: respJson.data.commmunity });
+  //   })
+  //   .catch((err) => {
+  //     console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
+  //   });
+  // }
 
   render() {
         console.log('CURRENT COMM', this.props.currentComm);
@@ -45,7 +45,18 @@ class CommunityProfile extends React.Component {
         <Navbar />
         {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
         <div className="community-splash">
-          <h1 className="title">{this.props.currentComm.name}</h1>
+          {
+            !this.props.pending ?
+            // <button className="edit-profile-button">
+              <EditCommunityModal
+              community={this.props.currentComm}
+              />
+          // </button>
+            :
+            <button className="edit-profile-button">Edit Community Profile</button>
+          }
+          <h1 className="community-title">{this.props.currentComm.name}</h1>
+          <h3 className="title">COMMUNITY PROFILE</h3>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>
@@ -66,8 +77,11 @@ class CommunityProfile extends React.Component {
         </div>}
         {
           this.props.pending ? <h1>Loading...</h1> :
-          <MembersList
-            commId={this.props.match.params.communityId}/>
+          <div>
+            <div>{this.props.currentComm.description}</div>
+            <MembersList
+              commId={this.props.match.params.communityId}/>
+          </div>
         }
         <Footer />
       </div>
