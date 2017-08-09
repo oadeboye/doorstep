@@ -7,7 +7,7 @@ import axios from 'axios';
 import { getAllCommunities } from '../actions/getAllCommunities';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CreateCommunityModal from './CreateCommunityModal';
+import CreateCommunityModal from '../components/CreateCommunityModal';
 
 class CommunitySearch extends React.Component {
   constructor(props) {
@@ -26,8 +26,7 @@ class CommunitySearch extends React.Component {
       <div className="communities-search-page">
         <Navbar />
         <div className="search-splash">
-          <div className="create-community-button">Create a community</div>
-          <CreateCommunityModal />
+          <div className="create-community-button"><CreateCommunityModal /></div>
           <h1 className="title">Join a community</h1>
         </div>
         <SearchCommunitiesList communities={this.props.allCommunities}/>
