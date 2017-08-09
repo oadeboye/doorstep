@@ -9,6 +9,7 @@ import { getAllUsers } from '../actions/getAllUsers';
 import { addUser } from '../actions/addUser';
 import { getCommUsers } from '../actions/getCommUsers';
 import domain from '../domain';
+import _ from 'underscore';
 
 class MembersList extends React.Component {
   constructor(props) {
@@ -54,8 +55,10 @@ class MembersList extends React.Component {
     const inputLength = inputValue.length;
     // returns an array of matches
     ('USER LIST', this.props.allUsers);
-    var usernames = this.props.allUsers.map(user => user.username);
-    return inputLength === 0 ? [] : usernames.filter(user =>
+    // filters out users that are already in this community
+    var allUsernames = this.props.allUsers.map(user => user.username);
+    var suggestions = _.difference(allUsernames, this.props.commUsers);
+    return inputLength === 0 ? [] : suggestions.filter(user =>
       user.slice(0, inputLength) === inputValue
     );
   }
