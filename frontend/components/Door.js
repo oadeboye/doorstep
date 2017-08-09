@@ -1,10 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+import { connect } from 'react-redux';
+
 
 class Door extends React.Component {
   constructor(props) {
     super(props);
+  }
+  sendEmail() {
+    console.log("USER", this.props.user);
+    console.log("COMMUNITY", this.props.com);
+    axios.post('/mail/send-email', {
+      user: this.props.user,
+      community: this.props.com
+    })
+    .then(response => {
+      if (response.data.success) {
+        console.log("SUCCESS FRONT END SENDING MAIL");
+        alert('Email successfully sent!');
+
+      }
+      else {
+        console.log("FAILURE FRONT END SENDING MAIL", response.data.error);
+        alert('Email failed to send!');
+      }
+    })
   }
   render() {
     const profileUrl = '/community/profile/' + this.props.com._id;
@@ -20,7 +42,7 @@ class Door extends React.Component {
           this.props.isMember ?
           <Link to={profileUrl}><div className="button join-button">View Market</div></Link>
           :
-          <div className="button ask-button">Ask To Join</div>
+          <div className="button ask-button" onClick={() => this.sendEmail()}>Ask To Join</div>
         }
       </div>
     );
@@ -28,7 +50,23 @@ class Door extends React.Component {
 }
 
 Door.propTypes = {
+  user: PropTypes.object,
   com: PropTypes.object
 };
 
-export default Door;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.user.user,
+    com: ownProps.com
+  };
+};
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getUsersCommunitiesDispatch: (userId) => dispatch(getUsersCommunities(userId))
+//   };
+// };
+
+export default connect(
+  mapStateToProps
+)(Door);
