@@ -11,6 +11,7 @@ const expressValidator = require('express-validator');
 const PORT = process.env.PORT || 3000;
 const routes = require('./backend/routes/routes');
 const auth = require('./backend/routes/auth');
+const mailer = require('./backend/routes/mailer');
 const { User } = require('./backend/models/models');
 const hashPassword = require('./backend/helper/hashPassword');
 
@@ -76,6 +77,7 @@ passport.use(new LocalStrategy((username, password, done) => {
 // Use the API and authentication routes
 app.use('/api/auth', auth(passport));
 app.use('/api', routes);
+app.use('/mail', mailer);
 
 app.use('/', (request, response) => {
     response.sendFile(__dirname + '/public/index.html'); // For React/Redux
