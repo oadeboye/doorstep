@@ -14,14 +14,14 @@ const oneCommunityReducer = (state = {pending: false, community: {}}, action) =>
         pending: false,
         community: Object.assign({}, action.community)
       };
-      // console.log('FULFILLED', fulfilledState);
+      console.log('FULFILLED', fulfilledState);
       return fulfilledState;
     case Types.getOneCommunityRejected:
       const rejectedState = {
         pending: false,
         error: action.error
       };
-      // console.log('REJECTED', rejectedState);
+      console.log('REJECTED', rejectedState);
       return rejectedState;
     default:
       return state;

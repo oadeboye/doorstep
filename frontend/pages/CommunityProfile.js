@@ -39,12 +39,13 @@ class CommunityProfile extends React.Component {
   }
 
   render() {
-    // console.log('CURRENT COMM', this.props.currentComm);
+        console.log('CURRENT COMM', this.props.currentComm);
     return (
       <div className="community-profile-page">
         <Navbar />
+        {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
         <div className="community-splash">
-          <h1 className="title">COMMUNITY PROFILE</h1>
+          <h1 className="title">{this.props.currentComm.name}</h1>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>
@@ -62,9 +63,9 @@ class CommunityProfile extends React.Component {
           <Link to={'/community/' + this.props.match.params.communityId}>
           <div className="market-button">Go to Marketplace</div>
           </Link>
-        </div>
+        </div>}
         {
-          this.props.currentComm.pending ? <h1>Loading...</h1> :
+          this.props.pending ? <h1>Loading...</h1> :
           <MembersList
             commId={this.props.match.params.communityId}/>
         }
@@ -77,12 +78,14 @@ class CommunityProfile extends React.Component {
 CommunityProfile.propTypes = {
   match: PropTypes.object,
   currentComm: PropTypes.object,
-  getOneCommunity: PropTypes.func
+  getOneCommunity: PropTypes.func,
+  pending: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
-    currentComm: state.currentComm
+    currentComm: state.currentComm.community,
+    pending: state.currentComm.pending
   };
 };
 
