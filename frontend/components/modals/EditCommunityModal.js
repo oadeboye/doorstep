@@ -69,6 +69,7 @@ class EditCommunityModal extends React.Component {
   }
 
   render() {
+    console.log("COMUNTIY", this.props.community)
     return (
       <div>
         <div onClick={() => this.openEdit()}>Edit Community Profile</div>

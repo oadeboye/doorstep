@@ -53,7 +53,8 @@ class CommunityProfile extends React.Component {
             :
             <div className="edit-profile-button">Edit Community Profile</div>
           }
-          <h1 className="title">COMMUNITY PROFILE</h1>
+          <h1 className="community-title">{this.props.currentComm.community.name}</h1>
+          <h3 className="title">COMMUNITY PROFILE</h3>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>

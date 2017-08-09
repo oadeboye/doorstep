@@ -117,17 +117,15 @@ class MembersList extends React.Component {
       <div className="members-list">
         <button onClick={() => this.open()} className="add-members-button">Add members</button>
         <h2>Members</h2>
+        {
+          this.props.pending ? <h1 className="loader">Loading users...</h1> :
         <div className="members-box">
           {
-            this.props.pending ? <h1>Loading users...</h1> :
-          <div>
-            {
-              this.props.commUsers.map((user, index) =>
-              <Member key={index} user={user}/>)
-            }
-          </div>
+            this.props.commUsers.map((user, index) =>
+            <Member key={index} user={user}/>)
           }
         </div>
+        }
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>More neighbors! More fun!</Modal.Title>
