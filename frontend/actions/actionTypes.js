@@ -26,5 +26,8 @@ export default {
   saveUserRejected: 'SAVE_USER_REJECTED',
   editUserRequested: 'EDIT_USER_REQUESTED',
   editUserFulfilled: 'EDIT_USER_FULFILLED',
-  editUserRejected: 'EDIT_USER_REJECTED'
+  editUserRejected: 'EDIT_USER_REJECTED',
+  addItemRequested: 'ADD_ITEM_REQUESTED',
+  addItemFulfilled: 'ADD_ITEM_FULFILLED',
+  addItemRejected: 'ADD_ITEM_REJECTED'
 };
