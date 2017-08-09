@@ -93,7 +93,7 @@ class RequestsBar extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user.user
   };
 };
 

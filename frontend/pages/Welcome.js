@@ -217,7 +217,6 @@ class Welcome extends React.Component {
   }
 
   render() {
-    console.log("PROPS HERE", this.props);
     return (
       <div className="welcome-page">
         <div className="welcome-splash">
@@ -363,7 +362,7 @@ class Welcome extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user.user
   };
 };
 

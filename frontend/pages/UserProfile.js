@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
@@ -52,27 +51,20 @@ const UserProfile = ({ user, pending, saveUserEdits }) => {
           </div>
         </div>
       </div>
-      <CommunitiesList user={user}/>
+      {
+        ready ? <CommunitiesList /> : <h1 className="loader">Loading...</h1>
+      }
       <Footer />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  console.log("USER HERE", state.user);
   return {
     user: state.user.user,
     pending: state.user.pending
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     saveUserEdits: (edits) => {
-//       dispatch(editUser(edits));
-//     }
-//   };
-// };
 
 UserProfile.propTypes = {
   user: PropTypes.object,
