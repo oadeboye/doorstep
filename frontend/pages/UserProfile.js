@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
@@ -10,19 +9,6 @@ import EditUserModal from '../components/modals/EditUserModal';
 import styles from '../assets/stylesheets/userprofile.less';
 
 const UserProfile = ({ user, pending, saveUserEdits }) => {
-  // function onEdit(editObj) {
-  //   axios.post('http://localhost:3000/api/edit-profile/' + user._id, editObj)
-  //   .then((resp) => {
-  //     if (resp.data.success) {
-  //       saveUserEdits(editObj);
-  //     } else {
-  //       console.log("FAILURE MESSAGE", resp.data.failure);
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log("ERROR ON EDIT USER MODAL", err);
-  //   });
-  // }
   const ready = user && !pending;
   return (
     <div className="user-profile-page">
@@ -79,14 +65,6 @@ const mapStateToProps = (state) => {
     pending: state.user.pending
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     saveUserEdits: (edits) => {
-//       dispatch(editUser(edits));
-//     }
-//   };
-// };
 
 UserProfile.propTypes = {
   user: PropTypes.object,
