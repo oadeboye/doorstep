@@ -85,7 +85,6 @@ router.post('/item', (req, res) => {
       community.update({ items: resultItemsArray })
       .then(result => {
         community.items = resultItemsArray;
-        console.log("You created an item in the commmunity!");
         User.findById(req.body.owner)
         .then((user) => {
           user.stats[0] = user.stats[0] + 1;
@@ -183,10 +182,7 @@ router.get('/profile/:id', (req, res) => {
     return Community.find({ users: { $all: [id] } });
   })
   .then((communities) => {
-    console.log("COMMS", communities);
-    console.log("USER OBJECT", userObject);
     userObject['communities'] = JSON.parse(JSON.stringify(communities));
-    console.log("USER OBJECT2", userObject);
     return res.json({success: true, user: userObject});
   })
   .catch( err =>
@@ -197,7 +193,6 @@ router.get('/profile/:id', (req, res) => {
 // GET all communities
 // Retrieves all the communities in the database for the users to search through
 router.get('/communities/all', (req, res) => {
-  console.log("COMMUNITIES ALL");
   Community.find({})
   .then((communities) => {
     return res.json({success: true, communities: communities});
@@ -245,7 +240,6 @@ router.get('/community/:communityId', (req, res) => {
     .then((result) => {
       Request.populate(community.requests, {path: 'owner'})
       .then((result) => {
-        console.log("COMMUNITY!!!", community);
         return res.json({success: true, community: community});
       });
     });
@@ -326,10 +320,8 @@ router.post('/edit-community/:communityId', (req, res) => {
 router.get('/calculate-stats/:id', (req, res) => {
   User.findById(req.params.id)
   .then((user) => {
-    console.log("USER: ", user.fName);
     Item.find({ owner: req.params.id })
     .then((item) => {
-      console.log("ITEMS", item);
       user.stats[0] = item.length;
 
       user.save()

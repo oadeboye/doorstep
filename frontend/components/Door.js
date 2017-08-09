@@ -1,5 +1,4 @@
 import React from 'react';
-import { Alert } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
@@ -20,12 +19,12 @@ class Door extends React.Component {
     .then(response => {
       if (response.data.success) {
         console.log("SUCCESS FRONT END SENDING MAIL");
-        Alert.alert('Message sent!');
+        alert('Email successfully sent!');
 
       }
       else {
         console.log("FAILURE FRONT END SENDING MAIL", response.data.error);
-        Alert.alert('Message failed!');
+        alert('Email failed to send!');
       }
     })
   }
