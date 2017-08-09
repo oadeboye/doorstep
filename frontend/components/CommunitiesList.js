@@ -18,28 +18,24 @@ import domain from '../domain';
 class CommunitiesList extends React.Component {
   constructor(props) {
     super(props);
+    console.log("COM LIST", this.props.user);
   }
   componentDidMount() {
+    console.log("USER ID HEREE", this.props.user);
     this.props.getUsersCommunitiesDispatch(this.props.user._id);
   }
 
   render() {
-    console.log("HERE", this.props.usersCommunities);
     return (
       <div className="communities-list">
         <div className="create-community-button">
           <CreateCommunityModal />
         </div>
         <h2>Communities</h2>
-          {
-            !this.props.usersCommunities.pending ?
-            <div className="communities-box">
-            {this.props.usersCommunities.data.map((com, index) =>
-              <Door key={index} com={com} isMember/>)}
-            </div>
-            :
-            <div className="communities-box"><h1 className="loader">Loading...</h1></div>
-          }
+          <div className="communities-box">
+          {this.props.usersCommunities.data.map((com, index) =>
+            <Door key={index} com={com} isMember/>)}
+          </div>
       </div>
     );
   }

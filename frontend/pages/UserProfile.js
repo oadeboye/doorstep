@@ -65,14 +65,15 @@ const UserProfile = ({ user, pending, saveUserEdits }) => {
           </div>
         </div>
       </div>
-      <CommunitiesList user={user}/>
+      {
+        ready ? <CommunitiesList /> : <h1 className="loader">Loading...</h1>
+      }
       <Footer />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  console.log("USER HERE", state.user);
   return {
     user: state.user.user,
     pending: state.user.pending

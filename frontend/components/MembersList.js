@@ -4,14 +4,11 @@ import { Modal, Form, FormGroup, ControlLabel, FormControl, Button } from 'react
 import Autosuggest from 'react-autosuggest';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-<<<<<<< HEAD
 import { connect } from 'react-redux';
 import { getAllUsers } from '../actions/getAllUsers';
 import { addUser } from '../actions/addUser';
 import { getCommUsers } from '../actions/getCommUsers';
-=======
 import domain from '../domain';
->>>>>>> 7ac53d635769abf328907279f9576303fe3e3e93
 
 class MembersList extends React.Component {
   constructor(props) {

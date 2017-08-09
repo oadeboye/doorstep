@@ -8,6 +8,8 @@ import EditCommunityModal from '../components/modals/EditCommunityModal';
 import styles from '../assets/stylesheets/communityprofile.less';
 import { connect } from 'react-redux';
 import { getOneCommunity } from '../actions/getOneCommunity';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class CommunityProfile extends React.Component {
   constructor(props) {

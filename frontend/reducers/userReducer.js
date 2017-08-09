@@ -40,7 +40,7 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
     case 'LOGOUT_USER':
       const logoutState = {
         user: {},
-        pending: false
+        pending: true
       };
       return logoutState;
     case 'persist/REHYDRATE':

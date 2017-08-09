@@ -8,7 +8,7 @@ export function saveUser(username, password) {
       type: Types.saveUserRequested
     });
     const error = false;
-    axios.post(domain + '/api/auth/login', {
+    axios.post('/api/auth/login', {
       username: username,
       password: password
     })
