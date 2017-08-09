@@ -23,12 +23,6 @@ class MembersList extends React.Component {
   }
 
   componentDidMount() {
-    // axios.get('http://localhost:3000/api/users')
-    // .then((resp) => {
-    //   var usernames = resp.data.users.map((user) => user.username);
-    //   this.setState({usernames: usernames, users: resp.data.users});
-    // })
-    // .catch((err) => ('cannot get all users'));
     // ('MEMBERSLIST', this.props.commId);
     this.props.getCommUsersDispatch(this.props.commId);
     this.props.getAllUsersDispatch();
@@ -57,7 +51,8 @@ class MembersList extends React.Component {
     ('USER LIST', this.props.allUsers);
     // filters out users that are already in this community
     var allUsernames = this.props.allUsers.map(user => user.username);
-    var suggestions = _.difference(allUsernames, this.props.commUsers);
+    var commUsernames = this.props.commUsers.map(user => user.username);
+    var suggestions = _.difference(allUsernames, commUsernames);
     return inputLength === 0 ? [] : suggestions.filter(user =>
       user.slice(0, inputLength) === inputValue
     );
@@ -118,48 +113,45 @@ class MembersList extends React.Component {
       value,
       onChange: this.onValueChange.bind(this)
     };
-    // if (usernames) {
-      return (
-        <div className="members-list">
-          <button onClick={() => this.open()} className="add-members-button">Add members</button>
-          <h2>Members</h2>
-          <div className="members-box">
-            {
-              this.props.commUsers.pending ? <h1>Loading users...</h1> :
-            <div>
-              {
-                this.props.commUsers.commUsers.map((user, index) =>
-                <Member key={index} user={user}/>)
-              }
-            </div>
-            }
-          </div>
-          <Modal show={this.state.showModal} onHide={() => this.close()}>
-            <Modal.Header closeButton>
-              <Modal.Title>More neighbors! More fun!</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <FormGroup>
-                  <ControlLabel>Add members</ControlLabel>
-                  <Autosuggest
-                    ref={(input) => {this.input = input;}}
-                    suggestions={suggestions}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
-                    getSuggestionValue={this.getSuggestionValue.bind(this)}
-                    renderSuggestion={this.renderSuggestion.bind(this)}
-                    inputProps={inputProps}
-                  />
-                  <Button onClick={(e) => this.onAdd(e)}>Add</Button>
-                </FormGroup>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={() => this.close()}>Cancel</Button>
-            </Modal.Footer>
-          </Modal>
+    return (
+      <div className="members-list">
+        <button onClick={() => this.open()} className="add-members-button">Add members</button>
+        <h2>Members</h2>
+        {
+          this.props.pending ? <h1 className="loader">Loading users...</h1> :
+        <div className="members-box">
+          {
+            this.props.commUsers.map((user, index) =>
+            <Member key={index} user={user}/>)
+          }
         </div>
+        }
+        <Modal show={this.state.showModal} onHide={() => this.close()}>
+          <Modal.Header closeButton>
+            <Modal.Title>More neighbors! More fun!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <FormGroup>
+                <ControlLabel>Add members</ControlLabel>
+                <Autosuggest
+                  ref={(input) => {this.input = input;}}
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+                  onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
+                  getSuggestionValue={this.getSuggestionValue.bind(this)}
+                  renderSuggestion={this.renderSuggestion.bind(this)}
+                  inputProps={inputProps}
+                />
+                <Button onClick={(e) => this.onAdd(e)}>Add</Button>
+              </FormGroup>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => this.close()}>Cancel</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 }
@@ -170,14 +162,16 @@ MembersList.propTypes = {
   addUserDispatch: PropTypes.func,
   allUsers: PropTypes.array,
   getCommUsersDispatch: PropTypes.func,
-  commUsers: PropTypes.object
+  commUsers: PropTypes.object,
+  pending: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     allUsers: state.allUsers.users,
     commId: ownProps.commId,
-    commUsers: state.commUsers
+    commUsers: state.commUsers.commUsers,
+    pending: state.commUsers.pending
   };
 };
 

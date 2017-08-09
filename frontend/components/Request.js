@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Request extends React.Component {
   constructor(props) {
@@ -7,10 +8,14 @@ class Request extends React.Component {
   render() {
     return (
       <div className="request">
-        <div className="request-title">Cheese!</div>
+        <div className="request-title">{this.props.request.text}</div>
       </div>
     );
   }
 }
+
+Request.propTypes = {
+  request: PropTypes.string
+};
 
 export default Request;

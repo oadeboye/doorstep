@@ -26,5 +26,11 @@ export default {
   saveUserRejected: 'SAVE_USER_REJECTED',
   editUserRequested: 'EDIT_USER_REQUESTED',
   editUserFulfilled: 'EDIT_USER_FULFILLED',
-  editUserRejected: 'EDIT_USER_REJECTED'
+  editUserRejected: 'EDIT_USER_REJECTED',
+  getRequestsRequested: 'GET_REQUESTS_REQUESTED',
+  getRequestsFulfilled: 'GET_REQUESTS_FULFILLED',
+  getRequestsRejected: 'GET_REQUESTS_REJECTED',
+  postRequestRequested: 'POST_REQUEST_REQUESTED',
+  postRequestFulfilled: 'POST_REQUEST_FULFILLED',
+  postRequestRejected: 'POST_REQUEST_REJECTED'
 };
