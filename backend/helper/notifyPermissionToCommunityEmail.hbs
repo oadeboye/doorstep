@@ -37,7 +37,7 @@
           font-size: 28px;
           text-align: center;
           color: white;
-          background-color: #79C8CB;
+          background-color: #FFB55E;
           padding: 80px 0px 0px 20px;
           width: 100%;
         }
@@ -46,7 +46,7 @@
           text-align: center;
           font-size: 14px;
           padding: 7px 30px;
-          background-color: #FFB55E;
+          background-color: #EF4829;
           color: white;
           border: none;
           border-radius: 30px;
@@ -56,21 +56,21 @@
           text-decoration: none;
           color: white;
         }
+        button:hover {
+          background-color: #C4391F;
+        }
       </style>
   </head>
   <body>
     <div class="email-wrapper">
       <h1 class="title">Doorstep</h1>
       <div class="info-wrapper">
-        <p>Hello from Doorstep!</p>
-        <p>Someone wants to join a community you have made</p>
-        <h4>Who's asking to join?</h4>
-        <p>{{user.fName}} {{user.lName}}</p>
-        <h4>What's their email?</h4>
-        <p>{{user.email}}</p>
-        <h4>Community they want to join</h4>
-        <p>{{community.name}}</p>
-        <button><a class="accept-link" href={{link}}>Accept Request</a></button>
+        <h4>You've been added to the community, {{community.name}}!</h4>
+        <h4>Who's accepted you</h4>
+        <p>{{owner.fName}} {{owner.lName}}</p>
+        <h4>Say thanks</h4>
+        <p>{{owner.email}}</p>
+        <button><a class="accept-link" href={{link}}>Explore Marketplace Now</a></button>
       </div>
     </div>
   </body>
