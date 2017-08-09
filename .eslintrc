@@ -74,7 +74,7 @@
     "no-sparse-arrays": 2,           // http://eslint.org/docs/rules/no-sparse-arrays
     "no-unreachable": 2,             // http://eslint.org/docs/rules/no-unreachable
     "use-isnan": 2,                  // http://eslint.org/docs/rules/use-isnan
-    "block-scoped-var": 2,           // http://eslint.org/docs/rules/block-scoped-var
+    "block-scoped-var": 0,           // http://eslint.org/docs/rules/block-scoped-var
 
     /**
      * Best practices
@@ -111,7 +111,7 @@
     "no-return-assign": 2,           // http://eslint.org/docs/rules/no-return-assign
     "no-script-url": 2,              // at
     "no-self-compare": 2,            // http://eslint.org/docs/rules/no-self-compare
-    "no-sequences": 2,               // http://eslint.org/docs/rules/no-sequences
+    "no-sequences": 0,               // http://eslint.org/docs/rules/no-sequences
     "no-throw-literal": 2,           // http://eslint.org/docs/rules/no-throw-literal
     "no-with": 2,                    // http://eslint.org/docs/rules/no-with
     "radix": 2,                      // http://eslint.org/docs/rules/radix

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { getAllCommunities } from '../actions/getAllCommunities';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import CreateCommunityModal from '../components/CreateCommunityModal';
 
 class CommunitySearch extends React.Component {
   constructor(props) {
@@ -25,10 +26,10 @@ class CommunitySearch extends React.Component {
       <div className="communities-search-page">
         <Navbar />
         <div className="search-splash">
-          <div className="create-community-button">Create a community</div>
+          <div className="create-community-button"><CreateCommunityModal /></div>
           <h1 className="title">Join a community</h1>
         </div>
-        <SearchCommunitiesList communities={this.props.allCommunities.data}/>
+        <SearchCommunitiesList communities={this.props.allCommunities}/>
         <Footer />
       </div>
     );
@@ -37,12 +38,12 @@ class CommunitySearch extends React.Component {
 
 CommunitySearch.propTypes = {
   getAllCommunitiesDispatch: PropTypes.func,
-  allCommunities: PropTypes.object
+  allCommunities: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
   return {
-    allCommunities: state.allCommunities
+    allCommunities: state.allCommunities.communities
   };
 };
 const mapDispatchToProps = (dispatch) => {

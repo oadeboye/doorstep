@@ -1,25 +1,24 @@
 import Types from '../actions/actionTypes';
 
-const oneCommunityReducer = (state = {pending: false, community: {}}, action) => {
+const allUsersReducer = (state = {pending: true, users: []}, action) => {
   switch(action.type) {
-    case Types.getOneCommunityRequested:
-      // console.log('PENDING');
+    case Types.getAllUsersRequested:
       const pendingState = {
         pending: true,
-        community: []
+        users: []
       };
       return pendingState;
-    case Types.getOneCommunityFulfilled:
+    case Types.getAllUsersFulfilled:
       const fulfilledState = {
         pending: false,
-        community: Object.assign({}, action.community)
+        users: action.users
       };
-      // console.log('FULFILLED', fulfilledState);
+      // console.log('FULFILLED ALL USERS', fulfilledState);
       return fulfilledState;
-    case Types.getOneCommunityRejected:
+    case Types.getAllUsersRejected:
       const rejectedState = {
         pending: false,
-        error: action.error
+        users: action.error
       };
       // console.log('REJECTED', rejectedState);
       return rejectedState;
@@ -28,4 +27,4 @@ const oneCommunityReducer = (state = {pending: false, community: {}}, action) =>
   }
 };
 
-export default oneCommunityReducer;
+export default allUsersReducer;
