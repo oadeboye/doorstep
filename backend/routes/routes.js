@@ -132,7 +132,7 @@ router.post('/request', (req, res) => {
         community.requests = resultRequestArray;
         console.log("Request added to database");
         // Send back the community json object with the updated array
-        return res.json({ success: true, response: community });
+        return res.json({ success: true, community: community });
       })
       .catch((e) => {
         console.log(e);
