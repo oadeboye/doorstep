@@ -62,6 +62,38 @@ router.post('/user', (req, res) => {
   });
 });
 
+// POST remove member
+// Remove a member from a community
+// Req.body receives: communityId, userId
+router.post('/remove-user', (req, res) => {
+  Community.findById(req.body.communityId)
+  .then(community => {
+    const foundIndex = community.users.indexOf(req.body.userId);
+    console.log('userId', req.body.userId);
+    console.log('found index', foundIndex);
+    console.log('newUSers', community.users);
+    if (foundIndex !== -1) { // if user exists in the community
+      console.log('1');
+      const newUsers = [...community.users];
+      newUsers.splice(foundIndex, 1); // remove the user
+      community.update({ users: newUsers })
+      .then((result) => {
+        community.users = newUsers;
+        console.log('newUsers', community.users);
+        res.json({ success: true, community});
+      });
+    }
+    else {
+      console.log('2');
+      res.json({ success: false, failure: 'Cannot find user to remove'});
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.json({ success: false, failure: err});
+  });
+});
+
 // POST create new item
 // Update both commmunity and item sections of database
 // Req.body receives: name, imgURL, owner, communityId
