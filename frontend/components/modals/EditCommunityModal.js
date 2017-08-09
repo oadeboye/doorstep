@@ -71,7 +71,7 @@ class EditCommunityModal extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={() => this.openEdit()}>Edit Profile</div>
+        <div onClick={() => this.openEdit()}>Edit Community Profile</div>
         <Modal show={this.state.showEditModal} onHide={() => this.closeEdit()}>
           <Modal.Header closeButton>
             <Modal.Title>Edit {this.props.community.name} Community Profile!</Modal.Title>

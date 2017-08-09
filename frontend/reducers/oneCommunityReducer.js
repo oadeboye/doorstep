@@ -1,6 +1,6 @@
 import Types from '../actions/actionTypes';
 
-const oneCommunityReducer = (state = {pending: false, community: {}}, action) => {
+const oneCommunityReducer = (state = {pending: true, community: {}}, action) => {
   switch(action.type) {
     case Types.getOneCommunityRequested:
       // console.log('PENDING');
