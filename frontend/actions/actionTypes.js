@@ -5,7 +5,6 @@ export default {
   getOneCommunityRequested: 'GET_ONE_COMMUNITY_REQUESTED',
   getOneCommunityFulfilled: 'GET_ONE_COMMUNITY_FULFILLED',
   getOneCommunityRejected: 'GET_ONE_COMMUNITY_REJECTED',
-<<<<<<< HEAD
   getUsersCommunitiesRequested: 'GET_USERS_COMMUNITIES_REQUESTED',
   getUsersCommunitiesFulfilled: 'GET_USERS_COMMUNITIES_FULFILLED',
   getUsersCommunitiesRejected: 'GET_USERS_COMMUNITIES_REJECTED',
@@ -21,13 +20,11 @@ export default {
   getCommUsersRejected: 'GET_COMM_USERS_REJECTED',
   addUserRequested: 'ADD_USER_REQUESTED',
   addUserFulfilled: 'ADD_USER_FULFILLED',
-  addUserRejected: 'ADD_USER_REJECTED'
-=======
+  addUserRejected: 'ADD_USER_REJECTED',
   saveUserRequested: 'SAVE_USER_REQUESTED',
   saveUserFulfilled: 'SAVE_USER_FULFILLED',
   saveUserRejected: 'SAVE_USER_REJECTED',
   editUserRequested: 'EDIT_USER_REQUESTED',
   editUserFulfilled: 'EDIT_USER_FULFILLED',
   editUserRejected: 'EDIT_USER_REJECTED'
->>>>>>> 7ac53d635769abf328907279f9576303fe3e3e93
 };
