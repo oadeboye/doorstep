@@ -31,7 +31,7 @@ router.post('/send-email', (req, res) => {
   console.log("SENDING EMAIL");
   let message = {
     to: req.body.user.email,
-    subject: 'Nodemailer: access community',
+    subject: 'Doorstep!',
     html: htmlBody
   }
   transporter.sendMail(message, (error, info) => {
