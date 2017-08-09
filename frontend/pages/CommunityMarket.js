@@ -41,7 +41,7 @@ class CommunityMarket extends React.Component {
           <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
           <div className="give-item-button">Give an Item</div>
         </div>
-        <RequestsBar commId={this.state.id} handleRequest={this.updateRequests.bind(this)} requests={this.state.community.requests}/>
+        <RequestsBar commId={this.state.id}/>
         <Market community={this.state.community}/>
         <Footer />
       </div>
