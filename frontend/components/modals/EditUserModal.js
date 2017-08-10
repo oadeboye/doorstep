@@ -161,7 +161,7 @@ const mapDispatchToProps = ( dispatch ) => {
 
 EditUserModal.propTypes = {
   thisUser: PropTypes.object,
-  saveUserEdits: PropTypes.func,
+  editUser: PropTypes.func,
   onEdit: PropTypes.func
 };
 
