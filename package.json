@@ -55,6 +55,7 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
+    "twilio": "^3.6.1",
     "underscore": "^1.8.3",
     "webpack": "^2.3.3"
   },

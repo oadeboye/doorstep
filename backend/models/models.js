@@ -29,6 +29,9 @@ var userSchema = mongoose.Schema({
   },
   stats: {
     type: Array
+  },
+  phone: {
+    type: String
   }
 });
 
