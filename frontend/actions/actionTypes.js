@@ -29,5 +29,8 @@ export default {
   editUserRejected: 'EDIT_USER_REJECTED',
   addItemRequested: 'ADD_ITEM_REQUESTED',
   addItemFulfilled: 'ADD_ITEM_FULFILLED',
-  addItemRejected: 'ADD_ITEM_REJECTED'
+  addItemRejected: 'ADD_ITEM_REJECTED',
+  removeItemRequested: 'REMOVE_ITEM_REQUESTED',
+  removeItemFulfilled: 'REMOVE_ITEM_FULFILLED',
+  removeItemRejected: 'REMOVE_ITEM_REJECTED'
 };

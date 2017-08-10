@@ -104,6 +104,45 @@ router.post('/item', (req, res) => {
   });
 });
 
+// POST delete an item
+// Update both commmunity and item sections of database
+// Req.body receives: itemId, communityId
+router.post('/item-delete', ( req, res ) => {
+  Community.findById(req.body.communityId)
+  .then(foundCommunity => {
+    console.log("FOUND THE RIGHT COMMUNITY", foundCommunity.items);
+    let index = false;
+    for (var i = 0; i < foundCommunity.items.length; i++) {
+      console.log("HELLO HERE", typeof req.body.itemId);
+      if (req.body.itemId === JSON.parse(JSON.stringify(foundCommunity.items[i]))) {
+        index = i;
+        console.log("REMOVING THE ITEM OF INDEX", index);
+      } else {
+        console.log("SOMETHING'S WRONG", JSON.stringify(foundCommunity.items[i]));
+      }
+    }
+    if (index !== false) {
+      const itemCopy = foundCommunity.items;
+      itemCopy.splice(index, 1);
+      console.log("ITEM COPY HERE", itemCopy);
+      foundCommunity.update({ items: itemCopy })
+      .then((resp) => {
+        Item.findById(req.body.itemId)
+        .remove()
+        .then((result) => {
+          foundCommunity.items = itemCopy;
+          console.log("UPDATED ITEMS", foundCommunity.items);
+          return res.json({ success: true, response: foundCommunity });
+        });
+      });
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    return res.json({ success: false, failure: err });
+  });
+});
+
 // POST create new request
 // Create a new request within the community
 // update both the community and the request section of database
@@ -293,9 +332,9 @@ router.post('/edit-profile/:id', (req, res) => {
 // Retrieves community information from database,
 // feeds form for users to edit the community's profile
 router.get('/edit-community/:communityId', (req, res) => {
-  User.findById(req.params.communityId)
+  Community.findById(req.params.communityId)
   .then( community => {
-    res.json({success: true, community});
+    res.json({success: true, community: community });
   })
   .catch( err => {
     res.json({success: false, failure: err});

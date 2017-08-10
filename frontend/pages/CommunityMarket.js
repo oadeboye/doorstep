@@ -1,31 +1,20 @@
 import React from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RequestsBar from '../components/RequestsBar';
 import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/communitymarket.less';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import AddItemModal from '../components/modals/AddItemModal';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: this.props.match.params.communityId,
-      community: {}
-    };
-  }
-
-  componentDidMount() {
-    axios.get('http://localhost:3000/api/community/' + this.state.id)
-    .then((responseJson) => {
-      this.setState({community: responseJson.data});
-    })
-    .catch((err) => {
-      console.log("SOMETHING WENT WRONG IN MARKETPLACE", err);
-    });
   }
 
   updateRequests() {
@@ -37,20 +26,32 @@ class CommunityMarket extends React.Component {
       <div className="community-market-page">
         <Navbar />
         <div className="market-splash">
-          <h1 className="market-title">{this.state.community.name || 'Community Market'}</h1>
-          <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
-          <div className="give-item-button">Give an Item</div>
+          <h1 className="market-title">{this.props.community.name || 'Community Market'}</h1>
+          <Link to={'/community/profile/' + this.props.community._id}><div className="view-community-button">View Profile</div></Link>
+          <div className="give-item-button">
+            { this.props.pending ? <p>Give an Item</p> : <AddItemModal />}
+            </div>
         </div>
-        <RequestsBar commId={this.state.id} handleRequest={this.updateRequests.bind(this)} requests={this.state.community.requests}/>
-        <Market community={this.state.community}/>
+        {/* <RequestsBar commId={this.state.id} handleRequest={this.updateRequests.bind(this)} requests={this.state.community.requests}/> */}
+        <Market />
         <Footer />
       </div>
     );
   }
 }
 
-CommunityMarket.propTypes = {
-  match: PropTypes.object
+const mapStateToProps = ( state ) => {
+  return {
+    community: state.currentComm.community,
+    pending: state.currentComm.pending
+  };
 };
 
-export default CommunityMarket;
+CommunityMarket.propTypes = {
+  community: PropTypes.object,
+  pending: PropTypes.bool
+};
+
+export default connect(
+  mapStateToProps
+)(CommunityMarket);

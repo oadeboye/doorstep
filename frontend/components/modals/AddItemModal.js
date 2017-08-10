@@ -11,8 +11,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addItem } from '../../actions/addItem';
 
-class CreateCommunityModal extends React.Component {
+class AddItemModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +23,7 @@ class CreateCommunityModal extends React.Component {
     };
   }
 
-  onCreateItem(e) {
+  open(e) {
     e.preventDefault();
     this.setState({showModal: true});
   }
@@ -36,31 +37,30 @@ class CreateCommunityModal extends React.Component {
   }
 
   onImgUrlChange(e) {
-    this.setState({imageURL: e.target.value});
+    this.setState({imgURL: e.target.value});
   }
 
-  onCreate(e) {
+  onCreate(e, itemName, imgURL) {
     e.preventDefault();
-    this.props);
+    const itemObj = {
+      name: this.state.itemName,
+      imgURL: this.state.imgURL,
+      owner: this.props.user._id,
+      communityId: this.props.community._id
+    };
+    this.props.addItem(itemObj);
     this.close();
   }
 
-  navigateToCommunityProfile() {
-    console.log("CLEARING");
-    this.props.();
-  }
+  // navigateToCommunityProfile() {
+  //   console.log("CLEARING");
+  //   this.props.addItem();
+  // }
 
   render() {
     return (
       <div>
-        {
-          this.props.createCommunityStatus.success &&
-           <Modal show>
-            <Modal.Title>Community Created</Modal.Title>
-            <Link to={'/community/profile/' + this.props.createCommunityStatus.data._id}><Button onClick={() => this.navigateToCommunityProfile()}>Go to page</Button></Link>
-           </Modal>
-        }
-        <button onClick={(e) => this.onCreateItem(e)} className="add-community-button">Create a community</button>
+        <div onClick={(e) => this.open(e)} className="add-community-button">Give an item!</div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Add a new item!</Modal.Title>
@@ -76,17 +76,17 @@ class CreateCommunityModal extends React.Component {
                 />
               </FormGroup>
               <FormGroup>
-                <ControlLabel>Community description</ControlLabel>
+                <ControlLabel>Image URL</ControlLabel>
                 <FormControl
                   type="text"
-                  placeholder="Enter description"
+                  placeholder="Enter a url for the image"
                   onChange={(e) => this.onImgUrlChange(e)}
                 />
               </FormGroup>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onCreate(e)}>Create a new community</Button>
+            <Button onClick={(e, itemName, imgURL) => this.onCreate(e, itemName, imgURL)}>Add Item to the community</Button>
             <Button onClick={() => this.close()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
@@ -95,22 +95,27 @@ class CreateCommunityModal extends React.Component {
   }
 }
 
-CreateCommunityModal.propTypes = {
+AddItemModal.propTypes = {
   user: PropTypes.object,
+  addItem: PropTypes.func,
+  community: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.user.user,
+    community: state.currentComm.community
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    addItem: (itemObj) => {
+      dispatch(addItem(itemObj));
+    }
   };
 };
 
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(CreateCommunityModal);
+)(AddItemModal);

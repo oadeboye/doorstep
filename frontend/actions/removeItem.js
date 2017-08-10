@@ -1,23 +1,23 @@
 import Types from './actionTypes';
 import axios from 'axios';
 
-export function addItem(itemObj) {
+export function removeItem(itemObj) {
   return dispatch => {
     dispatch({
-      type: Types.addItemRequested
+      type: Types.removeItemRequested
     });
     const error = false;
-    axios.post('/api/item', itemObj)
+    axios.post('/api/item-delete', itemObj)
     .then((respJson) => {
       const community = respJson.data.response;
       dispatch({
-        type: Types.addItemFulfilled,
+        type: Types.removeItemFulfilled,
         community: community
       });
     })
     .catch((err) => {
       dispatch({
-        type: Types.addItemRejected,
+        type: Types.removeItemRejected,
         error: err
       });
     });
