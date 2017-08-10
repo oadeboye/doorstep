@@ -22,7 +22,7 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
         error: action.error
       };
       // console.log('REJECTED', rejectedState);
-      return rejectedState;
+      return getRejectedState;
     case Types.addItemRequested:
       const pendingItem = {
         pending: true,
@@ -30,7 +30,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
       };
       return pendingItem;
     case Types.addItemFulfilled:
-      console.log("FULFILLED ON ADD ITEM");
       const addItem = {
         pending: false,
         community: action.community
@@ -40,7 +39,8 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
       console.log("REJECTED ON ADD ITEM");
       const rejectedItem = {
         pending: false,
-        community: Object.assign({}, state.community)
+        community: Object.assign({}, state.community),
+        error: action.error
       };
       return rejectedItem;
     case Types.removeItemRequested:
@@ -50,7 +50,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
       };
       return pendingRemoveItem;
     case Types.removeItemFulfilled:
-      console.log("FULFILLED ON REMOVE ITEM");
       const removeItem = {
         pending: false,
         community: action.community
@@ -60,11 +59,10 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
       console.log("REJECTED ON REMOVE ITEM");
       const rejectedRemoveItem = {
         pending: false,
-        community: Object.assign({}, state.community)
+        community: Object.assign({}, state.community),
+        error: action.error
       };
       return rejectedRemoveItem;
-      console.log('REJECTED', getRejectedState);
-      return getRejectedState;
     case Types.editCommunityRequested:
       const editPendingState = {
         pending: true,
@@ -76,7 +74,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
         pending: false,
         community: action.community
       };
-      console.log('FULFILLED EDIT', editFulfilledState);
       return editFulfilledState;
     case Types.editCommunityRejected:
       const editRejectedState = {

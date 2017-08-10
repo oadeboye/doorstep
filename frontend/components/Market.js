@@ -13,7 +13,7 @@ class Market extends React.Component {
       <div className="market">
         <div className="item-list">
           { areThereItems ? this.props.community.items.map((item, index) =>
-            <Item key={index} item={item}/>
+            <Item key={index} item={item} pending={this.props.pending} index={index}/>
           ) :
           <p>No Items :(</p>
         }

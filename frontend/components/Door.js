@@ -20,13 +20,11 @@ class Door extends React.Component {
       if (response.data.success) {
         console.log("SUCCESS FRONT END SENDING MAIL");
         alert('Email successfully sent!');
-
-      }
-      else {
+      } else {
         console.log("FAILURE FRONT END SENDING MAIL", response.data.error);
         alert('Email failed to send!');
       }
-    })
+    });
   }
   render() {
     const profileUrl = '/community/profile/' + this.props.com._id;

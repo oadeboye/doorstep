@@ -25,13 +25,13 @@ class RemoveItemModal extends React.Component {
     };
   }
 
-  closeEdit() {
+  close() {
     this.setState({
       showEditModal: false,
     });
   }
 
-  openEdit(e) {
+  open(e) {
     e.preventDefault();
     this.setState({ showEditModal: true });
   }
@@ -42,27 +42,26 @@ class RemoveItemModal extends React.Component {
       itemId: this.props.item._id,
       communityId: this.props.communityId,
     };
-    console.log("REMOVING", this.props.item);
     this.props.removeItem(removeObj);
-    this.closeEdit();
+    this.close();
   }
 
   render() {
     return (
       <div>
-        <div onClick={(e) => this.openEdit(e)}><Glyphicon glyph="remove"/></div>
-        <Modal show={this.state.showEditModal} onHide={() => this.closeEdit()}>
+        <div onClick={(e) => this.open(e)}><Glyphicon glyph="remove"/></div>
+        <Modal show={this.state.showEditModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Remove an item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div>
-              Would you like to remove {this.props.item.name} from the community?
+              Would you like to remove {this.props.item.name} from the community doorstep?
             </div>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={(e) => this.onRemove(e)}>Yes, please!</Button>
-            <Button onClick={() => this.closeEdit()}>No! Cancel.</Button>
+            <Button onClick={() => this.close()}>No! Cancel.</Button>
           </Modal.Footer>
         </Modal>
       </div>

@@ -32,7 +32,7 @@ export default {
   addItemRejected: 'ADD_ITEM_REJECTED',
   removeItemRequested: 'REMOVE_ITEM_REQUESTED',
   removeItemFulfilled: 'REMOVE_ITEM_FULFILLED',
-  removeItemRejected: 'REMOVE_ITEM_REJECTED'
+  removeItemRejected: 'REMOVE_ITEM_REJECTED',
   getRequestsRequested: 'GET_REQUESTS_REQUESTED',
   getRequestsFulfilled: 'GET_REQUESTS_FULFILLED',
   getRequestsRejected: 'GET_REQUESTS_REJECTED',

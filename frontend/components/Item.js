@@ -7,13 +7,9 @@ import { connect } from 'react-redux';
 class Item extends React.Component {
   constructor(props) {
     super(props);
-    // console.log("VERIFY ONE",  this.props.item.owner._id);
-    // console.log("VERIFY TWO",  this.props.owner);
-    // console.log("VERIFY THREE", this.props.owner === this.props.item.owner._id);
   }
   render() {
-    const verify = !this.props.pending && this.props.item && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
-    console.log("VERIFY HERE", verify);
+    const verify = !this.props.pending && this.props.item.owner && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
     return (
       <div className="item">
         <div className="img-wrapper">
@@ -39,13 +35,15 @@ Item.propTypes = {
   item: PropTypes.object,
   owner: PropTypes.string,
   pending: PropTypes.bool,
+  index: PropTypes.number
 };
 
 const mapStateToProps = ( state, ownProps ) => {
   return {
     owner: state.user.user._id,
-    pending: state.currentComm.pending,
-    item: ownProps.item
+    pending: ownProps.pending,
+    item: ownProps.item,
+    index: ownProps.index
   };
 };
 

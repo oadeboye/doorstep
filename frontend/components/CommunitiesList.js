@@ -43,7 +43,8 @@ class CommunitiesList extends React.Component {
 
 CommunitiesList.propTypes = {
   user: PropTypes.object,
-  usersCommunities: PropTypes.object
+  usersCommunities: PropTypes.object,
+  getUsersCommunitiesDispatch: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
