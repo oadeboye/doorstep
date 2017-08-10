@@ -5,6 +5,8 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import domain from '../domain';
+import { getRequests } from '../actions/getRequests';
+import { postRequest } from '../actions/postRequest';
 
 class RequestsBar extends React.Component {
   constructor(props) {
@@ -17,9 +19,9 @@ class RequestsBar extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({requests: props.requests});
-    console.log('PROPS', props.requests);
+  componentDidMount() {
+    this.props.getRequestsDispatch(this.props.communityId);
+    console.log('REQUESTS', this.props.requests);
   }
 
   open() {
@@ -36,22 +38,24 @@ class RequestsBar extends React.Component {
 
   onRequest(e) {
     e.preventDefault();
-    console.log('REQUESTING ITEM');
-    console.log('HISTORy', this.props.commId);
-    axios.post(domain + '/api/request/', {
-      requester: this.props.user._id,
-      text: this.state.request,
-      datePosted: new Date(),
-      communityId: this.props.commId
-    })
-    .then((resp) => {
-      console.log('posting a request', resp);
-      this.props.handleRequest();
-      this.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    this.props.postRequestDispatch(this.props.user, this.props.communityId, this.state.request);
+    this.close();
+    // console.log('REQUESTING ITEM');
+    // console.log('HISTORy', this.props.commId);
+    // axios.post(domain + '/api/request/', {
+    //   requester: this.props.user._id,
+    //   text: this.state.request,
+    //   datePosted: new Date(),
+    //   communityId: this.props.commId
+    // })
+    // .then((resp) => {
+    //   console.log('posting a request', resp);
+    //   this.props.handleRequest();
+    //   this.close();
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   }
 
   render() {
@@ -63,7 +67,7 @@ class RequestsBar extends React.Component {
         <Request />
         <Request />
         <Request /> */}
-        {this.state.requests.map((request, index) => <Request key={index} />)}
+        {this.props.requests.map((request, index) => <Request key={index} request={request}/>)}
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Make a request</Modal.Title>
@@ -91,18 +95,29 @@ class RequestsBar extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user
-  };
-};
-
 RequestsBar.propTypes = {
   user: PropTypes.object,
   requests: PropTypes.array,
-  handleRequest: PropTypes.func
+  communityId: PropTypes.string,
+  getRequestsDispatch: PropTypes.func,
+  postRequestDispatch: PropTypes.func
+};
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.user.user,
+    requests: state.requests.requests,
+    communityId: ownProps.commId
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRequestsDispatch: (communityId) => dispatch(getRequests(communityId)),
+    postRequestDispatch: (requester, communityId, text) => dispatch(postRequest(requester, communityId, text))
+  };
 };
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(RequestsBar);

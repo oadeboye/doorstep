@@ -33,4 +33,16 @@ export default {
   removeItemRequested: 'REMOVE_ITEM_REQUESTED',
   removeItemFulfilled: 'REMOVE_ITEM_FULFILLED',
   removeItemRejected: 'REMOVE_ITEM_REJECTED'
+  getRequestsRequested: 'GET_REQUESTS_REQUESTED',
+  getRequestsFulfilled: 'GET_REQUESTS_FULFILLED',
+  getRequestsRejected: 'GET_REQUESTS_REJECTED',
+  postRequestRequested: 'POST_REQUEST_REQUESTED',
+  postRequestFulfilled: 'POST_REQUEST_FULFILLED',
+  postRequestRejected: 'POST_REQUEST_REJECTED',
+  editCommunityRequested: 'EDIT_COMMUNITY_REQUESTED',
+  editCommunityFulfilled: 'EDIT_COMMUNITY_FULFILLED',
+  editCommunityRejected: 'EDIT_COMMUNITY_REJECTED',
+  removeMemberRequested: 'REMOVE_MEMBER_REQUESTED',
+  removeMemberFulfilled: 'REMOVE_MEMBER_FULFILLED',
+  removeMemberRejected: 'REMOVE_MEMBER_REJECTED'
 };

@@ -14,14 +14,14 @@ export function getCommUsers(commId) {
       // console.log('DISPATCHED USERS', users);
       return dispatch({
         type: Types.getCommUsersFulfilled,
-        commUsers: commUsers
+        commUsers
       });
     })
     .catch(error => {
       // console.log('ERROR HERE', error);
       return dispatch({
         type: Types.getCommUsersRejected,
-        error: error
+        error
       });
     });
   };

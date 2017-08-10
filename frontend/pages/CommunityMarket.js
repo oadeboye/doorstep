@@ -32,7 +32,7 @@ class CommunityMarket extends React.Component {
             { this.props.pending ? <p>Give an Item</p> : <AddItemModal />}
             </div>
         </div>
-        {/* <RequestsBar commId={this.state.id} handleRequest={this.updateRequests.bind(this)} requests={this.state.community.requests}/> */}
+        <RequestsBar commId={this.state.id}/>
         <Market />
         <Footer />
       </div>

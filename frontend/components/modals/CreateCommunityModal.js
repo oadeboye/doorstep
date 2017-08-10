@@ -92,14 +92,6 @@ class CreateCommunityModal extends React.Component {
                   placeholder="Enter description"
                   onChange={(e) => this.onCommunityDescriptionChange(e)}
                 />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Members</ControlLabel>
-                <FormControl
-                  type="text"
-                  placeholder="Enter a username"
-                  onChange={(e) => this.onAddMembersChange(e)}
-                />
                 <Button componentClass={ControlLabel}>
                   Add more members
                 </Button>
