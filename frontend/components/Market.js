@@ -14,7 +14,7 @@ class Market extends React.Component {
           { areThereItems ? this.props.community.items.map((item, index) =>
             <Item key={index} item={item}/>
           ) :
-          <p>No Items :(</p>
+          <p className="empty-list">No Items :(</p>
         }
         </div>
       </div>

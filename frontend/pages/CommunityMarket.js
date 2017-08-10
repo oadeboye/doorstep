@@ -8,6 +8,8 @@ import styles from '../assets/stylesheets/communitymarket.less';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getOneCommunity } from '../actions/getOneCommunity';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
@@ -19,13 +21,7 @@ class CommunityMarket extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/community/' + this.state.id)
-    .then((responseJson) => {
-      this.setState({community: responseJson.data});
-    })
-    .catch((err) => {
-      console.log("SOMETHING WENT WRONG IN MARKETPLACE", err);
-    });
+    this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
   updateRequests() {
@@ -37,7 +33,13 @@ class CommunityMarket extends React.Component {
       <div className="community-market-page">
         <Navbar />
         <div className="market-splash">
-          <h1 className="market-title">{this.state.community.name || 'Community Market'}</h1>
+          <div className="titles-wrapper">
+          {
+            this.props.currentComm.pending ? <h1></h1> :
+            <h1 className="community-title">{this.props.currentComm.community.name}</h1>
+          }
+            <h3 className="title">MARKET</h3>
+          </div>
           <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
           <div className="give-item-button">Give an Item</div>
         </div>
@@ -50,7 +52,21 @@ class CommunityMarket extends React.Component {
 }
 
 CommunityMarket.propTypes = {
-  match: PropTypes.object
+  match: PropTypes.object,
+  currentComm: PropTypes.object,
+  getOneCommunity: PropTypes.func
 };
 
-export default CommunityMarket;
+const mapStateToProps = (state) => {
+  return {
+    currentComm: state.currentComm
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getOneCommunity: (communityId) => dispatch(getOneCommunity(communityId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommunityMarket);

@@ -69,14 +69,12 @@ const auth = (passport) => {
   router.post('/login', passport.authenticate('local'), (req, res) => {
     User.findById(req.session.passport.user)
     .then((user) => {
-      console.log("JUST LOGGED IN YO!");
       res.json({
         success: true,
         user
       });
     })
     .catch((err) => {
-      console.log("ERROR LOGGING IN", err);
       res.json({ success: false, error: err });
     });
     // const redirectUrl = '/profile/' + req.session.passport.user ;

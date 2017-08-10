@@ -30,7 +30,7 @@ class Door extends React.Component {
     })
   }
   render() {
-    const profileUrl = '/community/profile/' + this.props.com._id;
+    const profileUrl = '/community/' + this.props.com._id;
     return (
       <div className="door">
         <div className="door-inner"></div>
@@ -61,12 +61,6 @@ const mapStateToProps = (state, ownProps) => {
     com: ownProps.com
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getUsersCommunitiesDispatch: (userId) => dispatch(getUsersCommunities(userId))
-//   };
-// };
 
 export default connect(
   mapStateToProps
