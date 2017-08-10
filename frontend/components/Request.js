@@ -15,7 +15,7 @@ class Request extends React.Component {
 }
 
 Request.propTypes = {
-  request: PropTypes.string
+  request: PropTypes.object
 };
 
 export default Request;

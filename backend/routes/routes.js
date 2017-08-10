@@ -87,8 +87,7 @@ router.post('/remove-user', (req, res) => {
         console.log('newUsers', community.users);
         res.json({ success: true, community});
       });
-    }
-    else {
+    } else {
       console.log('2');
       res.json({ success: false, failure: 'Cannot find user to remove'});
     }
@@ -119,7 +118,8 @@ router.post('/item', (req, res) => {
       const resultItemsArray = [...community.items];
       resultItemsArray.push(item._id);
       // Push the item id into the community items array then update in database
-      community.update({ items: resultItemsArray })
+      community
+      .update({ items: resultItemsArray })
       .then(result => {
         community.items = resultItemsArray;
         User.findById(req.body.owner)
@@ -127,14 +127,51 @@ router.post('/item', (req, res) => {
           user.stats[0] = user.stats[0] + 1;
           user.save()
           .then(() => {
+            console.log("COMMUNITY ADD ITEM");
             // Send back the community json object with the updated array
-            return res.json({ success: true, response: community });
+            return res.json({ success: true });
           });
         });
       });
     });
   })
   .catch(err => {
+    console.log(err);
+    return res.json({ success: false, failure: err });
+  });
+});
+
+// POST delete an item
+// Update both commmunity and item sections of database
+// Req.body receives: itemId, communityId
+router.post('/item-delete', ( req, res ) => {
+  Community.findById(req.body.communityId)
+  .then(foundCommunity => {
+    let index = false;
+    for (var i = 0; i < foundCommunity.items.length; i++) {
+      if (req.body.itemId === JSON.parse(JSON.stringify(foundCommunity.items[i]))) {
+        index = i;
+        console.log("REMOVING THE ITEM OF INDEX", index);
+      } else {
+        console.log("NOPE", JSON.stringify(foundCommunity.items[i]));
+      }
+    }
+    if (index !== false) {
+      const itemCopy = foundCommunity.items;
+      itemCopy.splice(index, 1);
+      foundCommunity
+      .update({ items: itemCopy })
+      .then((resp) => {
+        foundCommunity.items = itemCopy;
+        Item.findById(req.body.itemId)
+        .remove()
+        .then((result) => {
+          return res.json({ success: true });
+        });
+      });
+    }
+  })
+  .catch((err) => {
     console.log(err);
     return res.json({ success: false, failure: err });
   });
@@ -277,6 +314,7 @@ router.get('/community/:communityId', (req, res) => {
     .then((result) => {
       Request.populate(community.requests, {path: 'owner'})
       .then((result) => {
+        console.log("SENDING COMMUNITY TO FRONTEND");
         return res.json({success: true, community: community});
       });
     });
@@ -324,9 +362,9 @@ router.post('/edit-profile/:id', (req, res) => {
 // Retrieves community information from database,
 // feeds form for users to edit the community's profile
 router.get('/edit-community/:communityId', (req, res) => {
-  User.findById(req.params.communityId)
+  Community.findById(req.params.communityId)
   .then( community => {
-    res.json({success: true, community});
+    res.json({success: true, community: community });
   })
   .catch( err => {
     res.json({success: false, failure: err});

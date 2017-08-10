@@ -26,7 +26,7 @@ const postCreateCommunityReducer = (state = {pending: true, data: []}, action) =
       const resetState = {
         pending: true,
         data: []
-      }
+      };
       return resetState;
     default:
       return state;
