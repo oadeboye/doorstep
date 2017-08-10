@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 class Item extends React.Component {
   constructor(props) {
     super(props);
-    console.log("VERIFY ONE",  this.props.item.owner._id);
-    console.log("VERIFY TWO",  this.props.owner);
-    console.log("VERIFY THREE", this.props.owner === this.props.item.owner._id);
+    // console.log("VERIFY ONE",  this.props.item.owner._id);
+    // console.log("VERIFY TWO",  this.props.owner);
+    // console.log("VERIFY THREE", this.props.owner === this.props.item.owner._id);
   }
   render() {
-    const verify = this.props.item && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id))) && !this.props.pending;
+    const verify = !this.props.pending && this.props.item && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
     console.log("VERIFY HERE", verify);
     return (
       <div className="item">
