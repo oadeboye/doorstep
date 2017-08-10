@@ -70,7 +70,7 @@ class CreateCommunityModal extends React.Component {
             <Link to={'/community/profile/' + this.props.createCommunityStatus.data._id}><Button onClick={() => this.navigateToCommunityProfile()}>Go to page</Button></Link>
            </Modal>
         }
-        <div onClick={(e) => this.onCreateCommunity(e)}>Create a community</div>
+        <button className="create-community-button" onClick={(e) => this.onCreateCommunity(e)}>Create a community</button>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Create a new community!</Modal.Title>
@@ -92,17 +92,6 @@ class CreateCommunityModal extends React.Component {
                   placeholder="Enter description"
                   onChange={(e) => this.onCommunityDescriptionChange(e)}
                 />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Members</ControlLabel>
-                <FormControl
-                  type="text"
-                  placeholder="Enter a username"
-                  onChange={(e) => this.onAddMembersChange(e)}
-                />
-                <Button componentClass={ControlLabel}>
-                  Add more members
-                </Button>
               </FormGroup>
             </Form>
           </Modal.Body>
