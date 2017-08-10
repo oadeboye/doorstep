@@ -1,4 +1,9 @@
 import React from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RequestsBar from '../components/RequestsBar';
@@ -10,18 +15,14 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOneCommunity } from '../actions/getOneCommunity';
+import AddItemModal from '../components/modals/AddItemModal';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      id: this.props.match.params.communityId,
-      community: {}
-    };
   }
 
   componentDidMount() {
-    this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
   updateRequests() {
@@ -35,16 +36,18 @@ class CommunityMarket extends React.Component {
         <div className="market-splash">
           <div className="titles-wrapper">
           {
-            this.props.currentComm.pending ? <h1></h1> :
-            <h1 className="community-title">{this.props.currentComm.community.name}</h1>
+            this.props.pending ? <h1></h1> :
+            <h1 className="community-title">{this.props.community.name}</h1>
           }
             <h3 className="title">MARKET</h3>
           </div>
           <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
-          <div className="give-item-button">Give an Item</div>
+          <div className="give-item-button">
+            { this.props.pending ? <p>Give an Item</p> : <AddItemModal />}
+          </div>
         </div>
-        <RequestsBar commId={this.state.id}/>
-        <Market community={this.state.community}/>
+        <RequestsBar commId={this.props.community._id}/>
+        <Market />
         <Footer />
       </div>
     );
@@ -52,21 +55,17 @@ class CommunityMarket extends React.Component {
 }
 
 CommunityMarket.propTypes = {
-  match: PropTypes.object,
-  currentComm: PropTypes.object,
-  getOneCommunity: PropTypes.func
+  community: PropTypes.object,
+  pending: PropTypes.bool
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ( state ) => {
   return {
-    currentComm: state.currentComm
+    community: state.currentComm.community,
+    pending: state.currentComm.pending
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getOneCommunity: (communityId) => dispatch(getOneCommunity(communityId))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommunityMarket);
+export default connect(
+  mapStateToProps
+)(CommunityMarket);

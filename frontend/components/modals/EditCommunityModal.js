@@ -12,6 +12,8 @@ import { Modal,
          Input } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { editCommunity } from '../../actions/editCommunity';
 
 class EditCommunityModal extends React.Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class EditCommunityModal extends React.Component {
     this.state = {
       showEditModal: false,
       name: this.props.community.name,
-      description: this.props.community.description,
+      description: this.props.community.description
     };
   }
 
@@ -45,12 +47,14 @@ class EditCommunityModal extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const editCommunityObj = {
-      name: this.state.name,
-      description: this.state.description,
-    };
-    console.log("EDITING HERE");
-    this.props.onCommunityEdit(editCommunityObj);
+    // const editCommunityObj = {
+    //   name: this.state.name,
+    //   description: this.state.description,
+    // };
+    // console.log("EDITING HERE");
+    // this.props.onCommunityEdit(editCommunityObj);
+    console.log('ON SUBMIT');
+    this.props.editCommunityDispatch(this.state.name, this.state.description, this.props.community._id);
     this.closeEdit();
   }
 
@@ -71,7 +75,7 @@ class EditCommunityModal extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={() => this.openEdit()}>Edit Community Profile</div>
+        <button className="edit-profile-button" onClick={() => this.openEdit()}>Edit Community Profile</button>
         <Modal show={this.state.showEditModal} onHide={() => this.closeEdit()}>
           <Modal.Header closeButton>
             <Modal.Title>Edit {this.props.community.name} Community Profile</Modal.Title>
@@ -115,8 +119,22 @@ class EditCommunityModal extends React.Component {
 }
 
 EditCommunityModal.propTypes = {
+  currentComm: PropTypes.object,
   community: PropTypes.object,
-  onCommunityEdit: PropTypes.func
+  editCommunityDispatch: PropTypes.func
 };
 
-export default EditCommunityModal;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    currentComm: state.currentComm.community,
+    community: ownProps.community
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editCommunityDispatch: (name, description, communityId) => dispatch(editCommunity(name, description, communityId))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditCommunityModal);

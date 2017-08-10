@@ -38,7 +38,8 @@ class Welcome extends React.Component {
       helpBlock: '',
       loginFailure: '',
       registerFailure: '',
-      usernames: []
+      usernames: [],
+      phone: ''
     };
   }
 
@@ -130,14 +131,20 @@ class Welcome extends React.Component {
     this.setState({lName: e.target.value});
   }
 
+  onPhoneChange(e) {
+    this.setState({phone: e.target.value});
+  }
+
   onRegister(e) {
     e.preventDefault();
+    var phone = (this.state.phone.startsWith('+1') ? this.state.phone : '+1' + this.state.phone);
     axios.post('http://localhost:3000/api/auth/register', {
       fName: this.state.fName,
       lName: this.state.lName,
       username: this.state.usernameReg,
       password: this.state.passwordReg,
-      email: this.state.email
+      email: this.state.email,
+      phone
     })
     .then((resp) => {
       if (resp.data.success) {
@@ -185,6 +192,13 @@ class Welcome extends React.Component {
       return 'success';
     }
     return "warning";
+  }
+
+  validatePhone() {
+    if (this.state.phone.length >= 10) {
+      return 'success';
+    }
+    return 'warning';
   }
 
    // checks with database to see if username already exists
@@ -354,6 +368,18 @@ class Welcome extends React.Component {
                 />
                 <FormControl.Feedback />
                 <HelpBlock>Must match your password</HelpBlock>
+              </FormGroup>
+              <FormGroup
+                controlId="phone"
+                validationState={this.validatePhone()}>
+                <ControlLabel>Phone number</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="2035556666"
+                  onChange={(e) => this.onPhoneChange(e)}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Phone number must contain 10 digits (optional)</HelpBlock>
               </FormGroup>
             </form>
           </Modal.Body>

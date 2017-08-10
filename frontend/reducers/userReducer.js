@@ -41,7 +41,7 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
       };
       return logoutState;
     case 'persist/REHYDRATE':
-      console.log("PERSISTING USER", action.payload.user)
+      console.log("PERSISTING USER", action.payload.user);
       const persistentState = {
         user: action.payload.user.user,
         pending: false

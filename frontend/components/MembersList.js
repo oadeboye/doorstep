@@ -104,7 +104,7 @@ class MembersList extends React.Component {
   }
 
   render() {
-    // ('ALL USERS', this.props.allUsers);
+    // console.log('comm id', this.props.commId);
     const value = this.state.value;
     const usernames = this.state.usernames;
     const suggestions = this.state.suggestions;
@@ -122,7 +122,7 @@ class MembersList extends React.Component {
         <div className="members-box">
           {
             this.props.commUsers.map((user, index) =>
-            <Member key={index} user={user}/>)
+            <Member communityId={this.props.commId} key={index} user={user}/>)
           }
         </div>
         }

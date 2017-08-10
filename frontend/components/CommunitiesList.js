@@ -28,9 +28,7 @@ class CommunitiesList extends React.Component {
   render() {
     return (
       <div className="communities-list">
-        <div className="create-community-button">
-          <CreateCommunityModal />
-        </div>
+        <CreateCommunityModal />
         <h2>Communities</h2>
           <div className="communities-box">
           {this.props.usersCommunities.data.map((com, index) =>
@@ -43,7 +41,8 @@ class CommunitiesList extends React.Component {
 
 CommunitiesList.propTypes = {
   user: PropTypes.object,
-  usersCommunities: PropTypes.object
+  usersCommunities: PropTypes.object,
+  getUsersCommunitiesDispatch: PropTypes.func
 };
 
 const mapStateToProps = (state) => {

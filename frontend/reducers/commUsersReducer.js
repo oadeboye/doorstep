@@ -47,6 +47,26 @@ const commUsersReducer = (state = {pending: true, commUsers: []}, action) => {
       };
       // console.log('REJECTED ADDING USER', addRejectedState);
       return addRejectedState;
+    case Types.removeMemberRequested:
+      const removePendingState = {
+        pending: true,
+        commUsers: []
+      };
+      return removePendingState;
+    case Types.removeMemberFulfilled:
+      const removeFulfilledState = {
+        pending: false,
+        commUsers: action.commUsers
+      };
+      console.log('FULFILLED remove', removeFulfilledState);
+      return removeFulfilledState;
+    case Types.removeMemberRejected:
+      const removeRejectedState = {
+        pending: false,
+        error: action.error
+      };
+      console.log('REJECTED REMOVE', removeRejectedState);
+      return removeRejectedState;
     default:
       return state;
   }

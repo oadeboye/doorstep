@@ -33,6 +33,8 @@ class RequestsBar extends React.Component {
   }
 
   onRequestChange(e) {
+    var maxWords = 5 - e.target.value.split(" ");
+    console.log('maxWords');
     this.setState({request: e.target.value});
   }
 

@@ -7,6 +7,11 @@ const Community = models.Community;
 const Item = models.Item;
 const Request = models.Request;
 const router = express.Router();
+// var accountSid = process.env.TWILIO_SID; // Your Account SID from www.twilio.com/console
+// var authToken = process.env.TWILIO_AUTH_TOKEN; // Your Auth Token from www.twilio.com/console
+// var fromNumber = process.env.MY_TWILIO_NUMBER; // Your custom Twilio number
+// var twilio = require('twilio');
+// var client = new twilio(accountSid, authToken);
 
 // POST create new community
 // Create a new community in the database
@@ -62,6 +67,37 @@ router.post('/user', (req, res) => {
   });
 });
 
+// POST remove member
+// Remove a member from a community
+// Req.body receives: communityId, userId
+router.post('/remove-user', (req, res) => {
+  Community.findById(req.body.communityId)
+  .then(community => {
+    const foundIndex = community.users.indexOf(req.body.userId);
+    console.log('userId', req.body.userId);
+    console.log('found index', foundIndex);
+    console.log('newUSers', community.users);
+    if (foundIndex !== -1) { // if user exists in the community
+      console.log('1');
+      const newUsers = [...community.users];
+      newUsers.splice(foundIndex, 1); // remove the user
+      community.update({ users: newUsers })
+      .then((result) => {
+        community.users = newUsers;
+        console.log('newUsers', community.users);
+        res.json({ success: true, community});
+      });
+    } else {
+      console.log('2');
+      res.json({ success: false, failure: 'Cannot find user to remove'});
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.json({ success: false, failure: err});
+  });
+});
+
 // POST create new item
 // Update both commmunity and item sections of database
 // Req.body receives: name, imgURL, owner, communityId
@@ -82,22 +118,61 @@ router.post('/item', (req, res) => {
       const resultItemsArray = [...community.items];
       resultItemsArray.push(item._id);
       // Push the item id into the community items array then update in database
-      community.update({ items: resultItemsArray })
+      community
+      .update({ items: resultItemsArray })
       .then(result => {
         community.items = resultItemsArray;
+        console.log("You created an item in the commmunity!");
         User.findById(req.body.owner)
         .then((user) => {
           user.stats[0] = user.stats[0] + 1;
           user.save()
           .then(() => {
+            console.log("COMMUNITY ADD ITEM");
             // Send back the community json object with the updated array
-            return res.json({ success: true, response: community });
+            return res.json({ success: true });
           });
         });
       });
     });
   })
   .catch(err => {
+    console.log(err);
+    return res.json({ success: false, failure: err });
+  });
+});
+
+// POST delete an item
+// Update both commmunity and item sections of database
+// Req.body receives: itemId, communityId
+router.post('/item-delete', ( req, res ) => {
+  Community.findById(req.body.communityId)
+  .then(foundCommunity => {
+    let index = false;
+    for (var i = 0; i < foundCommunity.items.length; i++) {
+      if (req.body.itemId === JSON.parse(JSON.stringify(foundCommunity.items[i]))) {
+        index = i;
+        console.log("REMOVING THE ITEM OF INDEX", index);
+      } else {
+        console.log("NOPE", JSON.stringify(foundCommunity.items[i]));
+      }
+    }
+    if (index !== false) {
+      const itemCopy = foundCommunity.items;
+      itemCopy.splice(index, 1);
+      foundCommunity
+      .update({ items: itemCopy })
+      .then((resp) => {
+        foundCommunity.items = itemCopy;
+        Item.findById(req.body.itemId)
+        .remove()
+        .then((result) => {
+          return res.json({ success: true });
+        });
+      });
+    }
+  })
+  .catch((err) => {
     console.log(err);
     return res.json({ success: false, failure: err });
   });
@@ -182,7 +257,10 @@ router.get('/profile/:id', (req, res) => {
     return Community.find({ users: { $all: [id] } });
   })
   .then((communities) => {
+    console.log("COMMS", communities);
+    console.log("USER OBJECT", userObject);
     userObject['communities'] = JSON.parse(JSON.stringify(communities));
+    console.log("USER OBJECT2", userObject);
     return res.json({success: true, user: userObject});
   })
   .catch( err =>
@@ -193,6 +271,7 @@ router.get('/profile/:id', (req, res) => {
 // GET all communities
 // Retrieves all the communities in the database for the users to search through
 router.get('/communities/all', (req, res) => {
+  console.log("COMMUNITIES ALL");
   Community.find({})
   .then((communities) => {
     return res.json({success: true, communities: communities});
@@ -240,6 +319,7 @@ router.get('/community/:communityId', (req, res) => {
     .then((result) => {
       Request.populate(community.requests, {path: 'owner'})
       .then((result) => {
+        console.log("COMMUNITY!!!", community);
         return res.json({success: true, community: community});
       });
     });
@@ -287,9 +367,9 @@ router.post('/edit-profile/:id', (req, res) => {
 // Retrieves community information from database,
 // feeds form for users to edit the community's profile
 router.get('/edit-community/:communityId', (req, res) => {
-  User.findById(req.params.communityId)
+  Community.findById(req.params.communityId)
   .then( community => {
-    res.json({success: true, community});
+    res.json({success: true, community: community });
   })
   .catch( err => {
     res.json({success: false, failure: err});
@@ -320,8 +400,10 @@ router.post('/edit-community/:communityId', (req, res) => {
 router.get('/calculate-stats/:id', (req, res) => {
   User.findById(req.params.id)
   .then((user) => {
+    console.log("USER: ", user.fName);
     Item.find({ owner: req.params.id })
     .then((item) => {
+      console.log("ITEMS", item);
       user.stats[0] = item.length;
 
       user.save()
@@ -334,5 +416,27 @@ router.get('/calculate-stats/:id', (req, res) => {
     res.json({ success: false, failure: err });
   });
 });
+
+// POST send messages
+// send a message to a user in database
+// req.body receives: to
+// router.post('/send-message', function(req, res) {
+//   console.log('sending...');
+//   const data = {
+//     body: req.body.content,
+//     to: req.body.to, // a 10-digit number
+//     from: process.env.MY_TWILIO_NUMBER
+//   };
+//   client.messages.create(data)
+//   .then(msg => {
+//     // console.log('MESSAGE SENT', message);
+//     console.log(msg);
+//     res.json(JSON.stringify(msg));
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   });
+// });
+
 
 module.exports = router;

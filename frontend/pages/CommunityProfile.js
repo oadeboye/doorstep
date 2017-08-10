@@ -21,39 +21,41 @@ class CommunityProfile extends React.Component {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
-  handleAddUsers(user) {
-    var users = this.state.community.users.concat(user);
-    var newComm = Object.assign({}, this.state.community, {users});
-    this.setState({community: newComm});
-  }
-
-  onCommunityEdit(editObj) {
-    const commId = this.state.community._id;
-    axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
-    .then((respJson) => {
-      this.setState({ commmunity: respJson.data.commmunity });
-    })
-    .catch((err) => {
-      console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
-    });
-  }
+  // handleAddUsers(user) {
+  //   var users = this.state.community.users.concat(user);
+  //   var newComm = Object.assign({}, this.state.community, {users});
+  //   this.setState({community: newComm});
+  // }
+  //
+  // onCommunityEdit(editObj) {
+  //   const commId = this.state.community._id;
+  //   axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
+  //   .then((respJson) => {
+  //     this.setState({ commmunity: respJson.data.commmunity });
+  //   })
+  //   .catch((err) => {
+  //     console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
+  //   });
+  // }
 
   render() {
-    // console.log('CURRENT COMM', this.props.currentComm);
+        console.log('CURRENT COMM', this.props.currentComm);
     return (
       <div className="community-profile-page">
         <Navbar />
+        {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
         <div className="community-splash">
           {
-            !this.props.currentComm.pending ?
-            <div className="edit-profile-button"><EditCommunityModal
-              community={this.props.currentComm.community}
-              onCommunityEdit={(edits) => this.onCommunityEdit(edits)}
-            /></div>
+            !this.props.pending ?
+            // <button className="edit-profile-button">
+              <EditCommunityModal
+              community={this.props.currentComm}
+              />
+          // </button>
             :
-            <div className="edit-profile-button">Edit Community Profile</div>
+            <button className="edit-profile-button">Edit Community Profile</button>
           }
-          <h1 className="community-title">{this.props.currentComm.community.name}</h1>
+          <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
           <div className="stats-box">
             <div className="stat">
@@ -72,7 +74,7 @@ class CommunityProfile extends React.Component {
           <Link to={'/community/' + this.props.match.params.communityId}>
           <div className="market-button">Go to Marketplace</div>
           </Link>
-        </div>
+        </div>}
         {
           this.props.currentComm.pending ? <h1 className="loader">Loading...</h1> :
           <MembersList
@@ -87,12 +89,14 @@ class CommunityProfile extends React.Component {
 CommunityProfile.propTypes = {
   match: PropTypes.object,
   currentComm: PropTypes.object,
-  getOneCommunity: PropTypes.func
+  getOneCommunity: PropTypes.func,
+  pending: PropTypes.bool
 };
 
 const mapStateToProps = (state) => {
   return {
-    currentComm: state.currentComm
+    currentComm: state.currentComm.community,
+    pending: state.currentComm.pending
   };
 };
 

@@ -90,7 +90,7 @@ class EditUserModal extends React.Component {
     console.log("INSIDE RENDER OF EDIT USER MODAL");
     return (
       <div>
-        <div onClick={() => this.openEdit()}>Edit Profile</div>
+        <button className="edit-profile-button" onClick={() => this.openEdit()}>Edit Profile</button>
         <Modal show={this.state.showEditModal} onHide={() => this.closeEdit()}>
           <Modal.Header closeButton>
             <Modal.Title>Edit your profile!</Modal.Title>
@@ -161,7 +161,7 @@ const mapDispatchToProps = ( dispatch ) => {
 
 EditUserModal.propTypes = {
   thisUser: PropTypes.object,
-  saveUserEdits: PropTypes.func,
+  editUser: PropTypes.func,
   onEdit: PropTypes.func
 };
 
