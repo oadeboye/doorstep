@@ -21,7 +21,6 @@ class RequestsBar extends React.Component {
 
   componentDidMount() {
     this.props.getRequestsDispatch(this.props.communityId);
-    console.log('REQUESTS', this.props.requests);
   }
 
   open() {
@@ -34,7 +33,6 @@ class RequestsBar extends React.Component {
 
   onRequestChange(e) {
     var maxWords = 5 - e.target.value.split(" ");
-    console.log('maxWords');
     this.setState({request: e.target.value});
   }
 

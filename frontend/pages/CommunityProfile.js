@@ -17,32 +17,10 @@ class CommunityProfile extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('HELLO');
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
-  // handleAddUsers(user) {
-  //   var users = this.state.community.users.concat(user);
-  //   var newComm = Object.assign({}, this.state.community, {users});
-  //   this.setState({community: newComm});
-  // }
-  //
-  // onCommunityEdit(editObj) {
-  //   const commId = this.state.community._id;
-  //   axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
-  //   .then((respJson) => {
-  //     this.setState({ commmunity: respJson.data.commmunity });
-  //   })
-  //   .catch((err) => {
-  //     console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
-  //   });
-  // }
-
   render() {
-    // if (!this.props.user || Object.keys(this.props.user).length === 0) {
-    //   this.props.history.push('/');
-    // }
-
     return (
       <div className="community-profile-page">
         <Navbar />
@@ -50,11 +28,9 @@ class CommunityProfile extends React.Component {
         <div className="community-splash">
           {
             !this.props.pending ?
-            // <button className="edit-profile-button">
-                  <EditCommunityModal
-                    community={this.props.currentComm}
-                  />
-          // </button>
+            <EditCommunityModal
+              community={this.props.currentComm}
+            />
             :
             <button className="edit-profile-button">Edit Community Profile</button>
           }

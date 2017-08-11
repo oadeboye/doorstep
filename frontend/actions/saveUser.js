@@ -13,7 +13,6 @@ export function saveUser(username, password) {
       password: password
     })
     .then(respJson => {
-      console.log("FULFILLED");
       const user = respJson.data.user;
       return dispatch({
         type: Types.saveUserFulfilled,
@@ -29,27 +28,3 @@ export function saveUser(username, password) {
     });
   };
 }
-
-// const saveUser = (user) => {
-//   return {
-//     type: 'SAVE_USER',
-//     user,
-//   };
-// };
-
-// const editUser = (edits) => {
-//   return {
-//     type: 'EDIT_USER',
-//     edits
-//   };
-// };
-//
-
-// const editCommunity = (commEdits) => {
-//   return {
-//     type: 'EDIT_COMMUNITY',
-//     commEdits
-//   };
-// };
-
-// export { saveUser, editUser, editCommunity };

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
@@ -49,20 +50,24 @@ class UserProfile extends React.Component {
               <div className="about-me">
                 <h3>{user.aboutMe}</h3>
               </div>
-              <div className="stats-box">
+              { ready ?
+                <div className="stats-box">
                 <div className="stat">
-                  <h1>4</h1>
+                  <h1>{user.stats[0] || 0}</h1>
                   <h3>Given</h3>
                 </div>
                 <div className="stat">
-                  <h1>4</h1>
-                  <h3>Given</h3>
+                  <h1>{user.stats[1] || 0}</h1>
+                  <h3>Taken</h3>
                 </div>
                 <div className="stat">
-                  <h1>4</h1>
+                  <h1>{user.stats[2] || 0}</h1>
                   <h3>Given</h3>
                 </div>
               </div>
+                :
+                <div className="loader">Loading...</div>
+              }
             </div>
           </div>
         </div>
@@ -71,7 +76,7 @@ class UserProfile extends React.Component {
         }
         <Footer />
       </div>
-    )
+    );
   }
 }
 
@@ -85,7 +90,8 @@ const mapStateToProps = (state) => {
 UserProfile.propTypes = {
   user: PropTypes.object,
   saveUserEdits: PropTypes.func,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  history: PropTypes.array
 };
 
 

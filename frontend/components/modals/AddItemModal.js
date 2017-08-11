@@ -52,11 +52,6 @@ class AddItemModal extends React.Component {
     this.close();
   }
 
-  // navigateToCommunityProfile() {
-  //   console.log("CLEARING");
-  //   this.props.addItem();
-  // }
-
   render() {
     return (
       <div>

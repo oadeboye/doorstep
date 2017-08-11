@@ -18,10 +18,9 @@ import domain from '../domain';
 class CommunitiesList extends React.Component {
   constructor(props) {
     super(props);
-    console.log("COM LIST", this.props.user);
   }
+
   componentDidMount() {
-    console.log("USER ID HEREE", this.props.user);
     this.props.getUsersCommunitiesDispatch(this.props.user._id);
   }
 

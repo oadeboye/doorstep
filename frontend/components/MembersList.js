@@ -24,10 +24,8 @@ class MembersList extends React.Component {
   }
 
   componentDidMount() {
-    // ('MEMBERSLIST', this.props.commId);
     this.props.getCommUsersDispatch(this.props.commId);
     this.props.getAllUsersDispatch();
-    // ('USERNAMEs', this.state.usernames);
   }
 
   componentWillReceiveProps(props) {

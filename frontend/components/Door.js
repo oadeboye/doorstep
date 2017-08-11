@@ -10,6 +10,7 @@ class Door extends React.Component {
   constructor(props) {
     super(props);
   }
+
   sendEmail() {
     axios.post('/mail/send-email', {
       user: this.props.user,
@@ -57,13 +58,14 @@ class Door extends React.Component {
 
 Door.propTypes = {
   user: PropTypes.object,
-  com: PropTypes.object
+  com: PropTypes.object,
+  isMember: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
-    com: ownProps.com
+    com: ownProps.com,
   };
 };
 
