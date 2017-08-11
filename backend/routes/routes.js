@@ -438,5 +438,35 @@ router.get('/calculate-stats/:id', (req, res) => {
 //   });
 // });
 
+// POST remove self
+// allows user to remove themself from a community
+// Req.body receives: userId, communityId
+router.post('/remove-self', (req, res) => {
+  Community.findById(req.body.communityId)
+  .then((community) => {
+    let index = false;
+    for (var i = 0; i < community.users.length; i++) {
+      if (req.body.userId === JSON.parse(JSON.stringify(community.users[i]))) {
+        index = i;
+        console.log("REMOVING THE USER OF INDEX", index);
+      } else {
+        console.log("NOPE", JSON.stringify(community.users[i]));
+      }
+    }
+    if (index !== false) {
+      const userCopy = community.users;
+      userCopy.splice(index, 1);
+      community.update({ users: userCopy })
+      .then((resp) => {
+        community.users = userCopy;
+        return res.json({ success: true });
+      });
+    }
+  })
+  .catch((err) => {
+    console.log("ERROR REMOVING USER", err);
+    res.json({ success: false, error: err });
+  });
+});
 
 module.exports = router;
