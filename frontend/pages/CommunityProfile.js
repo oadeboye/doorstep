@@ -39,7 +39,10 @@ class CommunityProfile extends React.Component {
   // }
 
   render() {
-        console.log('CURRENT COMM', this.props.currentComm);
+    // if (!this.props.user || Object.keys(this.props.user).length === 0) {
+    //   this.props.history.push('/');
+    // }
+
     return (
       <div className="community-profile-page">
         <Navbar />
@@ -76,7 +79,7 @@ class CommunityProfile extends React.Component {
           </Link>
         </div>}
         {
-          this.props.pending ? <h1>Loading...</h1> :
+          this.props.pending ? <h1 className="loader">Loading...</h1> :
           <div>
             <div>{this.props.currentComm.description}</div>
             <MembersList

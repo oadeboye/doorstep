@@ -8,54 +8,72 @@ import CommunitiesList from '../components/CommunitiesList';
 import EditUserModal from '../components/modals/EditUserModal';
 import styles from '../assets/stylesheets/userprofile.less';
 
-const UserProfile = ({ user, pending, saveUserEdits }) => {
-  const ready = user && !pending;
-  return (
-    <div className="user-profile-page">
-      <Navbar />
-      <div className="profile-wrapper">
-        <div className="door-tag">
-          <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
-          <h2 className="name">{user.fName + ' ' + user.lName}</h2>
-        </div>
-        <div className="user-profile-splash">
-          { ready ?
-            <EditUserModal
-            />
-            :
-            <p>Load</p>
-          }
-          <h1 className="profile-title">YOUR PROFILE</h1>
-        </div>
-        <div className="user-info">
-          <div className="info-box">
-            <div className="about-me">
-              <h3>{user.aboutMe}</h3>
-            </div>
-            <div className="stats-box">
-              <div className="stat">
-                <h1>4</h1>
-                <h3>Given</h3>
+class UserProfile extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log("ts", this.props.user);
+  }
+
+  render() {
+    const user = this.props.user;
+    const pending = this.props.pending;
+    const saveUserEdits = this.props.pending;
+    const ready = user && !pending;
+
+    if (!this.props.pending && (!this.props.user || Object.keys(this.props.user).length === 0)) {
+      this.props.history.push('/');
+    }
+
+    return (
+      <div className="user-profile-page">
+        <Navbar />
+        <div className="profile-wrapper">
+          <div className="door-tag">
+            <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
+            <h2 className="name">{user.fName + ' ' + user.lName}</h2>
+          </div>
+          <div className="user-profile-splash">
+            { ready ?
+              <EditUserModal
+              />
+              :
+              <p>Load</p>
+            }
+            <h1 className="profile-title">YOUR PROFILE</h1>
+          </div>
+          <div className="user-info">
+            <div className="info-box">
+              <div className="about-me">
+                <h3>{user.aboutMe}</h3>
               </div>
-              <div className="stat">
-                <h1>4</h1>
-                <h3>Given</h3>
-              </div>
-              <div className="stat">
-                <h1>4</h1>
-                <h3>Given</h3>
+              <div className="stats-box">
+                <div className="stat">
+                  <h1>4</h1>
+                  <h3>Given</h3>
+                </div>
+                <div className="stat">
+                  <h1>4</h1>
+                  <h3>Given</h3>
+                </div>
+                <div className="stat">
+                  <h1>4</h1>
+                  <h3>Given</h3>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        {
+          ready ? <CommunitiesList /> : <h1 className="loader">Loading...</h1>
+        }
+        <Footer />
       </div>
-      {
-        ready ? <CommunitiesList /> : <h1 className="loader">Loading...</h1>
-      }
-      <Footer />
-    </div>
-  );
-};
+    )
+  }
+}
 
 const mapStateToProps = (state) => {
   return {

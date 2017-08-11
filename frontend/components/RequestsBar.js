@@ -42,22 +42,6 @@ class RequestsBar extends React.Component {
     e.preventDefault();
     this.props.postRequestDispatch(this.props.user, this.props.communityId, this.state.request);
     this.close();
-    // console.log('REQUESTING ITEM');
-    // console.log('HISTORy', this.props.commId);
-    // axios.post(domain + '/api/request/', {
-    //   requester: this.props.user._id,
-    //   text: this.state.request,
-    //   datePosted: new Date(),
-    //   communityId: this.props.commId
-    // })
-    // .then((resp) => {
-    //   console.log('posting a request', resp);
-    //   this.props.handleRequest();
-    //   this.close();
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   }
 
   render() {
@@ -65,11 +49,10 @@ class RequestsBar extends React.Component {
       <div className="requests-bar">
         <button onClick={this.open.bind(this)} className="add-request-button">+</button>
         <div className="requests-bar-title">REQUESTS</div>
-        {/* <Request />
-        <Request />
-        <Request />
-        <Request /> */}
-        {this.props.requests.map((request, index) => <Request key={index} request={request}/>)}
+        {
+          this.props.requests.length === 0 ? <p className="empty-list">All requests fulfilled!</p> :
+          this.props.requests.map((request, index) => <Request key={index} request={request}/>)
+        }
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Make a request</Modal.Title>
@@ -84,12 +67,12 @@ class RequestsBar extends React.Component {
                   onChange={(e) => this.onRequestChange(e)}
                 />
                 <HelpBlock>Limit: {this.state.maxWords} words</HelpBlock>
-                <Button onClick={(e) => this.onRequest(e)}>Request</Button>
+                <Button className="modal-button-blue" onClick={(e) => this.onRequest(e)}>Request</Button>
               </FormGroup>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => this.close()}>Cancel</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>

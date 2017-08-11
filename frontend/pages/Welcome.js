@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import { saveUser } from '../actions/saveUser';
 import getAllCommunities from '../actions/getAllCommunities';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -41,6 +42,13 @@ class Welcome extends React.Component {
       phone: ''
     };
   }
+
+  // componentWillMount() {
+  //   if (this.props.user && Object.keys(this.props.user).length !== 0) {
+  //     console.log("USER", this.props.user)
+  //     this.props.history.push('/profile');
+  //   }
+  // }
 
   componentDidMount() {
     axios.get('http://localhost:3000/api/users')
@@ -71,24 +79,19 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    // axios.post('http://localhost:3000/api/auth/login', {
-    //   username: this.state.usernameLogin,
-    //   password: this.state.passwordLogin,
-    // })
-    // .then((resp) => {
-    //   if (resp.data.success) {
-    //     this.closeLogin();
-    //     const user = resp.data.user;
-    //     this.props.onSuccessfulLogin(user);
-    //     this.props.history.push('/profile');
-    //   }
-    // })
-    // .catch((err) => {
-    //   console.log('Error loggin in:', err);
-    //   this.setState({loginFailure: err});
-    // });
     this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
-    this.props.history.push('/profile');
+    console.log("P", this.props.user)
+    if (!this.props.user) {
+      swal({
+        title: "Error logging",
+        text: "Your username or password is incorrect.",
+        type: "error"
+      })
+    }
+    else {
+      console.log("USERz", this.props.user)
+      this.props.history.push('/profile');
+    }
   }
 
   closeRegister() {
@@ -153,7 +156,19 @@ class Welcome extends React.Component {
     })
     .then((resp) => {
       if (resp.data.success) {
+        swal({
+          title: "Success",
+          text: "Welcome to Doorstep! Go ahead and login.",
+          type: "success"
+        })
         this.closeRegister();
+      }
+      else {
+        swal({
+          title: "Error Registering",
+          text: "Please make sure the form is correctly filled out.",
+          type: "error"
+        })
       }
     })
     .catch((err) => {
@@ -252,7 +267,7 @@ class Welcome extends React.Component {
         </div>
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
-            <Modal.Title>Login</Modal.Title>
+            <Modal.Title className="modal-title">Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="form-group">
@@ -281,13 +296,13 @@ class Welcome extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" onClick={(e) => this.onLogin(e)}>Login</Button>
-            <Button onClick={() => this.closeLogin()}>Cancel</Button>
+            <Button className="modal-button-orange" type="submit" onClick={(e) => this.onLogin(e)}>Login</Button>
+            <Button className="modal-button-red" onClick={() => this.closeLogin()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
         <Modal show={this.state.showRegisterModal} onHide={() => this.closeRegister()}>
           <Modal.Header closeButton>
-            <Modal.Title>Register as a New User!</Modal.Title>
+            <Modal.Title className="modal-title">Register</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -377,8 +392,8 @@ class Welcome extends React.Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onRegister(e)}>Register</Button>
-            <Button onClick={() => this.closeRegister()}>Cancel</Button>
+            <Button className="modal-button-blue" onClick={(e) => this.onRegister(e)}>Register</Button>
+            <Button className="modal-button-red" onClick={() => this.closeRegister()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -386,16 +401,16 @@ class Welcome extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    history: ownProps.history
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSuccessfulLogin: (username, password) => {
-      console.log("INSIDE DISPATCH");
       dispatch(saveUser(username, password));
     }
   };
@@ -403,7 +418,8 @@ const mapDispatchToProps = (dispatch) => {
 
 Welcome.propTypes = {
   onSuccessfulLogin: PropTypes.func,
-  history: PropTypes.array
+  history: PropTypes.array,
+  user: PropTypes.object
 };
 
 export default connect(

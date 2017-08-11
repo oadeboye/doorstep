@@ -12,7 +12,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getUsersCommunities } from '../actions/getUsersCommunities';
-import CreateCommunityModal from './CreateCommunityModal';
+import CreateCommunityModal from './modals/CreateCommunityModal';
 import domain from '../domain';
 
 class CommunitiesList extends React.Component {

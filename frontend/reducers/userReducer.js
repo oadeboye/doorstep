@@ -3,21 +3,19 @@ import Types from '../actions/actionTypes';
 const userReducer = (state = {user: {}, pending: true}, action) => {
   switch(action.type) {
     case Types.saveUserRequested:
-      console.log("INSIDE REQUESTED");
       const pendingState = {
         pending: true,
         user: {}
       };
       return pendingState;
     case Types.saveUserFulfilled:
-      console.log("INSIDE FULFILLED");
       const fulfilledState = {
         pending: false,
         user: Object.assign({}, action.user)
       };
       return fulfilledState;
     case Types.saveUserRejected:
-      console.log("INSIDE REJECTED");
+    console.log("HERE")
       const rejectedState = {
         pending: false,
         error: action.error
@@ -28,7 +26,6 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
       return pendingEditState;
     case Types.editUserFulfilled:
       const updatedUser = Object.assign({}, state.user, action.edits);
-      console.log("UPDATED USER OBJ", updatedUser);
       const editedState = {
         user: updatedUser,
         pending: false

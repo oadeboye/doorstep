@@ -3,7 +3,6 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RequestsBar from '../components/RequestsBar';
@@ -26,11 +25,17 @@ class CommunityMarket extends React.Component {
       <div className="community-market-page">
         <Navbar />
         <div className="market-splash">
-          <h1 className="market-title">{this.props.community.name || 'Community Market'}</h1>
-          <Link to={'/community/profile/' + this.props.community._id}><div className="view-community-button">View Profile</div></Link>
+          <div className="titles-wrapper">
+          {
+            this.props.pending ? <h1></h1> :
+            <h1 className="community-title">{this.props.community.name}</h1>
+          }
+            <h3 className="title">MARKET</h3>
+          </div>
+          <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
           <div className="give-item-button">
             { this.props.pending ? <p>Give an Item</p> : <AddItemModal />}
-            </div>
+          </div>
         </div>
         <RequestsBar commId={this.props.community._id}/>
         <Market />
@@ -40,16 +45,16 @@ class CommunityMarket extends React.Component {
   }
 }
 
+CommunityMarket.propTypes = {
+  community: PropTypes.object,
+  pending: PropTypes.bool
+};
+
 const mapStateToProps = ( state ) => {
   return {
     community: state.currentComm.community,
     pending: state.currentComm.pending
   };
-};
-
-CommunityMarket.propTypes = {
-  community: PropTypes.object,
-  pending: PropTypes.bool
 };
 
 export default connect(
