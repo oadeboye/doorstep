@@ -34,7 +34,8 @@ class Item extends React.Component {
     axios.post('/twilio/send-message', {
       content,
       to: this.props.item.owner.phone,
-      from: process.env.MY_TWILIO_NUMBER
+      from: process.env.MY_TWILIO_NUMBER,
+      ownerPhone: this.props.item.owner.phone
     })
     .then(resp => {
       console.log('resp', resp);
@@ -49,7 +50,7 @@ class Item extends React.Component {
     const verify = !this.props.pending && this.props.item.owner && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
     return (
       <div>
-        <div className="item" onClick={() => this.open()} className="item">
+        <div className="item" onClick={this.props.user._id === this.props.item.owner._id ? () => this.close() : () => this.open()} className="item">
           <div className="img-wrapper">
             <img alt="someImage" src={this.props.item.imgURL || "https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg"}/>
           </div>
@@ -100,7 +101,7 @@ Item.propTypes = {
   index: PropTypes.number
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
     owner: state.user.user._id,

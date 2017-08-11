@@ -32,6 +32,17 @@ var userSchema = mongoose.Schema({
   },
   phone: {
     type: String
+  },
+  pendingState: {
+    requesterPhone: {
+      type: String
+    },
+    ownerPhone: {
+      type: String
+    },
+    pending: {
+      type: Boolean
+    }
   }
 });
 
