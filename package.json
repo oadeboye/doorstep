@@ -30,6 +30,7 @@
     "express-session": "^1.15.4",
     "express-validator": "^3.2.1",
     "googleapis": "^20.1.0",
+    "handlebars": "^4.0.10",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "mocha": "^3.2.0",
