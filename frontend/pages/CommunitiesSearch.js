@@ -16,7 +16,7 @@ class CommunitySearch extends React.Component {
       communities: []
     };
   }
-
+  
   componentDidMount() {
     this.props.getAllCommunitiesDispatch();
   }
@@ -26,7 +26,7 @@ class CommunitySearch extends React.Component {
       <div className="communities-search-page">
         <Navbar />
         <div className="search-splash">
-          <div className="create-community-button"><CreateCommunityModal /></div>
+          <CreateCommunityModal />
           <h1 className="title">Join a community</h1>
         </div>
         <SearchCommunitiesList communities={this.props.allCommunities}/>

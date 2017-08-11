@@ -72,7 +72,7 @@ class CreateCommunityModal extends React.Component {
              </div>
            </Modal>
         }
-        <div onClick={(e) => this.onCreateCommunity(e)}>Create a community</div>
+        <div className="create-community-button" onClick={(e) => this.onCreateCommunity(e)}>Create a community</div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Create a new community!</Modal.Title>

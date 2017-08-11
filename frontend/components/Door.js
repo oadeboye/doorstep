@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import swal from 'sweetalert';
 
 
 class Door extends React.Component {
@@ -10,8 +11,6 @@ class Door extends React.Component {
     super(props);
   }
   sendEmail() {
-    console.log("USER", this.props.user);
-    console.log("COMMUNITY", this.props.com);
     axios.post('/mail/send-email', {
       user: this.props.user,
       community: this.props.com
@@ -20,10 +19,18 @@ class Door extends React.Component {
       console.log("REPOS", response.data);
       if (response.data.success) {
         console.log("SUCCESS FRONT END SENDING MAIL");
-        alert('Email successfully sent!');
+        swal({
+          title: "Email sent!",
+          text: "The owner of the community will be notified of your interest.",
+          type: "success"
+        })
       } else {
         console.log("FAILURE FRONT END SENDING MAIL", response.data.error);
-        alert('Email failed to send!');
+        swal({
+          title: "Error sending email :(",
+          text: "Something went wrong! Try again later.",
+          type: "error"
+        })
       }
     });
   }

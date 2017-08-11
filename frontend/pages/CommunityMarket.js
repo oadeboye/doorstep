@@ -3,26 +3,17 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RequestsBar from '../components/RequestsBar';
 import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/communitymarket.less';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { getOneCommunity } from '../actions/getOneCommunity';
 import AddItemModal from '../components/modals/AddItemModal';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
   }
 
   updateRequests() {

@@ -43,6 +43,13 @@ class Welcome extends React.Component {
     };
   }
 
+  // componentWillMount() {
+  //   if (this.props.user && Object.keys(this.props.user).length !== 0) {
+  //     console.log("USER", this.props.user)
+  //     this.props.history.push('/profile');
+  //   }
+  // }
+
   componentDidMount() {
     axios.get('http://localhost:3000/api/users')
     .then((resp) => {
@@ -82,6 +89,7 @@ class Welcome extends React.Component {
       })
     }
     else {
+      console.log("USERz", this.props.user)
       this.props.history.push('/profile');
     }
   }
@@ -393,9 +401,10 @@ class Welcome extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    history: ownProps.history
   };
 };
 

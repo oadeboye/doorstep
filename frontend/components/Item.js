@@ -100,7 +100,7 @@ Item.propTypes = {
   index: PropTypes.number
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
     owner: state.user.user._id,
