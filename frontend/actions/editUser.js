@@ -8,7 +8,7 @@ export function editUser(edits, id) {
       type: Types.editUserRequested
     });
     const error = false;
-    axios.post(domain + '/api/edit-profile' + id, edits)
+    axios.post(domain + '/api/edit-profile/' + id, edits)
     .then(response => {
       dispatch({
         type: Types.editUserFulfilled,
