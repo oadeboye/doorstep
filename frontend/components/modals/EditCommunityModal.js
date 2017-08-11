@@ -23,6 +23,7 @@ class EditCommunityModal extends React.Component {
       name: this.props.community.name,
       description: this.props.community.description
     };
+    console.log("YO WADDUP IM THE OTHER BUTTON");
   }
 
   closeEdit() {

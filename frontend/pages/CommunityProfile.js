@@ -51,9 +51,9 @@ class CommunityProfile extends React.Component {
           {
             !this.props.pending ?
             // <button className="edit-profile-button">
-              <EditCommunityModal
-              community={this.props.currentComm}
-              />
+                  <EditCommunityModal
+                    community={this.props.currentComm}
+                  />
           // </button>
             :
             <button className="edit-profile-button">Edit Community Profile</button>
@@ -79,9 +79,14 @@ class CommunityProfile extends React.Component {
           </Link>
         </div>}
         {
-          this.props.currentComm.pending ? <h1 className="loader">Loading...</h1> :
-          <MembersList
-            commId={this.props.match.params.communityId}/>
+          this.props.pending ? <h1 className="loader">Loading...</h1> :
+          <div>
+            <div>{this.props.currentComm.description}</div>
+            <MembersList
+              commId={this.props.match.params.communityId}
+              history={this.props.history}
+            />
+          </div>
         }
         <Footer />
       </div>
@@ -93,7 +98,8 @@ CommunityProfile.propTypes = {
   match: PropTypes.object,
   currentComm: PropTypes.object,
   getOneCommunity: PropTypes.func,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  history: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
