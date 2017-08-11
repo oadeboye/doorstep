@@ -151,8 +151,8 @@ class EditUserModal extends React.Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onSubmit(e)}>Edit</Button>
-            <Button onClick={() => this.closeEdit()}>Cancel</Button>
+            <Button className="modal-button-blue" onClick={(e) => this.onSubmit(e)}>Edit</Button>
+            <Button className="modal-button-red" onClick={() => this.closeEdit()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>

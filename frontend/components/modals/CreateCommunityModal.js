@@ -12,6 +12,7 @@ import axios from 'axios';
 import { postCreateCommunity, clearCreateCommunityStatus } from '../../actions/postCreateCommunity';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import swal from 'sweetalert';
 
 class CreateCommunityModal extends React.Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class CreateCommunityModal extends React.Component {
   onCreate(e, name, description, userId) {
     e.preventDefault();
     this.props.postCreateCommunityDispatch(name, description, userId);
+    console.log("STATUS", this.props.createCommunityStatus);
     this.close();
   }
 
@@ -59,17 +61,18 @@ class CreateCommunityModal extends React.Component {
   }
 
   render() {
-    // console.log("ID???", this.props.createCommunityStatus);
     return (
       <div>
         {
           this.props.createCommunityStatus.success &&
            <Modal show>
-            <Modal.Title>Community Created</Modal.Title>
-            <Link to={'/community/profile/' + this.props.createCommunityStatus.data._id}><Button onClick={() => this.navigateToCommunityProfile()}>Go to page</Button></Link>
+             <div className="confirmation-modal">
+              <Modal.Title className="confirmation-title">Community Created</Modal.Title>
+              <Link to={'/community/profile/' + this.props.createCommunityStatus.data._id}><Button className="modal-button-orange navigation-button" onClick={() => this.navigateToCommunityProfile()}>Go to page</Button></Link>
+             </div>
            </Modal>
         }
-        <button onClick={(e) => this.onCreateCommunity(e)} className="add-community-button">Create a community</button>
+        <div className="create-community-button" onClick={(e) => this.onCreateCommunity(e)}>Create a community</div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Create a new community!</Modal.Title>
@@ -91,6 +94,14 @@ class CreateCommunityModal extends React.Component {
                   placeholder="Enter description"
                   onChange={(e) => this.onCommunityDescriptionChange(e)}
                 />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Members</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter a username"
+                  onChange={(e) => this.onAddMembersChange(e)}
+                />
                 <Button componentClass={ControlLabel}>
                   Add more members
                 </Button>
@@ -98,8 +109,8 @@ class CreateCommunityModal extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onCreate(e, this.state.communityName, this.state.communityDescription, this.props.user._id)}>Create a new community</Button>
-            <Button onClick={() => this.close()}>Cancel</Button>
+            <Button className="modal-button-orange" onClick={(e) => this.onCreate(e, this.state.communityName, this.state.communityDescription, this.props.user._id)}>Create new community</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -116,7 +127,7 @@ CreateCommunityModal.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.user.user,
     createCommunityStatus: state.createCommunityStatus,
   };
 };

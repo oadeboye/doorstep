@@ -52,22 +52,22 @@ class CommunityProfile extends React.Component {
           </div>
           <Link to={'/community/' + this.props.match.params.communityId}>
           <div className="market-button">Go to Marketplace</div>
-        </Link>
-      </div>}
-      {
-        this.props.pending ? <h1>Loading...</h1> :
-        <div>
-          <div>{this.props.currentComm.description}</div>
-          <MembersList
-            commId={this.props.match.params.communityId}
-            history={this.props.history}
-          />
-        </div>
-      }
-      <Footer />
-    </div>
-  );
-}
+          </Link>
+        </div>}
+        {
+          this.props.pending ? <h1 className="loader">Loading...</h1> :
+          <div>
+            <div>{this.props.currentComm.description}</div>
+            <MembersList
+              commId={this.props.match.params.communityId}
+              history={this.props.history}
+            />
+          </div>
+        }
+        <Footer />
+      </div>
+    );
+  }
 }
 
 CommunityProfile.propTypes = {

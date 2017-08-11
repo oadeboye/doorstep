@@ -71,7 +71,7 @@ class EditCommunityModal extends React.Component {
         <button className="edit-profile-button" onClick={() => this.openEdit()}>Edit Community Profile</button>
         <Modal show={this.state.showEditModal} onHide={() => this.closeEdit()}>
           <Modal.Header closeButton>
-            <Modal.Title>Edit {this.props.community.name} Community Profile!</Modal.Title>
+            <Modal.Title>Edit {this.props.community.name} Community Profile</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -102,8 +102,8 @@ class EditCommunityModal extends React.Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onSubmit(e)}>Submit edit</Button>
-            <Button onClick={() => this.closeEdit()}>Cancel</Button>
+            <Button className="modal-button-blue" onClick={(e) => this.onSubmit(e)}>Edit</Button>
+            <Button className="modal-button-red" onClick={() => this.closeEdit()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>

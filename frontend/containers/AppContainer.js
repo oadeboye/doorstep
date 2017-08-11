@@ -11,18 +11,19 @@ import CommunitiesSearch from '../pages/CommunitiesSearch';
 import styles from '../assets/stylesheets/main.less';
 
 class AppContainer extends React.Component {
+
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Switch>
             <Route path="/" exact component={Welcome} />
-            <Route path="/profile" exact component={UserProfile} />
-            <Route path="/view/profile/:userId" exact component={ViewUserProfile} />
-            <Route path="/search" exact component={CommunitiesSearch} />
-            <Route path="/community/profile/:communityId" exact component={CommunityProfile} />
-            <Route path="/community/:communityId" exact component={CommunityMarket} />
-          </Switch>
+              <Switch>
+                <Route path="/profile" exact component={UserProfile} />
+                <Route path="/view/profile/:userId" exact component={ViewUserProfile} />
+                <Route path="/search" exact component={CommunitiesSearch} />
+                <Route path="/community/profile/:communityId" exact component={CommunityProfile} />
+                <Route path="/community/:communityId" exact component={CommunityMarket} />
+              </Switch>
         </div>
       </BrowserRouter>
     );

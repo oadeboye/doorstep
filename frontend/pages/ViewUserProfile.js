@@ -15,6 +15,7 @@ class ViewUserProfile extends React.Component {
       user: ''
     };
   }
+
   componentDidMount() {
     axios.get('/api/profile/' + this.props.match.params.userId)
     .then((response) => {
