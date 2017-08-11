@@ -7,7 +7,7 @@ import axios from 'axios';
 import { getAllCommunities } from '../actions/getAllCommunities';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CreateCommunityModal from '../components/CreateCommunityModal';
+import CreateCommunityModal from '../components/modals/CreateCommunityModal';
 
 class CommunitySearch extends React.Component {
   constructor(props) {

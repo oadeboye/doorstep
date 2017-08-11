@@ -3,7 +3,6 @@ import Types from '../actions/actionTypes';
 const oneCommunityReducer = (state = {pending: true, community: {}}, action) => {
   switch(action.type) {
     case Types.getOneCommunityRequested:
-      // console.log('PENDING');
       const getPendingState = {
         pending: true,
         community: {}
@@ -14,14 +13,12 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
         pending: false,
         community: Object.assign({}, action.community)
       };
-      console.log('FULFILLED', getFulfilledState);
       return getFulfilledState;
     case Types.getOneCommunityRejected:
       const getRejectedState = {
         pending: false,
         error: action.error
       };
-      // console.log('REJECTED', rejectedState);
       return getRejectedState;
     case Types.addItemRequested:
       const pendingItem = {
@@ -36,7 +33,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
       };
       return addItem;
     case Types.addItemRejected:
-      console.log("REJECTED ON ADD ITEM");
       const rejectedItem = {
         pending: false,
         community: Object.assign({}, state.community),
@@ -56,7 +52,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
       };
       return removeItem;
     case Types.removeItemRejected:
-      console.log("REJECTED ON REMOVE ITEM");
       const rejectedRemoveItem = {
         pending: false,
         community: Object.assign({}, state.community),
@@ -80,7 +75,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
         pending: false,
         error: action.error
       };
-      console.log('REJECTED EDIT', editRejectedState);
       return editRejectedState;
     default:
       return state;

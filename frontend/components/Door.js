@@ -9,9 +9,8 @@ class Door extends React.Component {
   constructor(props) {
     super(props);
   }
+
   sendEmail() {
-    console.log("USER", this.props.user);
-    console.log("COMMUNITY", this.props.com);
     axios.post('/mail/send-email', {
       user: this.props.user,
       community: this.props.com
@@ -49,21 +48,16 @@ class Door extends React.Component {
 
 Door.propTypes = {
   user: PropTypes.object,
-  com: PropTypes.object
+  com: PropTypes.object,
+  isMember: PropTypes.bool
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
-    com: ownProps.com
+    com: ownProps.com,
   };
 };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getUsersCommunitiesDispatch: (userId) => dispatch(getUsersCommunities(userId))
-//   };
-// };
 
 export default connect(
   mapStateToProps

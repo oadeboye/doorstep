@@ -7,10 +7,10 @@ const fs = require('fs');
 const models = require('../models/models');
 const User = models.User;
 const Community = models.Community;
-const path = require('path')
+const path = require('path');
 
 // Create SMTP transporter
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: process.env.EMAIL_SERVICE,
   auth: {
     user: process.env.EMAIL_USERNAME,
@@ -18,9 +18,9 @@ let transporter = nodemailer.createTransport({
   }
 }, {
   from: 'Doorstep'
-})
+});
 
-console.log("SMTP Configured")
+console.log("SMTP Configured");
 
 // POST send email
 // User clicks on the "ask to join" button on a door
@@ -36,38 +36,36 @@ router.post('/send-email', (req, res) => {
     user: user,
     community: community,
     link: process.env.DOMAIN + '/mail/confirm-permission/' + user._id + '/' + community._id
-  }
+  };
 
   var htmlBody = '';
-  const filePath = path.join(__dirname,'../helper/email.hbs');
+  const filePath = path.join(__dirname, '../helper/email.hbs');
 
   // read the file and use the callback to render
-  fs.readFile(filePath, function(err, data){
+  fs.readFile(filePath, function(err, data) {
     if (!err) {
       // make the buffer into a string
       var source = data.toString();
-      console.log("SOURCE", source)
-
+      console.log("SOURCE", source);
 
       htmlBody = renderToString(source, information);
       console.log("HTML BODY", htmlBody);
-      let message = {
+      const message = {
         to: req.body.user.email,
         subject: 'Doorstep!',
         html: htmlBody
-      }
+      };
 
       // Send the email containing the message
       transporter.sendMail(message, (error, info) => {
         if (error) {
           console.log('Error occurred sending email');
           console.log(error.message);
-          res.json({success: false, error: error})
-        }
-        else {
+          res.json({success: false, error: error});
+        } else {
           console.log('Message successfully sent!');
           console.log('Server responsed with "%s"', info.response);
-          res.json({success: true, info: info.response})
+          res.json({success: true, info: info.response});
           transporter.close();
         }
       });
@@ -78,17 +76,13 @@ router.post('/send-email', (req, res) => {
         var outputString = template(data);
         return outputString;
       }
-    }
-    else {
+    } else {
       console.log("ERROR READING FILE", err);
     }
   });
-
 });
 
 router.get('/confirm-permission/:userId/:communityId', (req, res) => {
-  console.log("USERID PARAM", req.params.userId);
-  console.log("COMID PARAM", req.params.communityId);
   User.findById(req.params.userId, (err, user) => {
     Community.findById(req.params.communityId)
     .then(community => {
@@ -113,7 +107,7 @@ router.get('/confirm-permission/:userId/:communityId', (req, res) => {
       res.json({ success: false, failure: error });
     });
   });
-})
+});
 
 
 module.exports = router;

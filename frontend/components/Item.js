@@ -30,7 +30,6 @@ class Item extends React.Component {
     e.preventDefault();
     console.log('sending message...');
     const content = `${this.props.user.fName} has requested ${this.props.item.name} from you with the following message:\n${this.state.message}. Reply YES to allow Doorstep to reveal your number`;
-    console.log('TO', this.props.item.owner.phone);
     axios.post('/twilio/send-message', {
       content,
       to: this.props.item.owner.phone,
@@ -100,7 +99,7 @@ Item.propTypes = {
   index: PropTypes.number
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
     owner: state.user.user._id,

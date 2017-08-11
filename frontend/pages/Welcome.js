@@ -71,22 +71,6 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    // axios.post('http://localhost:3000/api/auth/login', {
-    //   username: this.state.usernameLogin,
-    //   password: this.state.passwordLogin,
-    // })
-    // .then((resp) => {
-    //   if (resp.data.success) {
-    //     this.closeLogin();
-    //     const user = resp.data.user;
-    //     this.props.onSuccessfulLogin(user);
-    //     this.props.history.push('/profile');
-    //   }
-    // })
-    // .catch((err) => {
-    //   console.log('Error loggin in:', err);
-    //   this.setState({loginFailure: err});
-    // });
     this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
     this.props.history.push('/profile');
   }
@@ -395,7 +379,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSuccessfulLogin: (username, password) => {
-      console.log("INSIDE DISPATCH");
       dispatch(saveUser(username, password));
     }
   };

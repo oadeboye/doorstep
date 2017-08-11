@@ -24,8 +24,8 @@ class EditUserModal extends React.Component {
       fName: this.props.thisUser.fName,
       lName: this.props.thisUser.lName,
       email: this.props.thisUser.email,
+      aboutMe: this.props.thisUser.aboutMe
     };
-    console.log("EDIT USER MODAL LIVETH", this.state);
   }
 
   closeEdit() {
@@ -33,7 +33,8 @@ class EditUserModal extends React.Component {
       showEditModal: false,
       fName: this.props.thisUser.fName,
       lName: this.props.thisUser.lName,
-      email: this.props.thisUser.email
+      email: this.props.thisUser.email,
+      aboutMe: this.props.thisUser.aboutMe
     });
   }
 
@@ -53,12 +54,17 @@ class EditUserModal extends React.Component {
     this.setState({lName: e.target.value});
   }
 
+  onAboutMeChange(e) {
+    this.setState({aboutMe: e.target.value});
+  }
+
   onSubmit(e) {
     e.preventDefault();
     const editObj = {
       fName: this.state.fName,
       lName: this.state.lName,
-      email: this.state.email
+      email: this.state.email,
+      aboutMe: this.state.aboutMe
     };
     console.log("EDITING HERE");
     this.props.editUser(editObj, this.props.thisUser._id);
@@ -87,7 +93,6 @@ class EditUserModal extends React.Component {
   }
 
   render() {
-    console.log("INSIDE RENDER OF EDIT USER MODAL");
     return (
       <div>
         <button className="edit-profile-button" onClick={() => this.openEdit()}>Edit Profile</button>
@@ -132,6 +137,16 @@ class EditUserModal extends React.Component {
                 />
                 <FormControl.Feedback />
                 <HelpBlock>Email is required</HelpBlock>
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>About Me</ControlLabel>
+                <FormControl
+                  type="text"
+                  componentClass="textarea"
+                  placeholder="Tell us about yourself!"
+                  value = {this.state.aboutMe}
+                  onChange={(e) => this.onAboutMeChange(e)}
+                />
               </FormGroup>
             </form>
           </Modal.Body>

@@ -9,7 +9,7 @@ import { Modal,
          FieldGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { postCreateCommunity, clearCreateCommunityStatus } from '../actions/postCreateCommunity';
+import { postCreateCommunity, clearCreateCommunityStatus } from '../../actions/postCreateCommunity';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -55,12 +55,11 @@ class CreateCommunityModal extends React.Component {
   }
 
   navigateToCommunityProfile() {
-    console.log("CLEARING")
     this.props.clearCreateCommunityStatusDispatch();
   }
 
   render() {
-    console.log("ID???", this.props.createCommunityStatus);
+    // console.log("ID???", this.props.createCommunityStatus);
     return (
       <div>
         {
@@ -111,7 +110,8 @@ class CreateCommunityModal extends React.Component {
 CreateCommunityModal.propTypes = {
   user: PropTypes.object,
   postCreateCommunityDispatch: PropTypes.func,
-  clearCreateCommunityStatusDispatch: PropTypes.func
+  clearCreateCommunityStatusDispatch: PropTypes.func,
+  createCommunityStatus: PropTypes.object
 };
 
 const mapStateToProps = (state) => {

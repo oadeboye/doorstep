@@ -23,7 +23,6 @@ class EditCommunityModal extends React.Component {
       name: this.props.community.name,
       description: this.props.community.description
     };
-    console.log("YO WADDUP IM THE OTHER BUTTON");
   }
 
   closeEdit() {
@@ -48,13 +47,6 @@ class EditCommunityModal extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    // const editCommunityObj = {
-    //   name: this.state.name,
-    //   description: this.state.description,
-    // };
-    // console.log("EDITING HERE");
-    // this.props.onCommunityEdit(editCommunityObj);
-    console.log('ON SUBMIT');
     this.props.editCommunityDispatch(this.state.name, this.state.description, this.props.community._id);
     this.closeEdit();
   }
@@ -74,8 +66,6 @@ class EditCommunityModal extends React.Component {
   }
 
   render() {
-    console.log("COMUNTIY in modal", this.props.community);
-    console.log('HERE');
     return (
       <div>
         <button className="edit-profile-button" onClick={() => this.openEdit()}>Edit Community Profile</button>

@@ -21,7 +21,6 @@ class RequestsBar extends React.Component {
 
   componentDidMount() {
     this.props.getRequestsDispatch(this.props.communityId);
-    console.log('REQUESTS', this.props.requests);
   }
 
   open() {
@@ -34,7 +33,6 @@ class RequestsBar extends React.Component {
 
   onRequestChange(e) {
     var maxWords = 5 - e.target.value.split(" ");
-    console.log('maxWords');
     this.setState({request: e.target.value});
   }
 
@@ -42,22 +40,6 @@ class RequestsBar extends React.Component {
     e.preventDefault();
     this.props.postRequestDispatch(this.props.user, this.props.communityId, this.state.request);
     this.close();
-    // console.log('REQUESTING ITEM');
-    // console.log('HISTORy', this.props.commId);
-    // axios.post(domain + '/api/request/', {
-    //   requester: this.props.user._id,
-    //   text: this.state.request,
-    //   datePosted: new Date(),
-    //   communityId: this.props.commId
-    // })
-    // .then((resp) => {
-    //   console.log('posting a request', resp);
-    //   this.props.handleRequest();
-    //   this.close();
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   }
 
   render() {
@@ -65,10 +47,6 @@ class RequestsBar extends React.Component {
       <div className="requests-bar">
         <button onClick={this.open.bind(this)} className="add-request-button">+</button>
         <div className="requests-bar-title">REQUESTS</div>
-        {/* <Request />
-        <Request />
-        <Request />
-        <Request /> */}
         {this.props.requests.map((request, index) => <Request key={index} request={request}/>)}
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>

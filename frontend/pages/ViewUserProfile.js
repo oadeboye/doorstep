@@ -1,12 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SearchCommunitiesList from '../components/SearchCommunitiesList';
 import styles from '../assets/stylesheets/userprofile.less';
-import { connect } from 'react-redux';
-import axios from 'axios';
-import PropTypes from 'prop-types';
-// import { saveUser } from '../actions/index';
 
 class ViewUserProfile extends React.Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class ViewUserProfile extends React.Component {
   componentDidMount() {
     axios.get('/api/profile/' + this.props.match.params.userId)
     .then((response) => {
-      console.log("USER", response.data.user);
       this.setState({
         user: response.data.user
       }, () => console.log("DONE, ", this.state.user));
@@ -27,7 +26,6 @@ class ViewUserProfile extends React.Component {
 
   render() {
     const user = this.state.user;
-    console.log("USER RENDERED", user);
     return (
       <div>
         <Navbar />
@@ -50,15 +48,15 @@ class ViewUserProfile extends React.Component {
                     </div>
                     <div className="stats-box">
                       <div className="stat">
-                        <h1>4</h1>
+                        <h1>{user.stats[0] || 0}</h1>
                         <h3>Given</h3>
                       </div>
                       <div className="stat">
-                        <h1>4</h1>
-                        <h3>Given</h3>
+                        <h1>{user.stats[1] || 0}</h1>
+                        <h3>Taken</h3>
                       </div>
                       <div className="stat">
-                        <h1>4</h1>
+                        <h1>{user.stats[2] || 0}</h1>
                         <h3>Given</h3>
                       </div>
                     </div>

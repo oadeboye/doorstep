@@ -9,16 +9,12 @@ import Footer from '../components/Footer';
 import RequestsBar from '../components/RequestsBar';
 import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
-import styles from '../assets/stylesheets/communitymarket.less';
 import AddItemModal from '../components/modals/AddItemModal';
+import styles from '../assets/stylesheets/communitymarket.less';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  updateRequests() {
-    console.log('updating requests');
   }
 
   render() {
