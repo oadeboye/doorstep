@@ -116,8 +116,8 @@ router.post('/item', (req, res) => {
         .then((user) => {
           user.stats[0] = user.stats[0] + 1;
           user.save()
-          .then(() => {
-            console.log("COMMUNITY ADD ITEM");
+          .then((saved) => {
+            console.log("COMMUNITY ADD ITEM", saved.stats);
             // Send back the community json object with the updated array
             return res.json({ success: true });
           });

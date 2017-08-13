@@ -34,7 +34,7 @@ class Welcome extends React.Component {
       fName: '',
       lName: '',
       failure: '',
-      validateUser: '',
+      validateUser: null,
       helpBlock: '',
       loginFailure: '',
       registerFailure: '',
@@ -80,16 +80,15 @@ class Welcome extends React.Component {
   onLogin(e) {
     e.preventDefault();
     this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
-    console.log("P", this.props.user)
+    console.log("P", this.props.user);
     if (!this.props.user) {
       swal({
         title: "Error logging",
         text: "Your username or password is incorrect.",
         type: "error"
-      })
-    }
-    else {
-      console.log("USERz", this.props.user)
+      });
+    } else {
+      console.log("USERz", this.props.user);
       this.props.history.push('/profile');
     }
   }
@@ -160,15 +159,14 @@ class Welcome extends React.Component {
           title: "Success",
           text: "Welcome to Doorstep! Go ahead and login.",
           type: "success"
-        })
+        });
         this.closeRegister();
-      }
-      else {
+      } else {
         swal({
           title: "Error Registering",
           text: "Please make sure the form is correctly filled out.",
           type: "error"
-        })
+        });
       }
     })
     .catch((err) => {
