@@ -10,9 +10,7 @@ export function getRequests(communityId) {
     console.log("ID IN GET REQUESTS", communityId);
     axios.get('/api/community/' + communityId)
     .then(response => {
-      console.log('RESPONSE', response);
       const requests = response.data.community.requests;
-      console.log('REQUEST DISPATCH', requests);
       dispatch({
         type: Types.getRequestsFulfilled,
         requests

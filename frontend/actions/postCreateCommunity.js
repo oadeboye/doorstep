@@ -2,7 +2,6 @@ import Types from './actionTypes';
 import axios from 'axios';
 
 function postCreateCommunity(name, description, owner) {
-  console.log("IN DISPATCH");
   return dispatch => {
     dispatch({
       type: Types.postCreateCommunityRequested
@@ -13,14 +12,12 @@ function postCreateCommunity(name, description, owner) {
       owner: owner
     })
     .then(response => {
-      console.log("COMMUNITY SAVED", response.data)
       if (response.data.success) {
         return dispatch({
           type: Types.postCreateCommunityFulfilled,
           data: response.data.response
         });
-      }
-      else {
+      } else {
         throw new Error('Error: Cannot save community');
       }
     })
@@ -37,7 +34,7 @@ function postCreateCommunity(name, description, owner) {
 function clearCreateCommunityStatus() {
   return dispatch => dispatch({
     type: Types.clearCreateCommunityStatus
-  })
+  });
 }
 
 export {

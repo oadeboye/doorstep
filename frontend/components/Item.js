@@ -32,22 +32,6 @@ class Item extends React.Component {
     console.log('sending message...');
     this.props.requestToTakeItemDispatch(this.props.user, this.props.item.owner.phone, this.props.item, this.state.message);
     this.close();
-    // const content = `${this.props.user.fName} has requested ${this.props.item.name} from you with the following message:\n${this.state.message}. Reply YES to allow Doorstep to reveal your number`;
-    // console.log('TO', this.props.item.owner.phone);
-    // axios.post('/twilio/send-message', {
-    //   content,
-    //   to: this.props.item.owner.phone,
-    //   from: process.env.MY_TWILIO_NUMBER,
-    //   ownerPhone: this.props.item.owner.phone,
-    //   itemId: this.props.item._id
-    // })
-    // .then(resp => {
-    //   console.log('resp', resp);
-    //   this.close();
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // });
   }
 
   render() {

@@ -13,14 +13,12 @@ const requestsReducer = (state = {pending: true, requests: []}, action) => {
         pending: false,
         requests: action.requests
       };
-      // console.log('FULFILLED REQUESTS', getFulfilledState);
       return getFulfilledState;
     case Types.getRequestsRejected:
       const getRejectedState = {
         pending: false,
         error: action.error
       };
-      // console.log('REJECTED REQUESTS', getRejectedState);
       return getRejectedState;
     case Types.postRequestRequested:
       const postPendingState = {
@@ -33,14 +31,12 @@ const requestsReducer = (state = {pending: true, requests: []}, action) => {
         pending: false,
         requests: action.requests
       };
-      console.log('FULFILLED REQUESTS', postFulfilledState);
       return postFulfilledState;
     case Types.postRequestRejected:
       const postRejectedState = {
         pending: false,
         error: action.error
       };
-      console.log('REJECTED REQUESTS', postRejectedState);
       return postRejectedState;
     // case 'persist/REHYDRATE':
     //   console.log("PERSISTING USER", action.payload.requests);

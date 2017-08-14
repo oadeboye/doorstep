@@ -16,7 +16,7 @@ class Market extends React.Component {
           { areThereItems ? this.props.community.items.map((item, index) =>
             <Item key={index} item={item} pending={this.props.pending} index={index}/>
           ) :
-          <h1 className="loader">Loading...</h1>
+          <p className="empty-list">No Items :(</p>
         }
         </div>
       </div>

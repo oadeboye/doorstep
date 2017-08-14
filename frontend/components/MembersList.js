@@ -23,10 +23,8 @@ class MembersList extends React.Component {
   }
 
   componentDidMount() {
-    // ('MEMBERSLIST', this.props.commId);
     this.props.getCommUsersDispatch(this.props.commId);
     this.props.getAllUsersDispatch();
-    // ('USERNAMEs', this.state.usernames);
   }
 
   componentWillReceiveProps(props) {
@@ -135,6 +133,7 @@ class MembersList extends React.Component {
               <FormGroup>
                 <ControlLabel>Add members</ControlLabel>
                 <Autosuggest
+                  className="autosuggest"
                   ref={(input) => {this.input = input;}}
                   suggestions={suggestions}
                   onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
@@ -143,12 +142,12 @@ class MembersList extends React.Component {
                   renderSuggestion={this.renderSuggestion.bind(this)}
                   inputProps={inputProps}
                 />
-                <Button onClick={(e) => this.onAdd(e)}>Add</Button>
+                <Button className="modal-button-blue" onClick={(e) => this.onAdd(e)}>Add</Button>
               </FormGroup>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => this.close()}>Cancel</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -163,7 +162,8 @@ MembersList.propTypes = {
   allUsers: PropTypes.array,
   getCommUsersDispatch: PropTypes.func,
   commUsers: PropTypes.object,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  history: PropTypes.array
 };
 
 const mapStateToProps = (state, ownProps) => {

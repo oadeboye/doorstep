@@ -26,13 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressValidator());
 
-//passport setup
+// passport setup
 app.use(session({
   secret: 'HELLO MY NAME IS BOB',
-  // cookie: {
-  //   // In milliseconds, i.e., five minutes
-  //   maxAge: 1000 * 60 * 5
-  // },
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({mongooseConnection: mongoose.connection})

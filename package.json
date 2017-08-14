@@ -19,6 +19,7 @@
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "bootstrap-validator": "^0.11.9",
     "connect-flash": "^0.1.1",
@@ -56,6 +57,7 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
+    "sweetalert": "^1.1.3",
     "twilio": "^3.6.1",
     "underscore": "^1.8.3",
     "webpack": "^2.3.3"

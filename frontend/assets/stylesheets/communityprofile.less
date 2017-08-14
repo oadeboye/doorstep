@@ -1,11 +1,15 @@
 @import 'colorsfonts.less';
 @import (reference) 'generalstyles.less';
 
+
 .community-profile-page {
   .community-splash {
     .splash;
     background-color: @sorbet-orange;
-    height: 80vh;
+    background-image: url('/img/communitymarketbackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 550px;
     position: relative;
     flex-direction: column;
     justify-content: flex-end;
@@ -15,6 +19,14 @@
       text-align: right;
       width: 300px;
       top: 110px;
+      left: -20px;
+    }
+    .leave-profile-button {
+      .button-blue;
+      position: absolute;
+      text-align: right;
+      width: 300px;
+      top: 160px;
       left: -20px;
     }
     .market-button {
@@ -53,6 +65,20 @@
           font-weight: 600;
         }
       }
+    }
+  }
+  .about-community {
+    padding: 50px 20%;
+    text-align: center;
+    h3 {
+      font-weight: 700;
+      color: @light-blue;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-weight: 600;
+      font-size: 18px;
     }
   }
 }

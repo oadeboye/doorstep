@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import MembersList from '../components/MembersList';
 import EditCommunityModal from '../components/modals/EditCommunityModal';
+import LeaveCommunityModal from '../components/modals/LeaveCommunityModal';
 import styles from '../assets/stylesheets/communityprofile.less';
 import { connect } from 'react-redux';
 import { getOneCommunity } from '../actions/getOneCommunity';
@@ -15,31 +16,27 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-
+  
   componentDidMount() {
-    // console.log('HELLO');
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
   render() {
-        console.log('CURRENT COMM', this.props.currentComm);
+    const ready = !this.props.pending && this.props.currentComm.name;
     return (
       <div className="community-profile-page">
         <Navbar />
-        {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
-        <div className="community-splash">
-          {
-            !this.props.pending ?
-            // <button className="edit-profile-button">
-              <EditCommunityModal
+        { ready ?
+        <div>
+          <div className="community-splash">
+            <EditCommunityModal
               community={this.props.currentComm}
-              />
-          // </button>
-            :
-            <button className="edit-profile-button">Edit Community Profile</button>
-          }
+            />
+            <LeaveCommunityModal
+                history={this.props.history} />
           <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
+          <h4 style={{'marginTop': 0}}>{this.props.currentComm.description}</h4>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>
@@ -57,14 +54,20 @@ class CommunityProfile extends React.Component {
           <Link to={'/community/' + this.props.match.params.communityId}>
           <div className="market-button">Go to Marketplace</div>
           </Link>
-        </div>}
-        {
-          this.props.pending ? <h1>Loading...</h1> :
-          <div>
-            <div>{this.props.currentComm.description}</div>
-            <MembersList
-              commId={this.props.match.params.communityId}/>
+        </div>
+        <div>
+          <div className="about-community">
+            <h3>About Us</h3>
+            <p>{this.props.currentComm.description}</p>
           </div>
+          <MembersList
+            commId={this.props.match.params.communityId}
+            history={this.props.history}
+          />
+        </div>
+        </div>
+        :
+          <div className="loader">Loading...</div>
         }
         <Footer />
       </div>
@@ -76,7 +79,8 @@ CommunityProfile.propTypes = {
   match: PropTypes.object,
   currentComm: PropTypes.object,
   getOneCommunity: PropTypes.func,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  history: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
@@ -93,3 +97,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfile);
+

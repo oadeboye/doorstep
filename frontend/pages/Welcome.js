@@ -12,11 +12,14 @@ import { Modal,
          Input } from 'react-bootstrap';
 import axios from 'axios';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import NavbarWelcome from '../components/NavbarWelcome';
 import { connect } from 'react-redux';
 import { saveUser } from '../actions/saveUser';
 import getAllCommunities from '../actions/getAllCommunities';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
+import styles from '../assets/stylesheets/welcome.less';
+
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -33,7 +36,7 @@ class Welcome extends React.Component {
       fName: '',
       lName: '',
       failure: '',
-      validateUser: '',
+      validateUser: null,
       helpBlock: '',
       loginFailure: '',
       registerFailure: '',
@@ -41,6 +44,13 @@ class Welcome extends React.Component {
       phone: ''
     };
   }
+
+  // componentWillMount() {
+  //   if (this.props.user && Object.keys(this.props.user).length !== 0) {
+  //     console.log("USER", this.props.user)
+  //     this.props.history.push('/profile');
+  //   }
+  // }
 
   componentDidMount() {
     axios.get('http://localhost:3000/api/users')
@@ -71,24 +81,18 @@ class Welcome extends React.Component {
 
   onLogin(e) {
     e.preventDefault();
-    // axios.post('http://localhost:3000/api/auth/login', {
-    //   username: this.state.usernameLogin,
-    //   password: this.state.passwordLogin,
-    // })
-    // .then((resp) => {
-    //   if (resp.data.success) {
-    //     this.closeLogin();
-    //     const user = resp.data.user;
-    //     this.props.onSuccessfulLogin(user);
-    //     this.props.history.push('/profile');
-    //   }
-    // })
-    // .catch((err) => {
-    //   console.log('Error loggin in:', err);
-    //   this.setState({loginFailure: err});
-    // });
     this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
-    this.props.history.push('/profile');
+    console.log("P", this.props.user);
+    if (!this.props.user) {
+      swal({
+        title: "Error logging",
+        text: "Your username or password is incorrect.",
+        type: "error"
+      });
+    } else {
+      console.log("USERz", this.props.user);
+      this.props.history.push('/profile');
+    }
   }
 
   closeRegister() {
@@ -153,7 +157,18 @@ class Welcome extends React.Component {
     })
     .then((resp) => {
       if (resp.data.success) {
+        swal({
+          title: "Success",
+          text: "Welcome to Doorstep! Go ahead and login.",
+          type: "success"
+        });
         this.closeRegister();
+      } else {
+        swal({
+          title: "Error Registering",
+          text: "Please make sure the form is correctly filled out.",
+          type: "error"
+        });
       }
     })
     .catch((err) => {
@@ -233,6 +248,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="welcome-page">
+        <NavbarWelcome />
         <div className="welcome-splash">
           <h1 className="welcome-title">Welcome to Doorstep</h1>
           <Button
@@ -250,9 +266,61 @@ class Welcome extends React.Component {
           >Register
           </Button>
         </div>
+
+        <div className="mission">
+          <h1>Our Mission</h1>
+          <p></p>
+        </div>
+
+        <div className="how-it-works">
+          <h1>How to works</h1>
+          <h3>Join.</h3>
+          <p>1. Register for an account on Doorstep</p>
+          <h3>Create.</h3>
+          <p>2. Join or create your first community and invite other Doorstep users that you know and
+          would like to share items with. This can be a community with friends living near you or a group
+          within your apartment building, workspace, or neighborhood.
+          </p>
+          <h3>Give.</h3>
+          <p>3. Start adding items that you no longer want anymore, such as clothing that you don't wear anymore,
+          food that is still good but you don't want to eat, or furniture. </p>
+          <h3>Take.</h3>
+          <p>4. Take what you need. Only message a person when you feel like that item will not be wasted
+          in your hands. The number of items you take or give will be recorded in your stats, so others can see
+          if you've taken more than your fair share. </p>
+        </div>
+
+        <div className="about-us">
+          <h1>About Us</h1>
+          <div className="our-profiles">
+            <div className="profile">
+            <h2>Demi Adeoboye</h2>
+            <img src="/img/demi.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing 
+            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            dummy text </p>
+            </div>
+            <div className="profile">
+            <h2>Teresa Liu</h2>
+            <img src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing 
+            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            dummy text</p>
+            </div>
+            <div className="profile">
+            <h2>Minh To</h2>
+            <img src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing 
+            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            dummy text</p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
-            <Modal.Title>Login</Modal.Title>
+            <Modal.Title className="modal-title">Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="form-group">
@@ -281,13 +349,13 @@ class Welcome extends React.Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button type="submit" onClick={(e) => this.onLogin(e)}>Login</Button>
-            <Button onClick={() => this.closeLogin()}>Cancel</Button>
+            <Button className="modal-button-orange" type="submit" onClick={(e) => this.onLogin(e)}>Login</Button>
+            <Button className="modal-button-red" onClick={() => this.closeLogin()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
         <Modal show={this.state.showRegisterModal} onHide={() => this.closeRegister()}>
           <Modal.Header closeButton>
-            <Modal.Title>Register as a New User!</Modal.Title>
+            <Modal.Title className="modal-title">Register</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -377,8 +445,8 @@ class Welcome extends React.Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onRegister(e)}>Register</Button>
-            <Button onClick={() => this.closeRegister()}>Cancel</Button>
+            <Button className="modal-button-blue" onClick={(e) => this.onRegister(e)}>Register</Button>
+            <Button className="modal-button-red" onClick={() => this.closeRegister()}>Cancel</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -386,16 +454,16 @@ class Welcome extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    history: ownProps.history
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onSuccessfulLogin: (username, password) => {
-      console.log("INSIDE DISPATCH");
       dispatch(saveUser(username, password));
     }
   };
@@ -403,7 +471,8 @@ const mapDispatchToProps = (dispatch) => {
 
 Welcome.propTypes = {
   onSuccessfulLogin: PropTypes.func,
-  history: PropTypes.array
+  history: PropTypes.array,
+  user: PropTypes.object
 };
 
 export default connect(

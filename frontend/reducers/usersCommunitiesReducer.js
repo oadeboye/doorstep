@@ -20,6 +20,24 @@ const usersCommunitiesReducer = (state = {pending: false, data: []}, action) => 
         error: action.error
       };
       return rejectedState;
+    case Types.removeSelfRequested:
+      const pendingRemove = {
+        pending: true,
+        data: state.data.slice()
+      };
+      return pendingRemove;
+    case Types.removeSelfFulfilled:
+      const removeFulfilled = {
+        pending: false,
+        data: action.data
+      };
+      return removeFulfilled;
+    case Types.removeSelfRejected:
+      const removeRejected = {
+        pending: false,
+        error: action.error
+      };
+      return removeRejected;
     default:
       return state;
   }
