@@ -22,6 +22,7 @@ class UserProfile extends React.Component {
     const pending = this.props.pending;
     const saveUserEdits = this.props.pending;
     const ready = user && !pending;
+    console.log(this.props.user);
 
     if (!this.props.pending && (!this.props.user || Object.keys(this.props.user).length === 0)) {
       this.props.history.push('/');
@@ -32,8 +33,11 @@ class UserProfile extends React.Component {
         <Navbar />
         <div className="profile-wrapper">
           <div className="door-tag">
-            <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
-            <h2 className="name">{user.fName + ' ' + user.lName}</h2>
+            <img className="doortag-img" src="/img/doortag.svg" />
+            <div className="doortag-inner">
+              <img className="profile-pic" alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
+              <h2 className="name">{user.fName + ' ' + user.lName}</h2>
+            </div>
           </div>
           <div className="user-profile-splash">
             { ready ?
@@ -48,6 +52,9 @@ class UserProfile extends React.Component {
             <div className="info-box">
               <div className="about-me">
                 <h3>{user.aboutMe}</h3>
+              </div>
+              <div className="about-description">
+                <p>Hello! This is my description. Insert the real user description here.</p>
               </div>
               <div className="stats-box">
                 <div className="stat">

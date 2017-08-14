@@ -102,7 +102,7 @@ class CreateCommunityModal extends React.Component {
                   placeholder="Enter a username"
                   onChange={(e) => this.onAddMembersChange(e)}
                 />
-                <Button componentClass={ControlLabel}>
+                <Button className="modal-button-blue" style={{marginTop: 10}} componentClass={ControlLabel}>
                   Add more members
                 </Button>
               </FormGroup>

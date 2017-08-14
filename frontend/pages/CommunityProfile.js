@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import MembersList from '../components/MembersList';
 import EditCommunityModal from '../components/modals/EditCommunityModal';
+import LeaveCommunityModal from '../components/modals/LeaveCommunityModal';
 import styles from '../assets/stylesheets/communityprofile.less';
 import { connect } from 'react-redux';
 import { getOneCommunity } from '../actions/getOneCommunity';
@@ -49,12 +50,13 @@ class CommunityProfile extends React.Component {
         {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
         <div className="community-splash">
           {
-            !this.props.pending ?
-            // <button className="edit-profile-button">
-                  <EditCommunityModal
-                    community={this.props.currentComm}
-                  />
-          // </button>
+            !this.props.pending ? <div>
+              <EditCommunityModal
+                community={this.props.currentComm}
+              />
+              <LeaveCommunityModal
+                history={this.props.history} />
+            </div>
             :
             <button className="edit-profile-button">Edit Community Profile</button>
           }
@@ -81,7 +83,10 @@ class CommunityProfile extends React.Component {
         {
           this.props.pending ? <h1 className="loader">Loading...</h1> :
           <div>
-            <div>{this.props.currentComm.description}</div>
+            <div className="about-community">
+            <h3>About Us</h3>
+            <p>{this.props.currentComm.description}</p>
+            </div>
             <MembersList
               commId={this.props.match.params.communityId}
               history={this.props.history}
