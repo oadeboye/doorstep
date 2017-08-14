@@ -22,13 +22,7 @@ class Request extends React.Component {
   }
 
   onRemove(e) {
-    e.preventDefault();
-    const removeObj = {
-      itemId: this.props.item._id,
-      communityId: this.props.communityId,
-    };
-    this.props.removeItem(removeObj);
-    this.close();
+
   }
 
   render() {
