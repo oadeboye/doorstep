@@ -47,5 +47,8 @@ export default {
   editCommunityRejected: 'EDIT_COMMUNITY_REJECTED',
   removeMemberRequested: 'REMOVE_MEMBER_REQUESTED',
   removeMemberFulfilled: 'REMOVE_MEMBER_FULFILLED',
-  removeMemberRejected: 'REMOVE_MEMBER_REJECTED'
+  removeMemberRejected: 'REMOVE_MEMBER_REJECTED',
+  requestItemRequested: 'REQUEST_ITEM_REQUESTED',
+  requestItemFulfilled: 'REQUEST_ITEM_FULFILLED',
+  requestItemRejected: 'REQUEST_ITEM_REJECTED',
 };

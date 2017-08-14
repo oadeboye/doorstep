@@ -46,6 +46,21 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
         pending: false
       };
       return persistentState;
+    case Types.requestItemRequested:
+      const requestedPendingState = Object.assign({}, state, { pending: true });
+      return requestedPendingState;
+    case Types.requestItemFulfilled:
+      const updatedUserWithRequest = Object.assign({}, state.user, { pendingRequest: action.pendingRequest });
+      const requestItemFulfilledState =  {
+        pending: false,
+        user: updatedUserWithRequest
+      };
+      console.log('FULFILLED PENDING REQUESTS', requestItemFulfilledState);
+      return requestItemFulfilledState;
+    case Types.requestItemRejected:
+      const requestItemRejectedState = Object.assign({}, state, { error: action.error });
+      console.log('REJECTED PENDING REQUEST', requestItemRejectedState);
+      return requestItemRejectedState;
     default:
       return state;
   }

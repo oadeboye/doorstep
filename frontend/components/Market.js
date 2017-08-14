@@ -17,7 +17,6 @@ class Market extends React.Component {
       return (item.owner && (item.owner._id === this.props.user._id))
     })
     const areThereItems = !this.props.pending && this.props.community.items;
-
     return (
       <div className="market">
         <div className="market-list">
