@@ -67,7 +67,7 @@ Door.propTypes = {
   user: PropTypes.object,
   com: PropTypes.object,
   isMember: PropTypes.bool,
-  getOneCommunity: PropTypes.function,
+  getOneCommunity: PropTypes.func,
   history: PropTypes.array
 };
 

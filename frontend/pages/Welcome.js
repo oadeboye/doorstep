@@ -269,7 +269,7 @@ class Welcome extends React.Component {
 
         <div className="mission">
           <h1>Our Mission</h1>
-          <p></p>
+          <p/>
         </div>
 
         <div className="how-it-works">
@@ -295,23 +295,23 @@ class Welcome extends React.Component {
           <div className="our-profiles">
             <div className="profile">
             <h2>Demi Adeoboye</h2>
-            <img src="/img/demi.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing 
-            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            <img alt="Demilade" src="/img/demi.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text </p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
-            <img src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing 
-            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            <img alt="Teresa" src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
-            <img src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing 
-            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            <img alt="Minh" src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text</p>
             </div>
           </div>
