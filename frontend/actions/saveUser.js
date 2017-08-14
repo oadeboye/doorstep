@@ -13,6 +13,7 @@ export function saveUser(username, password) {
       password: password
     })
     .then(respJson => {
+      console.log("FULFILLED", respJson.data.user);
       const user = respJson.data.user;
       console.log("USER SAVED HERE", user.stats);
       axios.get('/api/calculate-stats/' + user._id)

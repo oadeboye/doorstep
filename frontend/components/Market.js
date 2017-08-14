@@ -9,6 +9,7 @@ class Market extends React.Component {
   }
   render() {
     const areThereItems = !this.props.pending && this.props.community.items;
+    console.log("COMMUNITY MARKET", this.props.community);
     return (
       <div className="market">
         <div className="item-list">

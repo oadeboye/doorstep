@@ -16,9 +16,11 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
+  
   componentDidMount() {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
+
   render() {
     const ready = !this.props.pending && this.props.currentComm.name;
     return (
