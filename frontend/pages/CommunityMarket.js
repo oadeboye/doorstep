@@ -11,10 +11,17 @@ import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
 import styles from '../assets/stylesheets/communitymarket.less';
 import AddItemModal from '../components/modals/AddItemModal';
+import { getOneCommunity } from '../actions/getOneCommunity';
 
 class CommunityMarket extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    console.log('COMMUNITY MARKET ID', this.props.match.params.communityId);
+    this.props.getOneCommunityDispatch(this.props.match.params.communityId);
+    console.log('COMMUNITY DID MOUNT IN COMMUNITY MARKET', this.props.community);
   }
 
   updateRequests() {
@@ -22,7 +29,7 @@ class CommunityMarket extends React.Component {
   }
 
   render() {
-    console.log();
+    console.log('ID in COMM MARKET', this.props.community);
     return (
       <div className="community-market-page">
         <Navbar />
@@ -33,13 +40,19 @@ class CommunityMarket extends React.Component {
             { this.props.pending ? <p>Give an Item</p> : <AddItemModal />}
             </div>
         </div>
-        <RequestsBar commId={this.props.community._id}/>
-        <Market />
+            <RequestsBar commId={this.props.community._id} community={this.props.community}/>
+            <Market />
         <Footer />
       </div>
     );
   }
 }
+
+CommunityMarket.propTypes = {
+  community: PropTypes.object,
+  pending: PropTypes.bool,
+  getOneCommunityDispatch: PropTypes.func
+};
 
 const mapStateToProps = ( state ) => {
   return {
@@ -48,11 +61,12 @@ const mapStateToProps = ( state ) => {
   };
 };
 
-CommunityMarket.propTypes = {
-  community: PropTypes.object,
-  pending: PropTypes.bool
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getOneCommunityDispatch: (communityId) => dispatch(getOneCommunity(communityId))
+  };
 };
 
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(CommunityMarket);

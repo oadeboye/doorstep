@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import domain from '../domain';
 import { getRequests } from '../actions/getRequests';
+import { getOneCommunity } from '../actions/getOneCommunity';
 import { postRequest } from '../actions/postRequest';
 
 class RequestsBar extends React.Component {
@@ -19,8 +20,9 @@ class RequestsBar extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.getRequestsDispatch(this.props.communityId);
+  componentWillMount() {
+    // console.log('WILL MOUNT', this.props);
+    this.props.getRequestsDispatch(this.props.community._id);
     console.log('REQUESTS', this.props.requests);
   }
 
@@ -34,7 +36,7 @@ class RequestsBar extends React.Component {
 
   onRequestChange(e) {
     var maxWords = 5 - e.target.value.split(" ");
-    console.log('maxWords');
+    console.log('maxWords', maxWords);
     this.setState({request: e.target.value});
   }
 
@@ -61,6 +63,7 @@ class RequestsBar extends React.Component {
   }
 
   render() {
+    console.log('REQUESTS BAR', this.props.community);
     return (
       <div className="requests-bar">
         <button onClick={this.open.bind(this)} className="add-request-button">+</button>
@@ -69,7 +72,7 @@ class RequestsBar extends React.Component {
         <Request />
         <Request />
         <Request /> */}
-        {this.props.requests.map((request, index) => <Request key={index} request={request}/>)}
+        {this.props.community.requests.map((request, index) => <Request key={index} request={request}/>)}
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Make a request</Modal.Title>
@@ -102,20 +105,25 @@ RequestsBar.propTypes = {
   requests: PropTypes.array,
   communityId: PropTypes.string,
   getRequestsDispatch: PropTypes.func,
-  postRequestDispatch: PropTypes.func
+  postRequestDispatch: PropTypes.func,
+  community: PropTypes.object,
+  match: PropTypes.objects
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
     requests: state.requests.requests,
-    communityId: ownProps.commId
+    communityId: ownProps.commId,
+    community: state.currentComm.community,
+    match: ownProps.match
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getRequestsDispatch: (communityId) => dispatch(getRequests(communityId)),
+    getOneCommunityDispatch: (communityId) => dispatch(getOneCommunity(communityId)),
     postRequestDispatch: (requester, communityId, text) => dispatch(postRequest(requester, communityId, text))
   };
 };

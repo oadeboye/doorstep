@@ -21,23 +21,6 @@ class CommunityProfile extends React.Component {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
-  // handleAddUsers(user) {
-  //   var users = this.state.community.users.concat(user);
-  //   var newComm = Object.assign({}, this.state.community, {users});
-  //   this.setState({community: newComm});
-  // }
-  //
-  // onCommunityEdit(editObj) {
-  //   const commId = this.state.community._id;
-  //   axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
-  //   .then((respJson) => {
-  //     this.setState({ commmunity: respJson.data.commmunity });
-  //   })
-  //   .catch((err) => {
-  //     console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
-  //   });
-  // }
-
   render() {
         console.log('CURRENT COMM', this.props.currentComm);
     return (

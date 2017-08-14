@@ -7,6 +7,7 @@ export function getRequests(communityId) {
       type: Types.getRequestsRequested
     });
     const error = false;
+    console.log("ID IN GET REQUESTS", communityId);
     axios.get('/api/community/' + communityId)
     .then(response => {
       console.log('RESPONSE', response);
