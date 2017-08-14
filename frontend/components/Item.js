@@ -58,34 +58,34 @@ class Item extends React.Component {
               { verify ?
                 <RemoveItemModal item={this.props.item}/>
                 :
-                <p>Take</p>
+                <p className="take-button">Take
+                  <Modal show={this.state.showModal} onHide={() => this.close()}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Request this item</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <Form>
+                        <FormGroup>
+                          <ControlLabel>Message to {this.props.item.owner.fName}</ControlLabel>
+                          <FormControl
+                            type="text"
+                            componentClass="textarea"
+                            placeholder="Message"
+                            onChange={(e) => this.onMessageChange(e)}
+                          />
+                        </FormGroup>
+                      </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button className="modal-button-blue" onClick={(e) => this.sendMessage(e)}>Send message</Button>
+                      <Button className="modal-button-red" onClick={() => this.close()}>Cancel</Button>
+                    </Modal.Footer>
+                  </Modal>
+                </p>
               }
             </div>
-            {/* <div className="description">{this.props.item.description}</div> */}
           </div>
         </div>
-        <Modal show={this.state.showModal} onHide={() => this.close()}>
-          <Modal.Header closeButton>
-            <Modal.Title>Request this item</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <FormGroup>
-                <ControlLabel>Message to {this.props.item.owner.fName}</ControlLabel>
-                <FormControl
-                  type="text"
-                  componentClass="textarea"
-                  placeholder="Message"
-                  onChange={(e) => this.onMessageChange(e)}
-                />
-              </FormGroup>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => this.close()}>Cancel</Button>
-            <Button onClick={(e) => this.sendMessage(e)}>Send message</Button>
-          </Modal.Footer>
-        </Modal>
       </div>
     );
   }

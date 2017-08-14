@@ -47,8 +47,8 @@ class LeaveCommunityModal extends React.Component {
             <p>Would you really like to leave {this.props.community.name}?</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button className="modal-button-blue" onClick={(e) => this.onSubmit(e)}>Yes!</Button>
-            <Button className="modal-button-red" onClick={() => this.close()}>No, keep me in the community!</Button>
+            <Button className="modal-button-blue" onClick={(e) => this.onSubmit(e)}>Yes, I'm leaving!</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>No, keep me in!</Button>
           </Modal.Footer>
         </Modal>
       </div>

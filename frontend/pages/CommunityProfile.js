@@ -34,7 +34,6 @@ class CommunityProfile extends React.Component {
                 history={this.props.history} />
           <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
-          <h4 style={{'marginTop': 0}}>{this.props.currentComm.description}</h4>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>

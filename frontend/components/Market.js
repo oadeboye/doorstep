@@ -8,15 +8,39 @@ class Market extends React.Component {
     super(props);
   }
   render() {
+    const marketItems = this.props.community.items.filter((item) => {
+      console.log("OWNER", item.owner);
+      console.log("USER", this.props.user._id)
+      return !(item.owner && (item.owner._id === this.props.user._id))
+    })
+    const yourItems = this.props.community.items.filter((item) => {
+      return (item.owner && (item.owner._id === this.props.user._id))
+    })
     const areThereItems = !this.props.pending && this.props.community.items;
+
     return (
       <div className="market">
-        <div className="item-list">
-          { areThereItems ? this.props.community.items.map((item, index) =>
-            <Item key={index} item={item} pending={this.props.pending} index={index}/>
-          ) :
-          <p className="empty-list">No Items :(</p>
-        }
+        <div className="market-list">
+          <h2>Marketplace</h2>
+          <div className="item-list">
+            {
+              areThereItems ? marketItems.map((item, index) =>
+              <Item key={index} item={item} pending={this.props.pending} index={index}/>)
+              :
+              <p className="empty-list">No Items Available on the Market</p>
+            }
+          </div>
+        </div>
+        <div className="your-list">
+          <h2>Items You've Given</h2>
+          <div className="item-list">
+            {
+              areThereItems ? yourItems.map((item, index) =>
+              <Item key={index} item={item} pending={this.props.pending} index={index}/>)
+              :
+              <p className="empty-list">No Items Available from You</p>
+            }
+          </div>
         </div>
       </div>
     );
@@ -26,13 +50,15 @@ class Market extends React.Component {
 const mapStateToProps = ( state ) => {
   return {
     community: state.currentComm.community,
-    pending: state.currentComm.pending
+    pending: state.currentComm.pending,
+    user: state.user.user
   };
 };
 
 Market.propTypes = {
   pending: PropTypes.bool,
   community: PropTypes.object,
+  user: PropTypes.object
 };
 
 export default connect(
