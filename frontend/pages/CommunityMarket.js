@@ -18,6 +18,7 @@ class CommunityMarket extends React.Component {
 
   render() {
     const ready = this.props.pending;
+    console.log("PROPS MATCH MARKET", this.props.match);
     return (
       <div>
       { ready ?

@@ -22,6 +22,7 @@ class CommunityProfile extends React.Component {
 
   render() {
     const ready = !this.props.pending && this.props.currentComm.name;
+    console.log("MATCH PROPS", this.props.match);
     return (
       <div className="community-profile-page">
         <Navbar />
@@ -33,6 +34,7 @@ class CommunityProfile extends React.Component {
             />
           <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
+          <h4 style={{'marginTop': 0}}>{this.props.currentComm.description}</h4>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>
@@ -52,7 +54,7 @@ class CommunityProfile extends React.Component {
           </Link>
         </div>
         <div>
-          <div>{this.props.currentComm.description}</div>
+
           <MembersList
             commId={this.props.match.params.communityId}
             history={this.props.history}
@@ -76,10 +78,10 @@ CommunityProfile.propTypes = {
   history: PropTypes.array
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ( state ) => {
   return {
     currentComm: state.currentComm.community,
-    pending: state.currentComm.pending
+    pending: state.currentComm.pending,
   };
 };
 

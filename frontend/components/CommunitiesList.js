@@ -25,9 +25,6 @@ class CommunitiesList extends React.Component {
   }
 
   render() {
-    this.props.usersCommunities.data.map((community) => {
-      console.log("COMMUNITY NAME", community.name);
-    });
     return (
       <div className="communities-list">
         <CreateCommunityModal />
