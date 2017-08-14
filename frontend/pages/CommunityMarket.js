@@ -9,6 +9,7 @@ import RequestsBar from '../components/RequestsBar';
 import Market from '../components/Market';
 import CommunitiesList from '../components/CommunitiesList';
 import AddItemModal from '../components/modals/AddItemModal';
+import { getOneCommunity } from '../actions/getOneCommunity';
 import styles from '../assets/stylesheets/communitymarket.less';
 
 class CommunityMarket extends React.Component {
@@ -16,7 +17,18 @@ class CommunityMarket extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    console.log('COMMUNITY MARKET ID', this.props.match.params.communityId);
+    this.props.getOneCommunityDispatch(this.props.match.params.communityId);
+    console.log('COMMUNITY DID MOUNT IN COMMUNITY MARKET', this.props.community);
+  }
+
+  updateRequests() {
+    console.log('updating requests');
+  }
+
   render() {
+    console.log('ID in COMM MARKET', this.props.community);
     const ready = this.props.pending;
     console.log("PROPS MATCH MARKET", this.props.match);
     return (
@@ -36,8 +48,8 @@ class CommunityMarket extends React.Component {
             <AddItemModal />
           </div>
         </div>
-        <RequestsBar commId={this.props.community._id}/>
-        <Market />
+            <RequestsBar commId={this.props.community._id} community={this.props.community}/>
+            <Market />
         <Footer />
       </div>
     }
@@ -49,6 +61,7 @@ class CommunityMarket extends React.Component {
 CommunityMarket.propTypes = {
   community: PropTypes.object,
   pending: PropTypes.bool,
+  getOneCommunityDispatch: PropTypes.func,
   match: PropTypes.object
 };
 
@@ -59,6 +72,12 @@ const mapStateToProps = ( state ) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getOneCommunityDispatch: (communityId) => dispatch(getOneCommunity(communityId))
+  };
+};
+
 export default connect(
-  mapStateToProps
+  mapStateToProps, mapDispatchToProps
 )(CommunityMarket);
