@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export function addItem(itemObj) {
   return dispatch => {
-    console.log("ADD ITEM REQUESTED DISPATCH");
     dispatch({
       type: Types.addItemRequested
     });

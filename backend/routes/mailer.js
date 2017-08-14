@@ -13,7 +13,7 @@ const nodemailer = Promise.promisifyAll(require('nodemailer'));
 const fs = Promise.promisifyAll(require('fs'));
 
 // Create SMTP transporter
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: process.env.EMAIL_SERVICE,
   auth: {
     user: process.env.EMAIL_USERNAME,
@@ -21,7 +21,7 @@ let transporter = nodemailer.createTransport({
   }
 }, {
   from: 'Doorstep'
-})
+});
 
 console.log("SMTP Configured");
 
@@ -33,7 +33,6 @@ console.log("SMTP Configured");
  * @return {Promise}            Returns new promise that returns the success status of the send email function
  */
 function sendEmail(toEmail, information, filePath) {
-
   console.log("TO", toEmail);
   console.log("INFO", information);
   // Read the email.hbs file and use Handlebars to create an HTML file
@@ -47,12 +46,12 @@ function sendEmail(toEmail, information, filePath) {
       htmlBody = renderToString(source, information);
       console.log("HTML BODY", htmlBody);
       // Create a message object containing the HTML
-      let message = {
+      const message = {
         to: 'teresali@usc.edu',
         subject: 'Doorstep Revised!',
         html: htmlBody
-      }
-      return transporter.sendMail(message)
+      };
+      return transporter.sendMail(message);
     })
     .then((info) => {
       console.log('Message successfully sent!');
@@ -91,9 +90,9 @@ router.post('/send-email', (req, res) => {
   const information = {
     user: user,
     community: community,
-    link: process.env.DOMAIN + '/mail/confirm-permission/' + user._id + '/' + community._id 
-  }
-  const filePath = path.join(__dirname,'../helper/grantPermissionToCommunityEmail.hbs');
+    link: process.env.DOMAIN + '/mail/confirm-permission/' + user._id + '/' + community._id
+  };
+  const filePath = path.join(__dirname, '../helper/grantPermissionToCommunityEmail.hbs');
 
   // Find the admin of the community
   User.findById(community.users[0])
@@ -101,13 +100,12 @@ router.post('/send-email', (req, res) => {
     return sendEmail(user.email, information, filePath);
   })
   .then((response) => {
-    return res.json(response)
+    return res.json(response);
   })
   .catch(error => {
     console.log("Error finding admin", error);
     res.json({success: false, error: error});
-  })
-
+  });
 });
 
 // GET confirm permission
@@ -127,35 +125,33 @@ router.get('/confirm-permission/:userId/:communityId', (req, res) => {
       throw new Error('User does not exist');
     }
     userFound = user; // To define user outside of scope
-    return Community.findById(req.params.communityId).populate('users')
+    return Community.findById(req.params.communityId).populate('users');
   })
   .then((community) => {
     if (!community) {
       throw new Error('Community does not exist');
-    }
-    // Send error if the user is already in that community
-    else if (community.users.indexOf(userFound._id) !== -1) {
+    } else if (community.users.indexOf(userFound._id) !== -1) {
+      // Send error if the user is already in that community
       console.log("Error: user already exists");
       res.json({ success: false, response: community });
-    } 
-    // Update the community to contain the added user
-    else {
+    } else {
+      // Update the community to contain the added user
       communityFound = community; // To define community outside of scope
       const newUsers = [...community.users];
       newUsers.push(userFound._id);
-      return community.update({ users: newUsers })
+      return community.update({ users: newUsers });
     }
   })
   .then((result) => {
     // After updating the database with the community's added user, send an email to that user
     // notifying the user that they've been added to the community
-    const filePath = path.join(__dirname,'../helper/notifyPermissionToCommunityEmail.hbs');
+    const filePath = path.join(__dirname, '../helper/notifyPermissionToCommunityEmail.hbs');
     const information = {
       user: userFound,
       owner: communityFound.users[0],
       community: communityFound,
       link: process.env.DOMAIN = '/community/' + communityFound._id
-    }
+    };
     return sendEmail(userFound.email, information, filePath);
   })
   .then(response => {
@@ -165,8 +161,8 @@ router.get('/confirm-permission/:userId/:communityId', (req, res) => {
   .catch((err) => {
     console.log("Error sending confirm permission email", err);
     // return res.json({success: false, error: err});
-  })
-})
+  });
+});
 
 
 module.exports = router;

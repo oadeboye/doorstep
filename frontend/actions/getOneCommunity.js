@@ -10,8 +10,6 @@ export function getOneCommunity(communityId) {
     axios.get('/api/community/' + communityId)
     .then(response => {
       const community = response.data.community;
-      console.log('RESPONSE', response);
-      console.log('DISPATCHED COMMUNITY', community);
       return dispatch({
         type: Types.getOneCommunityFulfilled,
         community: community

@@ -13,11 +13,15 @@ export function saveUser(username, password) {
       password: password
     })
     .then(respJson => {
-      console.log("FULFILLED");
       const user = respJson.data.user;
-      return dispatch({
-        type: Types.saveUserFulfilled,
-        user: user
+      console.log("USER SAVED HERE", user.stats);
+      axios.get('/api/calculate-stats/' + user._id)
+      .then((resp2Json) => {
+        console.log("USER STATS UPDATED HERE", resp2Json.data.user.stats);
+        return dispatch({
+          type: Types.saveUserFulfilled,
+          user: resp2Json.data.user
+        });
       });
     })
     .catch(error => {
@@ -29,27 +33,3 @@ export function saveUser(username, password) {
     });
   };
 }
-
-// const saveUser = (user) => {
-//   return {
-//     type: 'SAVE_USER',
-//     user,
-//   };
-// };
-
-// const editUser = (edits) => {
-//   return {
-//     type: 'EDIT_USER',
-//     edits
-//   };
-// };
-//
-
-// const editCommunity = (commEdits) => {
-//   return {
-//     type: 'EDIT_COMMUNITY',
-//     commEdits
-//   };
-// };
-
-// export { saveUser, editUser, editCommunity };

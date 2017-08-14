@@ -14,7 +14,6 @@ class LeaveCommunityModal extends React.Component {
     this.state = {
       showModal: false,
     };
-    console.log("HEY BITCH IM THE BUTTON");
   }
 
   close() {
@@ -27,8 +26,6 @@ class LeaveCommunityModal extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log("USER ID HERE", this.props.thisUser._id);
-    console.log("COMMUNITY ID HERE", this.props.community._id);
     const removeObj = {
       userId: this.props.thisUser._id,
       communityId: this.props.community._id
@@ -39,7 +36,6 @@ class LeaveCommunityModal extends React.Component {
   }
 
   render() {
-    console.log("THE BUTTON LIVETH");
     return (
       <div>
         <button className="leave-profile-button" onClick={() => this.open()}>Leave the Community</button>

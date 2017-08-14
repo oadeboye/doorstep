@@ -16,52 +16,25 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-
   componentDidMount() {
-    // console.log('HELLO');
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
-
-  // handleAddUsers(user) {
-  //   var users = this.state.community.users.concat(user);
-  //   var newComm = Object.assign({}, this.state.community, {users});
-  //   this.setState({community: newComm});
-  // }
-  //
-  // onCommunityEdit(editObj) {
-  //   const commId = this.state.community._id;
-  //   axios.post('http://localhost:3000/api/edit-community/' + commId, editObj)
-  //   .then((respJson) => {
-  //     this.setState({ commmunity: respJson.data.commmunity });
-  //   })
-  //   .catch((err) => {
-  //     console.log("ERROR SUBMITTING COMMUNITY PROFILE EDITS", err);
-  //   });
-  // }
-
   render() {
-    // if (!this.props.user || Object.keys(this.props.user).length === 0) {
-    //   this.props.history.push('/');
-    // }
-
+    const ready = !this.props.pending && this.props.currentComm.name;
     return (
       <div className="community-profile-page">
         <Navbar />
-        {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
-        <div className="community-splash">
-          {
-            !this.props.pending ? <div>
-              <EditCommunityModal
-                community={this.props.currentComm}
-              />
-              <LeaveCommunityModal
+        { ready ?
+        <div>
+          <div className="community-splash">
+            <EditCommunityModal
+              community={this.props.currentComm}
+            />
+            <LeaveCommunityModal
                 history={this.props.history} />
-            </div>
-            :
-            <button className="edit-profile-button">Edit Community Profile</button>
-          }
           <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
+          <h4 style={{'marginTop': 0}}>{this.props.currentComm.description}</h4>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>
@@ -79,19 +52,20 @@ class CommunityProfile extends React.Component {
           <Link to={'/community/' + this.props.match.params.communityId}>
           <div className="market-button">Go to Marketplace</div>
           </Link>
-        </div>}
-        {
-          this.props.pending ? <h1 className="loader">Loading...</h1> :
-          <div>
-            <div className="about-community">
+        </div>
+        <div>
+          <div className="about-community">
             <h3>About Us</h3>
             <p>{this.props.currentComm.description}</p>
-            </div>
-            <MembersList
-              commId={this.props.match.params.communityId}
-              history={this.props.history}
-            />
           </div>
+          <MembersList
+            commId={this.props.match.params.communityId}
+            history={this.props.history}
+          />
+        </div>
+        </div>
+        :
+          <div className="loader">Loading...</div>
         }
         <Footer />
       </div>
@@ -121,3 +95,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfile);
+

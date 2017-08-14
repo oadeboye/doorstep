@@ -17,7 +17,6 @@ export function postRequest(requester, communityId, text) {
       axios.get('/api/community/' + communityId) // populate requests
       .then(resp => {
         const requests = resp.data.community.requests;
-        console.log('POST REQUEST', requests);
         dispatch({
           type: Types.postRequestFulfilled,
           requests

@@ -52,7 +52,7 @@ class CreateCommunityModal extends React.Component {
   onCreate(e, name, description, userId) {
     e.preventDefault();
     this.props.postCreateCommunityDispatch(name, description, userId);
-    console.log("STATUS", this.props.createCommunityStatus)
+    console.log("STATUS", this.props.createCommunityStatus);
     this.close();
   }
 
@@ -121,7 +121,8 @@ class CreateCommunityModal extends React.Component {
 CreateCommunityModal.propTypes = {
   user: PropTypes.object,
   postCreateCommunityDispatch: PropTypes.func,
-  clearCreateCommunityStatusDispatch: PropTypes.func
+  clearCreateCommunityStatusDispatch: PropTypes.func,
+  createCommunityStatus: PropTypes.object
 };
 
 const mapStateToProps = (state) => {

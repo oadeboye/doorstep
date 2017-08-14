@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export function removeItem(itemObj) {
   return dispatch => {
-    console.log("REQUESTED DISPATCH REMOVE ITEM");
     dispatch({
       type: Types.removeItemRequested
     });

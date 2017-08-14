@@ -18,21 +18,23 @@ import domain from '../domain';
 class CommunitiesList extends React.Component {
   constructor(props) {
     super(props);
-    console.log("COM LIST", this.props.user);
   }
+
   componentDidMount() {
-    console.log("USER ID HEREE", this.props.user);
     this.props.getUsersCommunitiesDispatch(this.props.user._id);
   }
 
   render() {
+    this.props.usersCommunities.data.map((community) => {
+      console.log("COMMUNITY NAME", community.name);
+    });
     return (
       <div className="communities-list">
         <CreateCommunityModal />
         <h2>Communities</h2>
           <div className="communities-box">
           {this.props.usersCommunities.data.map((com, index) =>
-            <Door key={index} com={com} isMember/>)}
+            <Door key={index} history={this.props.history} com={com} isMember/>)}
           </div>
       </div>
     );
@@ -42,13 +44,15 @@ class CommunitiesList extends React.Component {
 CommunitiesList.propTypes = {
   user: PropTypes.object,
   usersCommunities: PropTypes.object,
-  getUsersCommunitiesDispatch: PropTypes.func
+  getUsersCommunitiesDispatch: PropTypes.func,
+  history: PropTypes.array
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
-    usersCommunities: state.usersCommunities
+    usersCommunities: state.usersCommunities,
+    history: ownProps.history
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -15,7 +15,6 @@ export function removeMember(communityId, userId) {
       axios.get('/api/community/' + communityId)
       .then(resp => { // populate user objects
         const commUsers = resp.data.community.users;
-        console.log('REMOVE DISPATCH 2', commUsers);
         dispatch({
           type: Types.removeMemberFulfilled,
           commUsers

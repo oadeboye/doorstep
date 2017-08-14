@@ -15,7 +15,6 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
       };
       return fulfilledState;
     case Types.saveUserRejected:
-    console.log("HERE")
       const rejectedState = {
         pending: false,
         error: action.error

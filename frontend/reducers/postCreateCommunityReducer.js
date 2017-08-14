@@ -22,7 +22,6 @@ const postCreateCommunityReducer = (state = {pending: true, data: []}, action) =
       };
       return rejectedState;
     case Types.clearCreateCommunityStatus:
-      console.log("CLEAR COMMUNITY STATUS");
       const resetState = {
         pending: true,
         data: []
