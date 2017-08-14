@@ -149,7 +149,7 @@ class Welcome extends React.Component {
       username: this.state.usernameReg,
       password: this.state.passwordReg,
       email: this.state.email,
-      phone
+      phone,
     })
     .then((resp) => {
       if (resp.data.success) {

@@ -4,6 +4,7 @@ import { Modal, Button, Form, FormGroup, ControlLabel, FormControl } from 'react
 import axios from 'axios';
 import RemoveItemModal from './modals/RemoveItemModal';
 import { connect } from 'react-redux';
+import { requestToTakeItem } from '../actions/requestToTakeItem';
 
 class Item extends React.Component {
   constructor(props) {
@@ -29,28 +30,41 @@ class Item extends React.Component {
   sendMessage(e) {
     e.preventDefault();
     console.log('sending message...');
-    const content = `${this.props.user.fName} has requested ${this.props.item.name} from you with the following message:\n${this.state.message}. Reply YES to allow Doorstep to reveal your number`;
-    console.log('TO', this.props.item.owner.phone);
-    axios.post('/twilio/send-message', {
-      content,
-      to: this.props.item.owner.phone,
-      from: process.env.MY_TWILIO_NUMBER,
-      ownerPhone: this.props.item.owner.phone
-    })
-    .then(resp => {
-      console.log('resp', resp);
-      this.close();
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    this.props.requestToTakeItemDispatch(this.props.user, this.props.item.owner.phone, this.props.item, this.state.message);
+    this.close();
+    // const content = `${this.props.user.fName} has requested ${this.props.item.name} from you with the following message:\n${this.state.message}. Reply YES to allow Doorstep to reveal your number`;
+    // console.log('TO', this.props.item.owner.phone);
+    // axios.post('/twilio/send-message', {
+    //   content,
+    //   to: this.props.item.owner.phone,
+    //   from: process.env.MY_TWILIO_NUMBER,
+    //   ownerPhone: this.props.item.owner.phone,
+    //   itemId: this.props.item._id
+    // })
+    // .then(resp => {
+    //   console.log('resp', resp);
+    //   this.close();
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
   }
 
   render() {
     const verify = !this.props.pending && this.props.item.owner && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
+    console.log('PENDING REQUEST', this.props.item.owner);
+    const canRequest = this.props.user._id !== this.props.item.owner._id &&
+    !this.props.item.owner.pendingRequest.pending;
+    console.log('CAN REQUEST?', canRequest);
     return (
       <div>
-        <div className="item" onClick={this.props.user._id === this.props.item.owner._id ? () => this.close() : () => this.open()} className="item">
+        <div className="item" onClick={
+          canRequest ?
+          // this.props.user._id === this.props.item.owner._id || // if user owns the item or
+          // this.props.item.owner.pendingRequest.requesterPhone === this.props.user.phone ? // if user has already requested this item
+          () => this.open() : // user cannot request item
+          () => this.close() // otherwise user can request item
+        } className="item">
           <div className="img-wrapper">
             <img alt="someImage" src={this.props.item.imgURL || "https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg"}/>
           </div>
@@ -98,7 +112,8 @@ Item.propTypes = {
   user: PropTypes.object,
   owner: PropTypes.string,
   pending: PropTypes.bool,
-  index: PropTypes.number
+  index: PropTypes.number,
+  requestToTakeItemDispatch: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -111,4 +126,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(Item);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestToTakeItemDispatch: (currUser, ownerPhone, item, message) => dispatch(requestToTakeItem(currUser, ownerPhone, item, message))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

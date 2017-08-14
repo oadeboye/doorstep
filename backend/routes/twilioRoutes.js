@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/models').User;
+const Item = require('../models/models').Item;
 
 // twilio configuration
 var accountSid = process.env.TWILIO_SID; // Your Account SID from www.twilio.com/console
@@ -19,34 +20,39 @@ router.post('/send-message', function(req, res) {
   console.log('sending...');
   const data = {
     body: req.body.content,
-    to: req.body.to, // a 10-digit number
+    to: req.body.ownerPhone, // owner phone
     from: process.env.MY_TWILIO_NUMBER
   };
-  User.findOne({phone: req.body.to})
-  .then(requester => {
-    console.log('REQUESTER FOUnd', requester);
-    if (JSON.stringify(requester.pendingState) === "{}") {
+  User.findOne({phone: req.body.ownerPhone})
+  .then(owner => {
+    console.log('OWNER FOUnd', owner);
+    if (!owner.pendingRequest.pending) { // each person can only 1 request at a time
       const newPending = {
-        requesterPhone: req.body.to,
+        requesterPhone: req.body.requesterPhone,
         ownerPhone: req.body.ownerPhone,
+        itemId: req.body.itemId,
         pending: true
       };
-      requester.update({pendingState: newPending})
+      // const copyPending = [...requester.pendingRequest];
+      // copyPending.push(newPending);
+      console.log('NEW PENDING', newPending);
+      owner.update({pendingRequest: newPending})
       .then(resp => {
         console.log('RESP', resp);
         client.messages.create(data)
         .then(msg => {
           // console.log('MESSAGE SENT', message);
-          console.log('sent message from', req.body.to, 'to', req.body.ownerPhone);
+          console.log('sent message from', req.body.requesterPhone, 'to', req.body.ownerPhone);
           res.json({
-            msgId: msg.sid
+            msgId: msg.sid,
+            pendingRequest: newPending
           });
         });
       });
     }
     else {
-      console.log('OWNER HAS NOT RESPONDED TO YOUR REQUEST');
-      res.json({message: "owner has not responded to your previous request"});
+      console.log('CANNOT MAKE MORE THAN 1 REQUEST AT A TIME, WAITING FOR OWNER TO APPROVE');
+      res.json({message: "cannot make more than 1 request,  waitng for owner to approve"});
     }
   })
   .catch(err => {
@@ -56,13 +62,43 @@ router.post('/send-message', function(req, res) {
 
 router.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
-  const owner = req.body.owner;
-  if (req.body.Body.toLowerCase() === 'yes') {
-    twiml.message(`Please contact ${req}`);
-  }
-  twiml.message('The Robots are coming! Head for the hills!');
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
+  User.findOne({phone: req.body.From})
+  .then(owner => { // find owner of item
+    console.log('FOUND USER', owner);
+    const requesterPhone = owner.pendingRequest.requesterPhone;
+    console.log('REQUESTER PHONE', requesterPhone);
+    const ownerPhone = owner.pendingRequest.ownerPhone;
+    User.findOne({phone: requesterPhone}) // find requester
+    .then(requester => {
+      console.log('FOUND REQUESTER', requester);
+      Item.findById(owner.pendingRequest.itemId)
+      .then(item => { // find item
+        if (req.body.Body.toLowerCase() === 'yes') { // if owner authorizes, send owner's number to requester
+          twiml.message(`You have authorized Doorstep to reveal your number to ${requester.fName} ${requester.lName}`);
+          const newMessage = {
+            body: `${owner.fName} ${owner.lName}'s phone number is: ${ownerPhone}. Please contact them to claim ${item.name}`,
+            to: requesterPhone,
+            from: process.env.MY_TWILIO_NUMBER
+          };
+          client.messages.create(newMessage);
+          res.writeHead(200, {'Content-Type': 'text/xml'});
+          res.end(twiml.toString());
+          const resetPending = {
+            pending: false
+          };
+          console.log('resetting', resetPending);
+          owner.update({pendingRequest: resetPending})
+          .then(resp => {
+            console.log('PENDING REQUEST RESET');
+          })
+        }
+      });
+    });
+  })
+  .catch(err => {
+    console.log(err);
+    res.json({success: false, failure: err});
+  });
 });
 
 

@@ -13,7 +13,7 @@ export function saveUser(username, password) {
       password: password
     })
     .then(respJson => {
-      console.log("FULFILLED");
+      console.log("FULFILLED", respJson.data.user);
       const user = respJson.data.user;
       return dispatch({
         type: Types.saveUserFulfilled,

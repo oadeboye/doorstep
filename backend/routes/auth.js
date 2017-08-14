@@ -48,7 +48,8 @@ const auth = (passport) => {
             email: req.body.email,
             fName: req.body.fName,
             lName: req.body.lName,
-            stats: [0, 0, 0]
+            stats: [0, 0, 0],
+            phone: req.body.phone
           });
           return newUser.save();
         }
@@ -69,7 +70,7 @@ const auth = (passport) => {
   router.post('/login', passport.authenticate('local'), (req, res) => {
     User.findById(req.session.passport.user)
     .then((user) => {
-      console.log("JUST LOGGED IN YO!");
+      console.log("JUST LOGGED IN YO!", user);
       res.json({
         success: true,
         user
