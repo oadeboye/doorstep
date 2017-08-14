@@ -14,9 +14,14 @@ export function saveUser(username, password) {
     })
     .then(respJson => {
       const user = respJson.data.user;
-      return dispatch({
-        type: Types.saveUserFulfilled,
-        user: user
+      console.log("USER SAVED HERE", user.stats);
+      axios.get('/api/calculate-stats/' + user._id)
+      .then((resp2Json) => {
+        console.log("USER STATS UPDATED HERE", resp2Json.data.user.stats);
+        return dispatch({
+          type: Types.saveUserFulfilled,
+          user: resp2Json.data.user
+        });
       });
     })
     .catch(error => {

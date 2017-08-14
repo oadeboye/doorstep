@@ -376,11 +376,15 @@ router.get('/calculate-stats/:id', (req, res) => {
   .then((user) => {
     Item.find({ owner: req.params.id })
     .then((item) => {
-      user.stats[0] = item.length;
-
-      user.save()
+      const statUpdate = user.stats.slice();
+      console.log("FIRST STAT UPDATE", statUpdate);
+      statUpdate.splice(0, 1, item.length);
+      console.log("SECOND STAT UPDATE", statUpdate);
+      user.update({stats: statUpdate})
       .then(() => {
-        res.json({ success: true, given: item.length });
+        user.stats = statUpdate;
+        res.json({ success: true, given: item.length, user });
+        console.log("USER UPDATE", user.stats);
       });
     });
   })
