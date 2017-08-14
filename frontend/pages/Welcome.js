@@ -53,7 +53,7 @@ class Welcome extends React.Component {
   // }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/users')
+    axios.get('/api/users')
     .then((resp) => {
       var usernames = resp.data.users.map((user) => user.username);
       this.setState({usernames: usernames});
@@ -147,7 +147,7 @@ class Welcome extends React.Component {
   onRegister(e) {
     e.preventDefault();
     var phone = (this.state.phone.startsWith('+1') ? this.state.phone : '+1' + this.state.phone);
-    axios.post('http://localhost:3000/api/auth/register', {
+    axios.post('/api/auth/register', {
       fName: this.state.fName,
       lName: this.state.lName,
       username: this.state.usernameReg,
@@ -211,7 +211,7 @@ class Welcome extends React.Component {
 
    // checks with database to see if username already exists
   checkUsername() {
-    axios.get('http://localhost:3000/api/users')
+    axios.get('/api/users')
     .then((resp) => {
       var usernames = resp.data.users.map(user => user.username);
       if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {

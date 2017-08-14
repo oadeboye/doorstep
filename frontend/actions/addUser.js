@@ -12,7 +12,7 @@ export function addUser(username, communityId) {
       communityId
     })
     .then((response) => {
-      axios.get('http://localhost:3000/api/users/' + username) // get user object from their username
+      axios.get('/api/users/' + username) // get user object from their username
       .then((resp) => {
         axios.get('/api/community/' + communityId)
         .then((res) => {

@@ -7,7 +7,7 @@ export function getCommUsers(commId) {
       type: Types.getCommUsersRequested
     });
     const error = false;
-    axios.get('http://localhost:3000/api/community/' + commId)
+    axios.get('/api/community/' + commId)
     .then(response => {
       const commUsers = response.data.community.users;
       // console.log('RESPONSE', response);
