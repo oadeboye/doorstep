@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
     const saveUserEdits = this.props.pending;
     const ready = user && !pending;
 
-    if (!this.props.pending && (!this.props.user || Object.keys(this.props.user).length === 0)) {
+    if (!pending && (!user || Object.keys(user).length === 0)) {
       this.props.history.push('/');
     }
 

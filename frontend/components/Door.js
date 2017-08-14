@@ -39,21 +39,19 @@ class Door extends React.Component {
 
   getOne(e) {
     e.preventDefault();
-    console.log("THE COMMUNITY ID IS", typeof this.props.com._id);
     this.props.getOneCommunity(this.props.com._id);
     this.props.history.push('/community/' + this.props.com._id);
   }
 
   render() {
-    console.log(this.props.com._id);
     return (
       <div className="door">
-        <div className="door-inner"></div>
+        <div className="door-inner"/>
         <div className="door-info">
           <h2>{this.props.com.name ? this.props.com.name :  '7th Street Market'}</h2>
           <p>{this.props.com.description ? this.props.com.description : 'Lorem ipsum something something at 7th street yay'}</p>
         </div>
-        <div className="doorknob"></div>
+        <div className="doorknob"/>
         {
           this.props.isMember ?
           <div className="button join-button" onClick={(e) => this.getOne(e)}>View Market</div>

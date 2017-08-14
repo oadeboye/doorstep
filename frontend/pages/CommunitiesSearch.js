@@ -16,7 +16,7 @@ class CommunitySearch extends React.Component {
       communities: []
     };
   }
-  
+
   componentDidMount() {
     this.props.getAllCommunitiesDispatch();
   }
