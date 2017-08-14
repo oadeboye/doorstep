@@ -21,19 +21,16 @@ class CommunityProfile extends React.Component {
   }
 
   render() {
+    const ready = !this.props.pending && this.props.currentComm.name;
     return (
       <div className="community-profile-page">
         <Navbar />
-        {this.props.pending && this.props.currentComm.name ? <div className="loader">Loading...</div> :
-        <div className="community-splash">
-          {
-            !this.props.pending ?
+        { ready ?
+        <div>
+          <div className="community-splash">
             <EditCommunityModal
               community={this.props.currentComm}
             />
-            :
-            <button className="edit-profile-button">Edit Community Profile</button>
-          }
           <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
           <div className="stats-box">
@@ -53,16 +50,17 @@ class CommunityProfile extends React.Component {
           <Link to={'/community/' + this.props.match.params.communityId}>
           <div className="market-button">Go to Marketplace</div>
           </Link>
-        </div>}
-        {
-          this.props.pending ? <h1 className="loader">Loading...</h1> :
-          <div>
-            <div>{this.props.currentComm.description}</div>
-            <MembersList
-              commId={this.props.match.params.communityId}
-              history={this.props.history}
-            />
-          </div>
+        </div>
+        <div>
+          <div>{this.props.currentComm.description}</div>
+          <MembersList
+            commId={this.props.match.params.communityId}
+            history={this.props.history}
+          />
+        </div>
+        </div>
+        :
+          <div className="loader">Loading...</div>
         }
         <Footer />
       </div>

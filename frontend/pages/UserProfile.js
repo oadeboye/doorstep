@@ -24,55 +24,51 @@ class UserProfile extends React.Component {
     const saveUserEdits = this.props.pending;
     const ready = user && !pending;
 
-    if (!this.props.pending && (!this.props.user || Object.keys(this.props.user).length === 0)) {
+    if (!pending && (!user || Object.keys(user).length === 0)) {
       this.props.history.push('/');
     }
 
     return (
       <div className="user-profile-page">
         <Navbar />
-        <div className="profile-wrapper">
-          <div className="door-tag">
-            <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
-            <h2 className="name">{user.fName + ' ' + user.lName}</h2>
-          </div>
-          <div className="user-profile-splash">
-            { ready ?
-              <EditUserModal
-              />
-              :
-              <p>Load</p>
-            }
-            <h1 className="profile-title">YOUR PROFILE</h1>
-          </div>
-          <div className="user-info">
-            <div className="info-box">
-              <div className="about-me">
-                <h3>{user.aboutMe}</h3>
+        {
+          ready ?
+          <div>
+          <div className="profile-wrapper">
+            <div className="door-tag">
+              <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
+              <h2 className="name">{user.fName + ' ' + user.lName}</h2>
+            </div>
+            <div className="user-profile-splash">
+                <EditUserModal />
+              <h1 className="profile-title">YOUR PROFILE</h1>
+            </div>
+            <div className="user-info">
+              <div className="info-box">
+                <div className="about-me">
+                  <h3>{user.aboutMe}</h3>
+                </div>
+                  <div className="stats-box">
+                    <div className="stat">
+                      <h1>{user.stats[0] || 0}</h1>
+                      <h3>Given</h3>
+                    </div>
+                    <div className="stat">
+                      <h1>{user.stats[1] || 0}</h1>
+                      <h3>Taken</h3>
+                    </div>
+                    <div className="stat">
+                      <h1>{user.stats[2] || 0}</h1>
+                      <h3>Given</h3>
+                    </div>
+                  </div>
               </div>
-              { ready ?
-                <div className="stats-box">
-                <div className="stat">
-                  <h1>{user.stats[0] || 0}</h1>
-                  <h3>Given</h3>
-                </div>
-                <div className="stat">
-                  <h1>{user.stats[1] || 0}</h1>
-                  <h3>Taken</h3>
-                </div>
-                <div className="stat">
-                  <h1>{user.stats[2] || 0}</h1>
-                  <h3>Given</h3>
-                </div>
-              </div>
-                :
-                <div className="loader">Loading...</div>
-              }
             </div>
           </div>
-        </div>
-        {
-          ready ? <CommunitiesList /> : <h1 className="loader">Loading...</h1>
+          <CommunitiesList history={this.props.history}/>
+          </div>
+          :
+          <h1 className="loader">Loading...</h1>
         }
         <Footer />
       </div>
@@ -80,10 +76,11 @@ class UserProfile extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ( state, ownProps ) => {
   return {
     user: state.user.user,
-    pending: state.user.pending
+    pending: state.user.pending,
+    history: ownProps.history
   };
 };
 

@@ -40,8 +40,7 @@ class ViewUserProfile extends React.Component {
                   <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
                   <h2 className="name">{user.fName + ' ' + user.lName}</h2>
                 </div>
-                <div className="viewed-user-profile-splash">
-                </div>
+                <div className="viewed-user-profile-splash" />
                 <div className="user-info">
                   <div className="info-box">
                     <div className="about-me">

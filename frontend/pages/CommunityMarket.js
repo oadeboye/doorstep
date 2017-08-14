@@ -17,33 +17,38 @@ class CommunityMarket extends React.Component {
   }
 
   render() {
+    const ready = this.props.pending;
     return (
+      <div>
+      { ready ?
+        <h1 className="loader">Loading...</h1>
+      :
       <div className="community-market-page">
         <Navbar />
         <div className="market-splash">
           <div className="titles-wrapper">
-          {
-            this.props.pending ? <h1></h1> :
-            <h1 className="community-title">{this.props.community.name}</h1>
-          }
+              <h1 className="community-title">{this.props.community.name}</h1>
             <h3 className="title">MARKET</h3>
           </div>
           <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
           <div className="give-item-button">
-            { this.props.pending ? <p>Give an Item</p> : <AddItemModal />}
+            <AddItemModal />
           </div>
         </div>
         <RequestsBar commId={this.props.community._id}/>
         <Market />
         <Footer />
       </div>
+    }
+    </div>
     );
   }
 }
 
 CommunityMarket.propTypes = {
   community: PropTypes.object,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  match: PropTypes.object
 };
 
 const mapStateToProps = ( state ) => {

@@ -37,8 +37,8 @@ class LeaveCommunityModal extends React.Component {
 
   render() {
     return (
-      <div>
-        <button className="edit-profile-button" onClick={() => this.open()}>Leave the Community</button>
+      <div className="add-community-button">
+        <div onClick={() => this.open()}>Leave the Community</div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Leave {this.props.community.name}</Modal.Title>
