@@ -43,26 +43,58 @@
   }
 }
 
-.requests-bar {
-  background-color: white;
-  padding: 14px 10%;
-  font-size: 18px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid @gray;
-  .add-request-button {
-    .button;
-    padding: 8px 15px;
-    margin-right: 20px;
+.market {
+  .market-list {
+    border-bottom: 1px solid gray;
+    padding: 100px 5%;
+  }
+  .your-list {
+    padding: 100px 5%;
   }
 }
 
+.requests-bar {
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid @gray;
+  .add-request-button {
+    .button;
+    padding: 10px 15px;
+    margin-right: 20px;
+    text-align: center;
+    font-size: 16px;
+  }
+}
+
+.requests-bar-title {
+  padding-right: 10px;
+}
+
+.requests-scroll {
+  overflow-x: scroll;
+  border-left: 1px solid @gray + #222;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.scroll-indicator { 
+  height: 100%;
+  padding: 10px;
+  color: @sky-blue;
+} 
+
 .request {
-  margin-left: 20px;
+  margin: 15px 0 15px 20px;
+  min-height: 60px;
   padding: 3px 20px;
   border-radius: 2em;
+  font-size: 16px;
   border: 2px solid @gray + #222;
+  border-radius: 5px;
   &:hover {
     border: 2px solid @gray + #222;
     background-color: @purple;
@@ -71,9 +103,6 @@
   }
 }
 
-.market {
-  padding: 100px 5%;
-}
 .item-list {
   width: 100%;
   display: flex;
@@ -84,7 +113,6 @@
   min-width: 200px;
   flex-shrink: 0;
   margin: 20px;
-  border: 1px solid @gray;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -103,8 +131,13 @@
       font-size: 16px;
       font-weight: 600;
     }
-    .description {
-
-    }
+  }
+  .take-button {
+    .button-blue;
+    border-radius: 0;
+  }
+  .remove-button {
+    .button-red;
+    border-radius: 0;
   }
 }

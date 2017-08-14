@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { removeMember } from '../actions/removeMember';
 import { connect } from 'react-redux';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 
 class Member extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class Member extends React.Component {
           <div className="member-info">
             {
               this.props.currentUser._id === this.props.user._id ? null : // can only delete other users
-              <button onClick={(e) => this.open(e)}>x</button> // not self
+              <button className="remove-member-button" onClick={(e) => this.open(e)}><Glyphicon glyph="remove"/></button> // not self
             }
             <h3 className="member-name">{this.props.user.fName + ' ' + this.props.user.lName}</h3>
             <div className="stats-box">
@@ -65,8 +65,9 @@ class Member extends React.Component {
             Are you sure you want to remove this member?
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => this.close()}>Cancel</Button>
-            <Button onClick={(e) => this.removeMember(e)}>Confirm</Button>
+            <Button className="modal-button-orange" onClick={(e) => this.removeMember(e)}>Confirm</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>Cancel</Button>
+            
           </Modal.Footer>
         </Modal>
       </Link>

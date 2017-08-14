@@ -1,6 +1,6 @@
 import React from 'react';
 import Request from './Request';
-import { Modal, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock } from 'react-bootstrap';
+import { Modal, Form, FormGroup, FormControl, ControlLabel, Button, HelpBlock, Glyphicon } from 'react-bootstrap';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -50,12 +50,15 @@ class RequestsBar extends React.Component {
     console.log('REQUESTS BAR', this.props.community);
     return (
       <div className="requests-bar">
-        <button onClick={this.open.bind(this)} className="add-request-button">+</button>
+        <button onClick={this.open.bind(this)} className="add-request-button">Add <Glyphicon glyph="plus"/></button>
         <div className="requests-bar-title">REQUESTS</div>
+        <div className="requests-scroll">
         {
           this.props.requests.length === 0 ? <p className="empty-list">All requests fulfilled!</p> :
           this.props.requests.map((request, index) => <Request key={index} request={request}/>)
         }
+        </div>
+        <div className="scroll-indicator"><Glyphicon glyph="chevron-right"/></div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Make a request</Modal.Title>

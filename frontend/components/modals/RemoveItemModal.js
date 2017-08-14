@@ -49,7 +49,7 @@ class RemoveItemModal extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={(e) => this.open(e)}><Glyphicon glyph="remove"/></div>
+        <div className="remove-button" onClick={(e) => this.open(e)}><Glyphicon glyph="remove"/></div>
         <Modal show={this.state.showEditModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Remove an item</Modal.Title>
@@ -60,8 +60,8 @@ class RemoveItemModal extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onRemove(e)}>Yes, please!</Button>
-            <Button onClick={() => this.close()}>No! Cancel.</Button>
+            <Button className="modal-button-orange" onClick={(e) => this.onRemove(e)}>Yes, please!</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>No! Cancel.</Button>
           </Modal.Footer>
         </Modal>
       </div>
