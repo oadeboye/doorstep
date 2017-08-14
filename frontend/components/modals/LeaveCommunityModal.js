@@ -37,8 +37,8 @@ class LeaveCommunityModal extends React.Component {
 
   render() {
     return (
-      <div className="add-community-button">
-        <div onClick={() => this.open()}>Leave the Community</div>
+      <div>
+        <button className="leave-profile-button" onClick={() => this.open()}>Leave the Community</button>
         <Modal show={this.state.showModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Leave {this.props.community.name}</Modal.Title>
@@ -47,8 +47,8 @@ class LeaveCommunityModal extends React.Component {
             <p>Would you really like to leave {this.props.community.name}?</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.onSubmit(e)}>Yes!</Button>
-            <Button onClick={() => this.close()}>No, keep me in the community!</Button>
+            <Button className="modal-button-blue" onClick={(e) => this.onSubmit(e)}>Yes!</Button>
+            <Button className="modal-button-red" onClick={() => this.close()}>No, keep me in the community!</Button>
           </Modal.Footer>
         </Modal>
       </div>

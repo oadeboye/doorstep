@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
 import MembersList from '../components/MembersList';
 import EditCommunityModal from '../components/modals/EditCommunityModal';
+import LeaveCommunityModal from '../components/modals/LeaveCommunityModal';
 import styles from '../assets/stylesheets/communityprofile.less';
 import { connect } from 'react-redux';
 import { getOneCommunity } from '../actions/getOneCommunity';
@@ -15,11 +16,9 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-
   componentDidMount() {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
-
   render() {
     const ready = !this.props.pending && this.props.currentComm.name;
     console.log("MATCH PROPS", this.props.match);
@@ -32,9 +31,10 @@ class CommunityProfile extends React.Component {
             <EditCommunityModal
               community={this.props.currentComm}
             />
+            <LeaveCommunityModal
+                history={this.props.history} />
           <h1 className="community-title">{this.props.currentComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
-          <h4 style={{'marginTop': 0}}>{this.props.currentComm.description}</h4>
           <div className="stats-box">
             <div className="stat">
               <h1>4</h1>
@@ -54,7 +54,10 @@ class CommunityProfile extends React.Component {
           </Link>
         </div>
         <div>
-
+          <div className="about-community">
+            <h3>About Us</h3>
+            <p>{this.props.currentComm.description}</p>
+          </div>
           <MembersList
             commId={this.props.match.params.communityId}
             history={this.props.history}

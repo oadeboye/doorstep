@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { getAllUsers } from '../actions/getAllUsers';
 import { addUser } from '../actions/addUser';
 import { getCommUsers } from '../actions/getCommUsers';
-import LeaveCommunityModal from './modals/LeaveCommunityModal';
 import domain from '../domain';
 import _ from 'underscore';
 
@@ -115,11 +114,6 @@ class MembersList extends React.Component {
     return (
       <div className="members-list">
         <button onClick={() => this.open()} className="add-members-button">Add members</button>
-        { this.props.pending ? <p>Loading...</p> :
-          <LeaveCommunityModal
-            history={this.props.history}
-          />
-      }
         <h2>Members</h2>
         {
           this.props.pending ? <h1 className="loader">Loading users...</h1> :

@@ -18,7 +18,7 @@ class UserProfile extends React.Component {
     console.log("ts", this.props.user);
   }
 
-  render() {
+render() {
     const user = this.props.user;
     const pending = this.props.pending;
     const saveUserEdits = this.props.pending;
@@ -36,8 +36,11 @@ class UserProfile extends React.Component {
           <div>
           <div className="profile-wrapper">
             <div className="door-tag">
-              <img alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
-              <h2 className="name">{user.fName + ' ' + user.lName}</h2>
+              <img className="doortag-img" src="/img/doortag.svg" />
+              <div className="doortag-inner">
+                <img className="profile-pic" alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
+                <h2 className="name">{user.fName + ' ' + user.lName}</h2>
+              </div>
             </div>
             <div className="user-profile-splash">
                 <EditUserModal />

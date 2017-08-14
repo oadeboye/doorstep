@@ -5,8 +5,12 @@
   border-bottom: 1px solid @gray;
   .profile-wrapper {
     position: relative;
+    z-index: 1;
     .user-profile-splash {
       .splash;
+      background-image: url("/img/userprofilebackground.svg");
+      background-repeat: none;
+      background-size: cover;
       height: 40vh;
       flex-direction: row;
       align-items: flex-end;
@@ -60,27 +64,43 @@
       }
     }
     .door-tag {
+      .doortag-img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+      }
+      .doortag-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 2;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        .profile-pic {
+          margin-top: auto;
+          z-index: 3;
+          height: 150px;
+          width: 150px;
+        }
+        .name {
+          text-align: center;
+          font-size: 24px;
+          font-weight: 600;
+          margin-bottom: 60px;
+        }
+      }
       position: absolute;
-      top: 20%;
-      left: 10%;
-      height: 66%;
-      width: 30%;
-      max-width: 400px;
-      background-color: white;
-      border: 1px solid gray;
+      top: 80px;
+      left: 28%;
+      width: 300px;
+      transform: translateX(-50%);
+      height: 500px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       align-items: center;
-      padding: 20px;
-      .name {
-        text-align: center;
-        font-size: 24px;
-        font-weight: 600;
-      }
-      img {
-        height: 140px;
-      }
     }
   }
 }

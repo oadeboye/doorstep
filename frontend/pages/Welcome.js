@@ -12,12 +12,14 @@ import { Modal,
          Input } from 'react-bootstrap';
 import axios from 'axios';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import NavbarWelcome from '../components/NavbarWelcome';
 import { connect } from 'react-redux';
 import { saveUser } from '../actions/saveUser';
 import getAllCommunities from '../actions/getAllCommunities';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
+import styles from '../assets/stylesheets/welcome.less';
+
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -246,6 +248,7 @@ class Welcome extends React.Component {
   render() {
     return (
       <div className="welcome-page">
+        <NavbarWelcome />
         <div className="welcome-splash">
           <h1 className="welcome-title">Welcome to Doorstep</h1>
           <Button
@@ -263,6 +266,58 @@ class Welcome extends React.Component {
           >Register
           </Button>
         </div>
+
+        <div className="mission">
+          <h1>Our Mission</h1>
+          <p></p>
+        </div>
+
+        <div className="how-it-works">
+          <h1>How to works</h1>
+          <h3>Join.</h3>
+          <p>1. Register for an account on Doorstep</p>
+          <h3>Create.</h3>
+          <p>2. Join or create your first community and invite other Doorstep users that you know and
+          would like to share items with. This can be a community with friends living near you or a group
+          within your apartment building, workspace, or neighborhood.
+          </p>
+          <h3>Give.</h3>
+          <p>3. Start adding items that you no longer want anymore, such as clothing that you don't wear anymore,
+          food that is still good but you don't want to eat, or furniture. </p>
+          <h3>Take.</h3>
+          <p>4. Take what you need. Only message a person when you feel like that item will not be wasted
+          in your hands. The number of items you take or give will be recorded in your stats, so others can see
+          if you've taken more than your fair share. </p>
+        </div>
+
+        <div className="about-us">
+          <h1>About Us</h1>
+          <div className="our-profiles">
+            <div className="profile">
+            <h2>Demi Adeoboye</h2>
+            <img src="/img/demi.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing 
+            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            dummy text </p>
+            </div>
+            <div className="profile">
+            <h2>Teresa Liu</h2>
+            <img src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing 
+            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            dummy text</p>
+            </div>
+            <div className="profile">
+            <h2>Minh To</h2>
+            <img src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing 
+            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            dummy text</p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+
         <Modal show={this.state.showLoginModal} onHide={() => this.closeLogin()}>
           <Modal.Header closeButton>
             <Modal.Title className="modal-title">Login</Modal.Title>
