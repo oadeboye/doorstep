@@ -23,7 +23,6 @@ class RequestsBar extends React.Component {
   componentWillMount() {
     // console.log('WILL MOUNT', this.props);
     this.props.getRequestsDispatch(this.props.community._id);
-    console.log('REQUESTS', this.props.requests);
   }
 
   open() {
@@ -36,7 +35,6 @@ class RequestsBar extends React.Component {
 
   onRequestChange(e) {
     var maxWords = 5 - e.target.value.split(" ");
-    console.log('maxWords', maxWords);
     this.setState({request: e.target.value});
   }
 
@@ -47,7 +45,6 @@ class RequestsBar extends React.Component {
   }
 
   render() {
-    console.log('REQUESTS BAR', this.props.community);
     return (
       <div className="requests-bar">
         <button onClick={this.open.bind(this)} className="add-request-button">Add <Glyphicon glyph="plus"/></button>

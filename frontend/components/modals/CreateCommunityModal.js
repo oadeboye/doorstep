@@ -52,7 +52,6 @@ class CreateCommunityModal extends React.Component {
   onCreate(e, name, description, userId) {
     e.preventDefault();
     this.props.postCreateCommunityDispatch(name, description, userId);
-    console.log("STATUS", this.props.createCommunityStatus);
     this.close();
   }
 

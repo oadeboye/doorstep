@@ -18,7 +18,6 @@ class Door extends React.Component {
       community: this.props.com
     })
     .then(response => {
-      console.log("REPOS", response.data);
       if (response.data.success) {
         console.log("SUCCESS FRONT END SENDING MAIL");
         swal({

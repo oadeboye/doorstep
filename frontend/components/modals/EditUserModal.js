@@ -66,7 +66,6 @@ class EditUserModal extends React.Component {
       email: this.state.email,
       aboutMe: this.state.aboutMe
     };
-    console.log("EDITING HERE");
     this.props.editUser(editObj, this.props.thisUser._id);
     this.closeEdit();
   }
