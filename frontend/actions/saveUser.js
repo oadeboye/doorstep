@@ -13,12 +13,9 @@ export function saveUser(username, password) {
       password: password
     })
     .then(respJson => {
-      console.log("FULFILLED", respJson.data.user);
       const user = respJson.data.user;
-      console.log("USER SAVED HERE", user.stats);
       axios.get('/api/calculate-stats/' + user._id)
       .then((resp2Json) => {
-        console.log("USER STATS UPDATED HERE", resp2Json.data.user.stats);
         return dispatch({
           type: Types.saveUserFulfilled,
           user: resp2Json.data.user
@@ -26,7 +23,6 @@ export function saveUser(username, password) {
       });
     })
     .catch(error => {
-      console.log("ERROR LOGGING IN", error);
       return dispatch({
         type: Types.saveUserRejected,
         error: error

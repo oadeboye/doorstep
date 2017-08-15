@@ -291,7 +291,7 @@ router.get('/community/:communityId', (req, res) => {
     // Send the community json object
     return Item.populate(community.items, {path: 'owner'})
     .then((result) => {
-      Request.populate(community.requests, {path: 'owner'})
+      Request.populate(community.requests, {path: 'requester'})
       .then((result) => {
         return res.json({success: true, community: community});
       });

@@ -18,7 +18,6 @@ class CommunitiesList extends React.Component {
   }
 
   render() {
-    console.log("BBBOOOo", this.props.communities);
     return (
       <div className="communities-list">
         <h2>Communities</h2>

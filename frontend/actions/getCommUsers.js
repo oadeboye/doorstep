@@ -7,18 +7,15 @@ export function getCommUsers(commId) {
       type: Types.getCommUsersRequested
     });
     const error = false;
-    axios.get('http://localhost:3000/api/community/' + commId)
+    axios.get('/api/community/' + commId)
     .then(response => {
       const commUsers = response.data.community.users;
-      // console.log('RESPONSE', response);
-      // console.log('DISPATCHED USERS', users);
       return dispatch({
         type: Types.getCommUsersFulfilled,
         commUsers
       });
     })
     .catch(error => {
-      // console.log('ERROR HERE', error);
       return dispatch({
         type: Types.getCommUsersRejected,
         error

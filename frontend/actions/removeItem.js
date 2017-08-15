@@ -21,7 +21,6 @@ export function removeItem(itemObj) {
       }
     })
     .catch((err) => {
-      console.log("ERROR REMOVE ITEM", err);
       dispatch({
         type: Types.removeItemRejected,
         error: err

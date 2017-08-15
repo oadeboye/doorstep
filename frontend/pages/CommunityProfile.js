@@ -82,10 +82,10 @@ CommunityProfile.propTypes = {
   history: PropTypes.array
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ( state ) => {
   return {
     currentComm: state.currentComm.community,
-    pending: state.currentComm.pending
+    pending: state.currentComm.pending,
   };
 };
 
