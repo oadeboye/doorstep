@@ -7,9 +7,11 @@ export function requestToTakeItem(user, ownerPhone, item, message) {
       type: Types.requestItemRequested
     });
     const error = false;
-    const content = `${user.fName} has requested ${item.name} from you with the following message:\n${message}. Reply YES to allow Doorstep to reveal your number`;
+    console.log('USERNAME', user.username, user.fName);
+    const content = `${user.fName} has requested ${item.name} from you with the following message:\n${message}. Would you like Doorstep to send ${user.fName} your phone number?`;
     axios.post('/twilio/send-message', {
       content,
+      requester: user.username,
       requesterPhone: user.phone,
       ownerPhone: ownerPhone,
       itemId: item._id
@@ -17,7 +19,7 @@ export function requestToTakeItem(user, ownerPhone, item, message) {
     .then(resp => {
       dispatch({
         type: Types.requestItemFulfilled,
-        pendingRequest: resp.data.pendingRequest
+        pendingRequests: resp.data.pendingRequests
       });
     })
     .catch(err => {

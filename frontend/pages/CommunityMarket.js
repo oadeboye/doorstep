@@ -44,8 +44,8 @@ class CommunityMarket extends React.Component {
             <AddItemModal />
           </div>
         </div>
-            <RequestsBar commId={this.props.community._id} community={this.props.community}/>
-            <Market />
+        <RequestsBar commId={this.props.community._id} community={this.props.community}/>
+        <Market />
         <Footer />
       </div>
     }

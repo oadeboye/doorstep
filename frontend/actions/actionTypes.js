@@ -51,4 +51,7 @@ export default {
   requestItemRequested: 'REQUEST_ITEM_REQUESTED',
   requestItemFulfilled: 'REQUEST_ITEM_FULFILLED',
   requestItemRejected: 'REQUEST_ITEM_REJECTED',
+  itemStatusChangeRequested: 'STATUS_CHANGE_REQUESTED',
+  itemStatusChangeFulfilled: 'STATUS_CHANGE_FULFILLED',
+  itemStatusChangeRejected: 'STATUS_CHANGE_REJECTED'
 };

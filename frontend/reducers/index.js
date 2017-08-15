@@ -7,6 +7,7 @@ import postCreateCommunityReducer from './postCreateCommunityReducer';
 import allUsersReducer from './allUsersReducer';
 import commUsersReducer from './commUsersReducer';
 import requestsReducer from './requestsReducer';
+import itemReducer from './itemReducer';
 
 const appReducer = combineReducers({
   user: userReducer,
@@ -16,7 +17,8 @@ const appReducer = combineReducers({
   usersCommunities: usersCommunitiesReducer,
   createCommunityStatus: postCreateCommunityReducer,
   allUsers: allUsersReducer,
-  requests: requestsReducer
+  requests: requestsReducer,
+  item: itemReducer
 });
 
 export default appReducer;

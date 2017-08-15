@@ -421,4 +421,18 @@ router.post('/remove-self', (req, res) => {
   });
 });
 
+router.post('/item/:itemId', (req, res) => {
+  Item.findById(req.params.itemId)
+  .then(item => {
+    item.update({pending: true})
+    .then(done => {
+      console.log('DONE UPDATING ITEM STATUS');
+      res.json({success: true, item});
+    });
+  })
+  .catch(err => {
+    res.json({success: false, failure: err});
+  });
+});
+
 module.exports = router;
