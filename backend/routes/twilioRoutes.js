@@ -120,14 +120,6 @@ router.post('/sms', (req, res) => {
               client.messages.create(newMessage);
               res.writeHead(200, {'Content-Type': 'text/xml'});
               res.end(twiml.toString());
-              // const resetPending = {
-              //   pending: false
-              // };
-              // console.log('resetting', resetPending);
-              // owner.update({pendingRequest: resetPending})
-              // .then(resp => {
-              //   console.log('PENDING REQUEST RESET');
-              // });
             }
             else {
               // send error message to owner if they entered the wrong requester's username
