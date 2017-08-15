@@ -17,14 +17,12 @@ export function requestToTakeItem(user, ownerPhone, item, message) {
       itemId: item._id
     })
     .then(resp => {
-      console.log('resp', resp);
       dispatch({
         type: Types.requestItemFulfilled,
         pendingRequests: resp.data.pendingRequests
       });
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: Types.requestItemRejected,
         error: err

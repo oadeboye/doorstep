@@ -15,7 +15,7 @@ class UserProfile extends React.Component {
   }
 
   componentDidMount() {
-    console.log("ts", this.props.user);
+    // console.log("ts", this.props.user);
   }
 
 render() {

@@ -15,7 +15,6 @@ export function getUsersCommunities(userId) {
       });
     })
     .catch(error => {
-      console.log('ERROR HERE', error);
       return dispatch({
         type: Types.getUsersCommunitiesRejected,
         error: error

@@ -9,21 +9,18 @@ class Market extends React.Component {
   }
   render() {
     const marketItems = this.props.community.items.filter((item) => {
-      console.log("OWNER", item.owner);
-      console.log("USER", this.props.user._id)
-      return !(item.owner && (item.owner._id === this.props.user._id))
-    })
+      return !(item.owner && (item.owner._id === this.props.user._id));
+    });
     const yourItems = this.props.community.items.filter((item) => {
-      return (item.owner && (item.owner._id === this.props.user._id))
-    })
-    const areThereItems = !this.props.pending && this.props.community.items;
+      return (item.owner && (item.owner._id === this.props.user._id));
+    });
     return (
       <div className="market">
         <div className="market-list">
           <h2>Marketplace</h2>
           <div className="item-list">
             {
-              areThereItems ? marketItems.map((item, index) =>
+              marketItems.length > 0 ? marketItems.map((item, index) =>
               <Item key={index} item={item} pending={this.props.pending} index={index}/>)
               :
               <p className="empty-list">No Items Available on the Market</p>
@@ -34,7 +31,7 @@ class Market extends React.Component {
           <h2>Items You've Given</h2>
           <div className="item-list">
             {
-              areThereItems ? yourItems.map((item, index) =>
+              yourItems.length > 0 ? yourItems.map((item, index) =>
               <Item key={index} item={item} pending={this.props.pending} index={index}/>)
               :
               <p className="empty-list">No Items Available from You</p>
