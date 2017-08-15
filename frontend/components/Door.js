@@ -18,7 +18,6 @@ class Door extends React.Component {
       community: this.props.com
     })
     .then(response => {
-      console.log("REPOS", response.data);
       if (response.data.success) {
         console.log("SUCCESS FRONT END SENDING MAIL");
         swal({
@@ -67,7 +66,7 @@ Door.propTypes = {
   user: PropTypes.object,
   com: PropTypes.object,
   isMember: PropTypes.bool,
-  getOneCommunity: PropTypes.function,
+  getOneCommunity: PropTypes.func,
   history: PropTypes.array
 };
 

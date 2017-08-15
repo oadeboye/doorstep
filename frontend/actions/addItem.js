@@ -21,7 +21,6 @@ export function addItem(itemObj) {
       }
     })
     .catch((err) => {
-      console.log("ADD ITEM ERROR DISPATCH", err);
       dispatch({
         type: Types.addItemRejected,
         error: err

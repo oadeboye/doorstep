@@ -52,7 +52,7 @@ class RequestsBar extends React.Component {
           this.props.requests.length === 0 ? <p className="empty-list">All requests fulfilled!</p> :
           this.props.requests.map((request, index) => <Request key={index} request={request}/>)
         }
-        
+
         </div>
         <div className="scroll-indicator"><Glyphicon glyph="chevron-right"/></div>
         <Modal show={this.state.showModal} onHide={() => this.close()}>

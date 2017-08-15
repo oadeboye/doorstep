@@ -16,7 +16,7 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentDidMount() {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
@@ -82,10 +82,10 @@ CommunityProfile.propTypes = {
   history: PropTypes.array
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ( state ) => {
   return {
     currentComm: state.currentComm.community,
-    pending: state.currentComm.pending
+    pending: state.currentComm.pending,
   };
 };
 
@@ -96,4 +96,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfile);
-

@@ -22,7 +22,6 @@ function postCreateCommunity(name, description, owner) {
       }
     })
     .catch(error => {
-      console.log('ERROR HERE', error);
       return dispatch({
         type: Types.postCreateCommunityRejected,
         error: error
