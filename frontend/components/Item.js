@@ -36,10 +36,8 @@ class Item extends React.Component {
 
   render() {
     const verify = !this.props.pending && this.props.item.owner && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
-    console.log('PENDING REQUEST', this.props.item.owner);
     const canRequest = this.props.user._id !== this.props.item.owner._id &&
     !this.props.item.owner.pendingRequest.pending;
-    console.log('CAN REQUEST?', canRequest);
     return (
       <div>
         <div className="item" onClick={

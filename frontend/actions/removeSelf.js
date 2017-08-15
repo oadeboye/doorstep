@@ -22,7 +22,6 @@ export function removeSelf(removeObj) {
       }
     })
     .catch(error => {
-      console.log("ERROR LOGGING IN", error);
       return dispatch({
         type: Types.removeSelfRejected,
         error: error

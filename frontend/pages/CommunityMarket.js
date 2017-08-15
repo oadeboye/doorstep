@@ -18,9 +18,7 @@ class CommunityMarket extends React.Component {
   }
 
   componentDidMount() {
-    console.log('COMMUNITY MARKET ID', this.props.match.params.communityId);
     this.props.getOneCommunityDispatch(this.props.match.params.communityId);
-    console.log('COMMUNITY DID MOUNT IN COMMUNITY MARKET', this.props.community);
   }
 
   updateRequests() {
@@ -28,7 +26,6 @@ class CommunityMarket extends React.Component {
   }
 
   render() {
-    console.log('ID in COMM MARKET', this.props.community);
     const ready = this.props.pending;
     return (
       <div>

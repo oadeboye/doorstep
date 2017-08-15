@@ -7,7 +7,7 @@ export function getAllUsers() {
       type: Types.getAllUsersRequested
     });
     const error = false;
-    axios.get('http://localhost:3000/api/users')
+    axios.get('/api/users')
     .then(response => {
       const users = response.data.users;
       // console.log('DISPATCH ALL USERS', users);
@@ -17,7 +17,6 @@ export function getAllUsers() {
       });
     })
     .catch(error => {
-      console.log('ERROR', error);
       return dispatch({
         type: Types.getAllUsersRejected,
         error: error

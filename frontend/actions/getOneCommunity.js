@@ -16,7 +16,6 @@ export function getOneCommunity(communityId) {
       });
     })
     .catch(error => {
-      console.log('ERROR HERE', error);
       return dispatch({
         type: Types.getOneCommunityRejected,
         error: error

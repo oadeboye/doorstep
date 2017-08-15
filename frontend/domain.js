@@ -1,3 +1,3 @@
-const domain = 'http://localhost:3000';
+const domain = 'https://hellodoorstep.herokuapp.com/';
 
 export default domain;

@@ -67,7 +67,6 @@ class Member extends React.Component {
           <Modal.Footer>
             <Button className="modal-button-orange" onClick={(e) => this.removeMember(e)}>Confirm</Button>
             <Button className="modal-button-red" onClick={() => this.close()}>Cancel</Button>
-            
           </Modal.Footer>
         </Modal>
       </Link>

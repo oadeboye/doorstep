@@ -53,7 +53,7 @@ class Welcome extends React.Component {
   // }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/api/users')
+    axios.get('/api/users')
     .then((resp) => {
       var usernames = resp.data.users.map((user) => user.username);
       this.setState({usernames: usernames});
@@ -82,7 +82,6 @@ class Welcome extends React.Component {
   onLogin(e) {
     e.preventDefault();
     this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
-    console.log("P", this.props.user);
     if (!this.props.user) {
       swal({
         title: "Error logging",
@@ -90,7 +89,6 @@ class Welcome extends React.Component {
         type: "error"
       });
     } else {
-      console.log("USERz", this.props.user);
       this.props.history.push('/profile');
     }
   }
@@ -147,7 +145,7 @@ class Welcome extends React.Component {
   onRegister(e) {
     e.preventDefault();
     var phone = (this.state.phone.startsWith('+1') ? this.state.phone : '+1' + this.state.phone);
-    axios.post('http://localhost:3000/api/auth/register', {
+    axios.post('/api/auth/register', {
       fName: this.state.fName,
       lName: this.state.lName,
       username: this.state.usernameReg,
@@ -211,7 +209,7 @@ class Welcome extends React.Component {
 
    // checks with database to see if username already exists
   checkUsername() {
-    axios.get('http://localhost:3000/api/users')
+    axios.get('/api/users')
     .then((resp) => {
       var usernames = resp.data.users.map(user => user.username);
       if (usernames.indexOf(this.state.usernameReg) === -1 && this.state.usernameReg.trim(' ') !== '') {
@@ -269,7 +267,7 @@ class Welcome extends React.Component {
 
         <div className="mission">
           <h1>Our Mission</h1>
-          <p></p>
+          <p/>
         </div>
 
         <div className="how-it-works">
@@ -295,23 +293,23 @@ class Welcome extends React.Component {
           <div className="our-profiles">
             <div className="profile">
             <h2>Demi Adeoboye</h2>
-            <img src="/img/demi.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing 
-            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            <img alt="Demilade" src="/img/demi.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text </p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
-            <img src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing 
-            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            <img alt="Teresa" src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
-            <img src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing 
-            and typesetting industry. Lorem Ipsum has been the industry's standard 
+            <img alt="Minh" src="/img/minh.jpg"/>
+            <p>Lorem Ipsum is simply dummy text of the printing
+            and typesetting industry. Lorem Ipsum has been the industry's standard
             dummy text</p>
             </div>
           </div>
