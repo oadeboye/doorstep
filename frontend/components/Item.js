@@ -5,13 +5,16 @@ import axios from 'axios';
 import RemoveItemModal from './modals/RemoveItemModal';
 import { connect } from 'react-redux';
 import { requestToTakeItem } from '../actions/requestToTakeItem';
+import { changeItemStatus } from '../actions/changeItemStatus';
+import swal from 'sweetalert';
 
 class Item extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       message: '',
-      showModal: false
+      showModal: false,
+      itemStatus: 'Take'
     };
   }
 
@@ -23,22 +26,33 @@ class Item extends React.Component {
     this.setState({showModal: false});
   }
 
+  cannotRequest() {
+    swal({
+      title: "Cannot request this item",
+      text: "You probably have requested this item but forgot about that. Greed is not a virtue",
+      type: "error"
+    });
+    this.setState({showModal: false});
+  }
+
   onMessageChange(e) {
     this.setState({message: e.target.value});
   }
 
   sendMessage(e) {
     e.preventDefault();
-    console.log('sending message...');
+    console.log('sending message to... ' + this.props.item.owner.phone);
     this.props.requestToTakeItemDispatch(this.props.user, this.props.item.owner.phone, this.props.item, this.state.message);
+    // this.setState({itemStatus: 'Pending request'});
+    this.props.changeStatusDispatch(this.props.item._id);
     this.close();
   }
 
   render() {
     const verify = !this.props.pending && this.props.item.owner && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
-    console.log('PENDING REQUEST', this.props.item.owner);
+    var requests = this.props.item.owner.pendingRequests.map(request => request.requesterPhone);
     const canRequest = this.props.user._id !== this.props.item.owner._id &&
-    !this.props.item.owner.pendingRequest.pending;
+    requests.indexOf(this.props.user.phone) === -1;
     console.log('CAN REQUEST?', canRequest);
     return (
       <div>
@@ -47,7 +61,7 @@ class Item extends React.Component {
           // this.props.user._id === this.props.item.owner._id || // if user owns the item or
           // this.props.item.owner.pendingRequest.requesterPhone === this.props.user.phone ? // if user has already requested this item
           () => this.open() : // user cannot request item
-          () => this.close() // otherwise user can request item
+          () => this.cannotRequest() // otherwise user can request item
         } className="item">
           <div className="img-wrapper">
             <img alt="someImage" src={this.props.item.imgURL || "https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg"}/>
@@ -58,7 +72,7 @@ class Item extends React.Component {
               { verify ?
                 <RemoveItemModal item={this.props.item}/>
                 :
-                <p className="take-button">Take
+                <p className="take-button">{this.state.itemStatus}
                   <Modal show={this.state.showModal} onHide={() => this.close()}>
                     <Modal.Header closeButton>
                       <Modal.Title>Request this item</Modal.Title>
@@ -97,7 +111,8 @@ Item.propTypes = {
   owner: PropTypes.string,
   pending: PropTypes.bool,
   index: PropTypes.number,
-  requestToTakeItemDispatch: PropTypes.func
+  requestToTakeItemDispatch: PropTypes.func,
+  changeStatusDispatch: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -112,7 +127,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestToTakeItemDispatch: (currUser, ownerPhone, item, message) => dispatch(requestToTakeItem(currUser, ownerPhone, item, message))
+    requestToTakeItemDispatch: (currUser, ownerPhone, item, message) => dispatch(requestToTakeItem(currUser, ownerPhone, item, message)),
+    changeStatusDispatch: (itemId) => dispatch(changeItemStatus(itemId))
   };
 };
 

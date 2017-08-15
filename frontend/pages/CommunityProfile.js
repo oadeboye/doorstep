@@ -16,17 +16,17 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentDidMount() {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
   render() {
-    const ready = !this.props.pending && this.props.currentComm.name;
+    const ready = !this.props.pending;
     return (
       <div className="community-profile-page">
         <Navbar />
-        { ready ?
+        { ready && this.props.currentComm ?
         <div>
           <div className="community-splash">
             <EditCommunityModal
@@ -96,4 +96,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommunityProfile);
-

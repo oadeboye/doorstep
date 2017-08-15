@@ -50,7 +50,7 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
       const requestedPendingState = Object.assign({}, state, { pending: true });
       return requestedPendingState;
     case Types.requestItemFulfilled:
-      const updatedUserWithRequest = Object.assign({}, state.user, { pendingRequest: action.pendingRequest });
+      const updatedUserWithRequest = Object.assign({}, state.user, { pendingRequests: action.pendingRequests });
       const requestItemFulfilledState =  {
         pending: false,
         user: updatedUserWithRequest

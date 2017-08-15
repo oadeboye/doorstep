@@ -33,7 +33,7 @@ var userSchema = mongoose.Schema({
   phone: {
     type: String
   },
-  pendingRequest: {
+  pendingRequests: [{
     requesterPhone: {
       type: String
     },
@@ -46,8 +46,14 @@ var userSchema = mongoose.Schema({
     pending: {
       type: Boolean,
       default: false
+    },
+    sId: {
+      type: String
+    },
+    requester: {
+      type: String
     }
-  }
+  }]
 });
 
 var itemSchema = mongoose.Schema({
@@ -67,6 +73,10 @@ var itemSchema = mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  pending: {
+    type: Boolean,
+    default: false
+  }
 });
 
 var communitySchema = mongoose.Schema({
