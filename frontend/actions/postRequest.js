@@ -24,7 +24,6 @@ export function postRequest(requester, communityId, text) {
       });
     })
     .catch(error => {
-      console.log('ERROR', error);
       dispatch({
         type: Types.postRequestRejected,
         error

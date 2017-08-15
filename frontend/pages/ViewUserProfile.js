@@ -21,7 +21,7 @@ class ViewUserProfile extends React.Component {
     .then((response) => {
       this.setState({
         user: response.data.user
-      }, () => console.log("DONE, ", this.state.user));
+      }, () => console.log("DONE"));
     });
   }
 

@@ -16,14 +16,13 @@ class CommunityProfile extends React.Component {
   constructor(props) {
     super(props);
   }
-  
+
   componentDidMount() {
     this.props.getOneCommunity(this.props.match.params.communityId);
   }
 
   render() {
     const ready = !this.props.pending && this.props.currentComm.name;
-    console.log("MATCH PROPS", this.props.match);
     return (
       <div className="community-profile-page">
         <Navbar />

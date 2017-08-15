@@ -82,7 +82,6 @@ class Welcome extends React.Component {
   onLogin(e) {
     e.preventDefault();
     this.props.onSuccessfulLogin(this.state.usernameLogin, this.state.passwordLogin);
-    console.log("P", this.props.user);
     if (!this.props.user) {
       swal({
         title: "Error logging",
@@ -90,7 +89,6 @@ class Welcome extends React.Component {
         type: "error"
       });
     } else {
-      console.log("USERz", this.props.user);
       this.props.history.push('/profile');
     }
   }

@@ -40,7 +40,7 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
       };
       return logoutState;
     case 'persist/REHYDRATE':
-      console.log("PERSISTING USER", action.payload.user);
+      // console.log("PERSISTING USER", action.payload.user);
       const persistentState = {
         user: action.payload.user.user,
         pending: false
@@ -55,11 +55,11 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
         pending: false,
         user: updatedUserWithRequest
       };
-      console.log('FULFILLED PENDING REQUESTS', requestItemFulfilledState);
+      // console.log('FULFILLED PENDING REQUESTS', requestItemFulfilledState);
       return requestItemFulfilledState;
     case Types.requestItemRejected:
       const requestItemRejectedState = Object.assign({}, state, { error: action.error });
-      console.log('REJECTED PENDING REQUEST', requestItemRejectedState);
+      // console.log('REJECTED PENDING REQUEST', requestItemRejectedState);
       return requestItemRejectedState;
     default:
       return state;

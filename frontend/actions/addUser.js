@@ -16,10 +16,7 @@ export function addUser(username, communityId) {
       .then((resp) => {
         axios.get('/api/community/' + communityId)
         .then((res) => {
-          // const newUser = resp.data.user;
-          // console.log('ADD USER DISPATCH', newUser);
           const commUsers = res.data.community.users;
-          // console.log('UPDATING COMM USERS', commUsers);
           return dispatch({
             type: Types.addUserFulfilled,
             commUsers
@@ -28,7 +25,6 @@ export function addUser(username, communityId) {
       });
     })
     .catch((error) => {
-      console.log("ADD USER DISPATCH ERROR", error);
       return dispatch({
         type: Types.addUserRejected,
         error: error

@@ -7,7 +7,6 @@ export function getRequests(communityId) {
       type: Types.getRequestsRequested
     });
     const error = false;
-    console.log("ID IN GET REQUESTS", communityId);
     axios.get('/api/community/' + communityId)
     .then(response => {
       const requests = response.data.community.requests;
@@ -17,7 +16,6 @@ export function getRequests(communityId) {
       });
     })
     .catch(error => {
-      console.log('ERROR DISPATCH', error);
       dispatch({
         type: Types.getRequestsRejected,
         error

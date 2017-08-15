@@ -16,7 +16,6 @@ export function editUser(edits, id) {
       });
     })
     .catch(error => {
-      console.log("ERROR EDIT PROFILE", error);
       return dispatch({
         type: Types.editUserRejected,
         error

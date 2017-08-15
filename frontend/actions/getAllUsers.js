@@ -17,7 +17,6 @@ export function getAllUsers() {
       });
     })
     .catch(error => {
-      console.log('ERROR', error);
       return dispatch({
         type: Types.getAllUsersRejected,
         error: error
