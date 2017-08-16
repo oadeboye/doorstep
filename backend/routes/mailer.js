@@ -151,7 +151,7 @@ router.get('/confirm-permission/:userId/:communityId', (req, res) => {
       user: userFound,
       owner: communityFound.users[0],
       community: communityFound,
-      link: process.env.DOMAIN = '/community/' + communityFound._id
+      link: domain + '/community/' + communityFound._id
     };
     return sendEmail(userFound.email, information, filePath);
   })
