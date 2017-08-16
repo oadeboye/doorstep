@@ -6,6 +6,7 @@ const models = require('../models/models');
 const User = models.User;
 const Community = models.Community;
 const path = require('path');
+const domain = 'https://hellodoorstep.herokuapp.com/';
 
 // Turning functions into promises using bluebird
 var Promise = require("bluebird");
@@ -90,7 +91,7 @@ router.post('/send-email', (req, res) => {
   const information = {
     user: user,
     community: community,
-    link: process.env.DOMAIN + '/mail/confirm-permission/' + user._id + '/' + community._id
+    link: domain + '/mail/confirm-permission/' + user._id + '/' + community._id
   };
   const filePath = path.join(__dirname, '../helper/grantPermissionToCommunityEmail.hbs');
 
