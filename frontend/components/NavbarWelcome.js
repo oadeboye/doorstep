@@ -21,9 +21,9 @@ class NavbarWelcome extends React.Component {
     return (
       <div className="navbar">
         <div className="corner-logo">Doorstep</div>
-        <a className="nav-item-link"><div className="nav-item">Mission</div></a>
-        <a className="nav-item-link"><div className="nav-item">About</div></a>
-        <a className="nav-item-link"><div className="nav-item">Team</div></a>
+        <a className="nav-item-link" href="#mission"><div className="nav-item">Mission</div></a>
+        <a className="nav-item-link" href="#about"><div className="nav-item">About</div></a>
+        <a className="nav-item-link" href="#team"><div className="nav-item">Team</div></a>
       </div>
     );
   }

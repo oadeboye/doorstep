@@ -39,13 +39,13 @@ const userReducer = (state = {user: {}, pending: true}, action) => {
         pending: true
       };
       return logoutState;
-    case 'persist/REHYDRATE':
-      // console.log("PERSISTING USER", action.payload.user);
-      const persistentState = {
-        user: action.payload.user.user,
-        pending: false
-      };
-      return persistentState;
+    // case 'persist/REHYDRATE':
+    //   console.log("PERSISTING USER", action);
+    //   const persistentState = {
+    //     user: action.payload.user,
+    //     pending: false
+    //   };
+    //   return persistentState;
     case Types.requestItemRequested:
       const requestedPendingState = Object.assign({}, state, { pending: true });
       return requestedPendingState;

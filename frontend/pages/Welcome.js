@@ -265,12 +265,12 @@ class Welcome extends React.Component {
           </Button>
         </div>
 
-        <div className="mission">
+        <div className="mission" id="mission">
           <h1>Our Mission</h1>
           <p/>
         </div>
 
-        <div className="how-it-works">
+        <div className="how-it-works" id="about">
           <h1>How it works</h1>
           <h3>Join.</h3>
           <p>1. Register for an account on Doorstep</p>
@@ -288,7 +288,7 @@ class Welcome extends React.Component {
           if you've taken more than your fair share. </p>
         </div>
 
-        <div className="about-us">
+        <div className="about-us" id="team">
           <h1>About Us</h1>
           <div className="our-profiles">
             <div className="profile">

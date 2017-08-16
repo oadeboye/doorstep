@@ -39,9 +39,9 @@ const requestsReducer = (state = {pending: true, requests: []}, action) => {
       };
       return postRejectedState;
     // case 'persist/REHYDRATE':
-    //   console.log("PERSISTING USER", action.payload.requests);
+    //   console.log("PERSISTING REQUESTS", action.payload.requests.requests);
     //   const persistentState = {
-    //     user: action.payload.requests.requests,
+    //     requests: action.payload.requests.requests,
     //     pending: false
     //   };
     //   return persistentState;
