@@ -49,8 +49,7 @@ router.post('/send-message', function(req, res) {
           });
         });
       });
-    }
-    else {
+    } else {
       console.log('CANNOT MAKE MORE THAN 1 REQUEST AT A TIME, WAITING FOR OWNER TO APPROVE');
       res.json({message: "cannot make more than 1 request,  waitng for owner to approve"});
     }
