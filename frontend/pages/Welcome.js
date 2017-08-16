@@ -271,7 +271,7 @@ class Welcome extends React.Component {
         </div>
 
         <div className="how-it-works">
-          <h1>How to works</h1>
+          <h1>How it works</h1>
           <h3>Join.</h3>
           <p>1. Register for an account on Doorstep</p>
           <h3>Create.</h3>
@@ -292,25 +292,25 @@ class Welcome extends React.Component {
           <h1>About Us</h1>
           <div className="our-profiles">
             <div className="profile">
-            <h2>Demi Adeoboye</h2>
+            <h2>Demilade Adeboye</h2>
             <img alt="Demilade" src="/img/demi.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text </p>
+            <p>Demilade is a student at Wellesley College,
+            working towards a double major in Music and Math.
+            She </p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
             <img alt="Teresa" src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text</p>
+            <p>Teresa currently studies Computer Science at
+            the University of Southern California. She has smol hands
+            and likes to clap like this *clap clap*.</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
             <img alt="Minh" src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text</p>
+            <p>Minh is a Computer Science major at Hamilton College.
+            She didn't write this blurb about herself so, I can tell you
+            that she's actually a unicorn.</p>
             </div>
           </div>
         </div>
