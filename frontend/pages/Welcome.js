@@ -296,21 +296,21 @@ class Welcome extends React.Component {
             <img alt="Demilade" src="/img/demi.jpg"/>
             <p>Demilade is a student at Wellesley College,
             working towards a double major in Music and Math.
-            She </p>
+            She panicked and couldn't figure out what else to say about herself.</p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
             <img alt="Teresa" src="/img/minh.jpg"/>
             <p>Teresa currently studies Computer Science at
-            the University of Southern California. She has smol hands
-            and likes to clap like this *clap clap*.</p>
+            the University of Southern California. She didn't write this blurb
+            about herself, so I can tell you that she's actually a unicorn.</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
             <img alt="Minh" src="/img/minh.jpg"/>
             <p>Minh is a Computer Science major at Hamilton College.
-            She didn't write this blurb about herself so, I can tell you
-            that she's actually a unicorn.</p>
+            She has smol hands and likes to clap like this *clap clap*.
+            She likes banana chips sometimes.</p>
             </div>
           </div>
         </div>
