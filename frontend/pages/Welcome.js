@@ -303,14 +303,15 @@ class Welcome extends React.Component {
             <img alt="Teresa" src="/img/minh.jpg"/>
             <p>Teresa currently studies Computer Science at
             the University of Southern California. She didn't write this blurb
-            about herself, so I can tell you that she's actually a unicorn.</p>
+            about herself, so I can tell you that she's actually a unicorn.
+            She likes banana chips.</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
             <img alt="Minh" src="/img/minh.jpg"/>
             <p>Minh is a Computer Science major at Hamilton College.
             She has smol hands and likes to clap like this *clap clap*.
-            She likes banana chips sometimes.</p>
+            Pho is not her favourite food, Patrick.</p>
             </div>
           </div>
         </div>
