@@ -73,8 +73,7 @@ Door.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.user.user,
-    com: ownProps.com,
-    history: ownProps.history
+    com: ownProps.com
   };
 };
 

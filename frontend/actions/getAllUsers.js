@@ -10,7 +10,6 @@ export function getAllUsers() {
     axios.get('/api/users')
     .then(response => {
       const users = response.data.users;
-      // console.log('DISPATCH ALL USERS', users);
       return dispatch({
         type: Types.getAllUsersFulfilled,
         users: response.data.users

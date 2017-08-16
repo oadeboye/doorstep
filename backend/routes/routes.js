@@ -385,26 +385,49 @@ router.post('/edit-community/:communityId', (req, res) => {
 // Used to calculate user's posted items
 // Req.params.id: user id
 router.get('/calculate-stats/:id', (req, res) => {
-  User.findById(req.params.id)
+  const userId = req.params.id;
+  User.findById(userId)
   .then((user) => {
-    Item.find({ owner: req.params.id })
-    .then((item) => {
-      const statUpdate = user.stats.slice();
-      console.log("FIRST STAT UPDATE", statUpdate);
-      statUpdate.splice(0, 1, item.length);
-      console.log("SECOND STAT UPDATE", statUpdate);
-      user.update({stats: statUpdate})
-      .then(() => {
-        user.stats = statUpdate;
-        res.json({ success: true, given: item.length, user });
-        console.log("USER UPDATE", user.stats);
+    if (user) {
+      Item.find({ owner: userId })
+      .then((item) => {
+        console.log("MADE IT IN FIRST");
+        Community.find({ users: { $all: [ userId ] } })
+        .then((community) => {
+          console.log("MADE IT IN SECOND", user);
+          const statUpdate = [0, 0, 0];
+          statUpdate.splice(0, 1, item.length);
+          statUpdate.splice(2, 1, community.length);
+          user.update({stats: statUpdate})
+          .then(() => {
+            user.stats = statUpdate;
+            res.json({ success: true, given: item.length, user });
+            console.log("USER UPDATE", user.stats);
+          });
+        });
       });
-    });
+    } else {
+      console.log("NO USER FOUND");
+      res.json({ success: false, failure: "NO SUCH USER FOUND"});
+    }
   })
   .catch((err) => {
     res.json({ success: false, failure: err });
   });
 });
+
+// Community.find({ users: { $in: userId } })
+// .then((community) => {
+//   const statUpdate = user.stats.slice();
+//   statUpdate.splice(0, 1, item.length);
+//   statUpdate.splice(2, 1, community.length);
+//   user.update({stats: statUpdate})
+//   .then(() => {
+//     user.stats = statUpdate;
+//     res.json({ success: true, given: item.length, user });
+//     console.log("USER UPDATE", user.stats);
+//   });
+// });
 
 // POST remove self
 // allows user to remove themself from a community

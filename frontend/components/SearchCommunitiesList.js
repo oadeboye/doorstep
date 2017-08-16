@@ -24,9 +24,9 @@ class CommunitiesList extends React.Component {
         <div className="communities-box">
           {this.props.communities.map((com, index) => {
             if (com.users.includes(this.props.user._id)) {
-              return (<Door key={index} com={com} isMember={true}/>);
+              return (<Door key={index} com={com} isMember={true} history={this.props.history}/>);
             } else {
-              return (<Door key={index} com={com} isMember={false}/>);
+              return (<Door key={index} com={com} isMember={false}  history={this.props.history}/>);
             }
           })}
         </div>
@@ -37,7 +37,8 @@ class CommunitiesList extends React.Component {
 
 CommunitiesList.propTypes = {
   user: PropTypes.object,
-  communities: PropTypes.array
+  communities: PropTypes.array,
+  history: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
