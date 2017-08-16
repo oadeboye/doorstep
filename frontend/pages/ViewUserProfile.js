@@ -57,7 +57,7 @@ class ViewUserProfile extends React.Component {
                       </div>
                       <div className="stat">
                         <h1>{user.stats[2] || 0}</h1>
-                        <h3>Given</h3>
+                        <h3>Communities</h3>
                       </div>
                     </div>
                   </div>

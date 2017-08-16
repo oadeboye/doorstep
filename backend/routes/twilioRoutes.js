@@ -70,8 +70,7 @@ router.post('/send-message', function(req, res) {
           });
         });
       });
-    }
-    else {
+    } else {
       console.log('You already requested this item');
       res.json({message: "You already requested this item"});
     }
@@ -122,8 +121,7 @@ router.post('/sms', (req, res) => {
               client.messages.create(newMessage);
               res.writeHead(200, {'Content-Type': 'text/xml'});
               res.end(twiml.toString());
-            }
-            else {
+            } else {
               // send error message to owner if they entered the wrong requester's username
               console.log('REQUSTR', requesterUsername + 'end');
               twiml.message(`Please provide a valid requester username`);
@@ -132,23 +130,20 @@ router.post('/sms', (req, res) => {
             }
           });
         });
-      }
-      // send a message when user does not allow Doorstep to release their number
-      else if (req.body.Body.trim().split(" ")[0].toLowerCase() === 'no') {
+      } else if (req.body.Body.trim().split(" ")[0].toLowerCase() === 'no') {
+        // send a message when user does not allow Doorstep to release their number
         if (requesters.indexOf(requesterUsername) !== -1) {
           twiml.message(`Your number was not sent to username @${requesterUsername}`);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
-        }
-        else {
+        } else {
           twiml.message(`Invalid username. Please try again`);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
         }
-      }
-      // if user sends 'Done @minhto', they signify that the item has been given to @minhto
-      // clear pendingRequests
-      else if (req.body.Body.trim().split(" ")[0].toLowerCase() === 'done' && requesterIndex !== -1) {
+      } else if (req.body.Body.trim().split(" ")[0].toLowerCase() === 'done' && requesterIndex !== -1) {
+        // if user sends 'Done @minhto', they signify that the item has been given to @minhto
+        // clear pendingRequests
         // text only after verified requester username
         if (requesters.indexOf(requesterUsername) !== -1) {
           User.findOne({phone: req.body.From})
@@ -168,21 +163,18 @@ router.post('/sms', (req, res) => {
           .catch(err => {
             res.json({success: false, failure: err});
           });
-        }
+        } else {
           // if requester username is Invalid
-        else {
           twiml.message(`Invalid username. Please try again`);
           res.writeHead(200, {'Content-Type': 'text/xml'});
           res.end(twiml.toString());
         }
-      }
-      else {
+      } else {
         twiml.message(`Invalid message. Please ask your mother to teach you how to text again, or refer to our texting manual for more details`);
         res.writeHead(200, {'Content-Type': 'text/xml'});
         res.end(twiml.toString());
       }
-    }
-    else {
+    } else {
       twiml.message(`Invalid message. Please ask your mother to teach you how to text again, or refer to our texting manual for more details`);
       res.writeHead(200, {'Content-Type': 'text/xml'});
       res.end(twiml.toString());
