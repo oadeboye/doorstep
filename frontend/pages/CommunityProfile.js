@@ -23,6 +23,7 @@ class CommunityProfile extends React.Component {
 
   render() {
     const ready = !this.props.pending;
+    const thisComm = this.props.currentComm;
     return (
       <div className="community-profile-page">
         <Navbar />
@@ -34,20 +35,20 @@ class CommunityProfile extends React.Component {
             />
             <LeaveCommunityModal
                 history={this.props.history} />
-          <h1 className="community-title">{this.props.currentComm.name}</h1>
+          <h1 className="community-title">{thisComm.name}</h1>
           <h3 className="title">COMMUNITY PROFILE</h3>
           <div className="stats-box">
             <div className="stat">
-              <h1>4</h1>
-              <h3>Given</h3>
+              <h1>{thisComm.users.length || 0}</h1>
+              <h3>Members</h3>
             </div>
             <div className="stat">
-              <h1>4</h1>
-              <h3>Given</h3>
+              <h1>{thisComm.items.length || 0}</h1>
+              <h3>Items</h3>
             </div>
             <div className="stat">
-              <h1>4</h1>
-              <h3>Given</h3>
+              <h1>{thisComm.requests.length || 0}</h1>
+              <h3>Requests</h3>
             </div>
           </div>
           <Link to={'/community/' + this.props.match.params.communityId}>
