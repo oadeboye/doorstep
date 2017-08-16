@@ -53,5 +53,11 @@ export default {
   requestItemRejected: 'REQUEST_ITEM_REJECTED',
   itemStatusChangeRequested: 'STATUS_CHANGE_REQUESTED',
   itemStatusChangeFulfilled: 'STATUS_CHANGE_FULFILLED',
-  itemStatusChangeRejected: 'STATUS_CHANGE_REJECTED'
+  itemStatusChangeRejected: 'STATUS_CHANGE_REJECTED',
+  offerRequested: 'OFFER_REQUESTED',
+  offerFulfilled: 'OFFER_FULFILLED',
+  offerRejected: 'OFFER_REJECTED',
+  removeRequestRequested: 'REMOVE_REQUEST_REQUESTED',
+  removeRequestFulfilled: 'REMOVE_REQUEST_FULFILLED',
+  removeRequestRejected: 'REMOVE_REQUEST_REJECTED'
 };

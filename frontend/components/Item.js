@@ -53,7 +53,6 @@ class Item extends React.Component {
     var requests = this.props.item.owner.pendingRequests.map(request => request.requesterPhone);
     const canRequest = this.props.user._id !== this.props.item.owner._id &&
     requests.indexOf(this.props.user.phone) === -1;
-    console.log('CAN REQUEST?', canRequest);
     return (
       <div>
         <div className="item" onClick={

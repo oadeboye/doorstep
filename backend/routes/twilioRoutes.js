@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/models').User;
 const Item = require('../models/models').Item;
+const Request = require('../models/models').Request;
 
 // twilio configuration
 var accountSid = process.env.TWILIO_SID; // Your Account SID from www.twilio.com/console
@@ -120,14 +121,6 @@ router.post('/sms', (req, res) => {
               client.messages.create(newMessage);
               res.writeHead(200, {'Content-Type': 'text/xml'});
               res.end(twiml.toString());
-              // const resetPending = {
-              //   pending: false
-              // };
-              // console.log('resetting', resetPending);
-              // owner.update({pendingRequest: resetPending})
-              // .then(resp => {
-              //   console.log('PENDING REQUEST RESET');
-              // });
             }
             else {
               // send error message to owner if they entered the wrong requester's username
@@ -200,5 +193,24 @@ router.post('/sms', (req, res) => {
   });
 });
 
+// sends a message to the requester with the name of the fulfiller
+router.post('/offer/:requestId', (req, res) => {
+  Request.findByIdAndRemove(req.params.requestId)
+  .then(request => {
+    console.log('request', request);
+    const newMessage = {
+      to: req.body.to,
+      from: process.env.MY_TWILIO_NUMBER,
+      body: `${req.body.fulfiller.fName} has offered you their ${request.text}. Your request is being taken off of Community Market`
+    };
+    client.messages.create(newMessage)
+    .then(message => {
+      res.json({sucess: true, sId: message.sid});
+    });
+  })
+  .catch(err => {
+    res.json({success: false, failure: err});
+  });
+});
 
 module.exports = router;

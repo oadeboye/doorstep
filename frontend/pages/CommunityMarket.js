@@ -27,29 +27,29 @@ class CommunityMarket extends React.Component {
 
   render() {
     const ready = this.props.pending;
+    console.log('ready?', ready);
     return (
-      <div>
-      { ready ?
-        <h1 className="loader">Loading...</h1>
-      :
       <div className="community-market-page">
         <Navbar />
-        <div className="market-splash">
-          <div className="titles-wrapper">
-              <h1 className="community-title">{this.props.community.name}</h1>
-            <h3 className="title">MARKET</h3>
-          </div>
-          <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
-          <div className="give-item-button">
-            <AddItemModal />
-          </div>
-        </div>
-        <RequestsBar commId={this.props.community._id} community={this.props.community}/>
-        <Market />
-        <Footer />
+        { !this.props.pending ?
+          <div>
+            <div className="market-splash">
+              <div className="titles-wrapper">
+                  <h1 className="community-title">{this.props.community.name}</h1>
+                <h3 className="title">MARKET</h3>
+              </div>
+              <Link to={'/community/profile/' + this.props.match.params.communityId}><div className="view-community-button">View Profile</div></Link>
+              <div className="give-item-button">
+                <AddItemModal />
+              </div>
+            </div>
+            <RequestsBar commId={this.props.community._id} community={this.props.community}/>
+            <Market />
+            <Footer />
+          </div> :
+          <h1 className="loader">Loading...</h1>
+        }
       </div>
-    }
-    </div>
     );
   }
 }

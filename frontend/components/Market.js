@@ -9,11 +9,14 @@ class Market extends React.Component {
   }
   render() {
     const marketItems = this.props.community.items.filter((item) => {
+      console.log("OWNER", item.owner);
+      console.log("USER", this.props.user._id);
       return !(item.owner && (item.owner._id === this.props.user._id));
     });
     const yourItems = this.props.community.items.filter((item) => {
       return (item.owner && (item.owner._id === this.props.user._id));
     });
+    const areThereItems = !this.props.pending && this.props.community.items;
     return (
       <div className="market">
         <div className="market-list">

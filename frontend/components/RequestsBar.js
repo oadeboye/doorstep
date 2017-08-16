@@ -49,8 +49,10 @@ class RequestsBar extends React.Component {
         <div className="requests-bar-title">REQUESTS</div>
         <div className="requests-scroll">
         {
-          this.props.requests.length === 0 ? <p className="empty-list">All requests fulfilled!</p> :
-          this.props.requests.map((request, index) => <Request key={index} request={request}/>)
+          this.props.requests.length === 0 ? <p className="empty-list">Loading requests...</p> :
+          this.props.requests.map((request, index) =>
+            <Request communityId={this.props.communityId} key={index} request={request}/>
+          )
         }
 
         </div>
