@@ -200,6 +200,19 @@ router.post('/request', (req, res) => {
   });
 });
 
+// POST: remove a request
+router.post('/remove-request/:requestId', (req, res) => {
+  Request.findByIdAndRemove(req.params.requestId)
+  .then(resp => {
+    console.log('REMOVING REQUEST', resp);
+    res.json({success: true});
+  })
+  .catch(err => {
+    console.log(err);
+    res.json({success: false, failure: err});
+  });
+});
+
 // GET all users
 // Used to pull usernames from database for username search
 router.get('/users', (req, res) => {
