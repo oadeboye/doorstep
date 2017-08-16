@@ -22,11 +22,11 @@ class CommunityProfile extends React.Component {
   }
 
   render() {
-    const ready = !this.props.pending && this.props.currentComm.name;
+    const ready = !this.props.pending;
     return (
       <div className="community-profile-page">
         <Navbar />
-        { ready ?
+        { ready && this.props.currentComm ?
         <div>
           <div className="community-splash">
             <EditCommunityModal

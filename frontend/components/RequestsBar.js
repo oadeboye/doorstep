@@ -87,7 +87,9 @@ RequestsBar.propTypes = {
   requests: PropTypes.array,
   communityId: PropTypes.string,
   getRequestsDispatch: PropTypes.func,
-  postRequestDispatch: PropTypes.func
+  postRequestDispatch: PropTypes.func,
+  community: PropTypes.object,
+  match: PropTypes.object
 };
 
 const mapStateToProps = (state, ownProps) => {
