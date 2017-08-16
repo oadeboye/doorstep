@@ -95,6 +95,7 @@ router.post('/sms', (req, res) => {
     console.log('requesterIndex', requesterIndex);
     if (requesterIndex !== -1) {
       requesterUsername = req.body.Body.trim().substring(requesterIndex + 1); // separates requester username
+      console.log('REQUESTER USERNAME', requesterUsername);
       const requesters = owner.pendingRequests.map(request => request.requester);
       if (req.body.Body.trim().split(" ")[0].toLowerCase() === 'yes') {
         // requester = req.body.Body.trim().substring(requesterIndex + 1); // separates requester username
