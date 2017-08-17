@@ -248,30 +248,39 @@ class Welcome extends React.Component {
       <div className="welcome-page">
         <NavbarWelcome />
         <div className="welcome-splash">
-          <h1 className="welcome-title">Welcome to Doorstep</h1>
-          <Button
-            className="login-button"
-            bsStyle="primary"
-            bsSize="large"
-            onClick={() => this.openLogin()}
-          >Login
-          </Button>
-          <Button
-            className="register-button"
-            bsStyle="primary"
-            bsSize="large"
-            onClick={() => this.openRegister()}
-          >Register
-          </Button>
+          <img className="logo" src="/img/logo-t.svg"/>
+          <div className="welcome-wrapper">
+            <h1 className="welcome-title">Doorstep</h1>
+            <Button
+              className="login-button"
+              bsStyle="primary"
+              bsSize="large"
+              onClick={() => this.openLogin()}
+            >Login
+            </Button>
+            <Button
+              className="register-button"
+              bsStyle="primary"
+              bsSize="large"
+              onClick={() => this.openRegister()}
+            >Register
+            </Button>
+          </div>
         </div>
 
-        <div className="mission">
+        <div className="mission" id="mission">
           <h1>Our Mission</h1>
-          <p/>
+          <p>Our mission is to help users find a new home for their belongings to eventually reduce
+          the amount of waste that we produce. Using a community-based platform, we hope to encourage
+          users to become mindful of their practice, while in the meantime, foster and strengthen
+          interpersonal connections with other members in their community.</p>
+          <div className="icons">
+            <img alt="image" src="/img/cycle.png"/>
+          </div>
         </div>
 
-        <div className="how-it-works">
-          <h1>How to works</h1>
+        <div className="how-it-works" id="about">
+          <h1>How it works</h1>
           <h3>Join.</h3>
           <p>1. Register for an account on Doorstep</p>
           <h3>Create.</h3>
@@ -288,29 +297,29 @@ class Welcome extends React.Component {
           if you've taken more than your fair share. </p>
         </div>
 
-        <div className="about-us">
+        <div className="about-us" id="team">
           <h1>About Us</h1>
           <div className="our-profiles">
             <div className="profile">
-            <h2>Demi Adeoboye</h2>
-            <img alt="Demilade" src="/img/demi.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text </p>
+            <h2>Demilade Adeboye</h2>
+            <img alt="Demilade" src="/img/demi.png"/>
+            <p>Demilade is a student at Wellesley College,
+            working towards a double major in Music and Math.
+            Her full name has more syllables than any line of code she's
+            ever debugged. </p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
-            <img alt="Teresa" src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text</p>
+            <img alt="Teresa" src="/img/teresa.jpg"/>
+            <p>Teresa currently studies Computer Engineering at
+            the University of Southern California. She enjoys design and doodling, music and noodling,
+            and eating banana chips.</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
             <img alt="Minh" src="/img/minh.jpg"/>
-            <p>Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry. Lorem Ipsum has been the industry's standard
-            dummy text</p>
+            <p>Minh is a Computer Science major at Hamilton College.
+            She can binge code and appreciates puns, pho sure.</p>
             </div>
           </div>
         </div>

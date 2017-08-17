@@ -6,6 +6,7 @@ const models = require('../models/models');
 const User = models.User;
 const Community = models.Community;
 const path = require('path');
+const domain = 'https://hellodoorstep.herokuapp.com';
 
 // Turning functions into promises using bluebird
 var Promise = require("bluebird");
@@ -47,7 +48,7 @@ function sendEmail(toEmail, information, filePath) {
       console.log("HTML BODY", htmlBody);
       // Create a message object containing the HTML
       const message = {
-        to: 'teresali@usc.edu',
+        to: toEmail,
         subject: 'Doorstep Revised!',
         html: htmlBody
       };
@@ -61,7 +62,7 @@ function sendEmail(toEmail, information, filePath) {
     })
     .catch((err) => {
       console.log("Error sending email", err);
-      reject({success: true, error: err});
+      reject({success: false, error: err});
     });
   });
 }
@@ -72,7 +73,7 @@ function sendEmail(toEmail, information, filePath) {
  * @param  {object} data   Object containing the information that will populate the email
  * @return {string}        Returns the HTML String
  */
-function renderToString(source, information) {
+function renderToString(source, data) {
   var template = Handlebars.compile(source);
   var outputString = template(data);
   return outputString;
@@ -90,7 +91,7 @@ router.post('/send-email', (req, res) => {
   const information = {
     user: user,
     community: community,
-    link: process.env.DOMAIN + '/mail/confirm-permission/' + user._id + '/' + community._id
+    link: domain + '/mail/confirm-permission/' + user._id + '/' + community._id
   };
   const filePath = path.join(__dirname, '../helper/grantPermissionToCommunityEmail.hbs');
 
@@ -150,7 +151,7 @@ router.get('/confirm-permission/:userId/:communityId', (req, res) => {
       user: userFound,
       owner: communityFound.users[0],
       community: communityFound,
-      link: process.env.DOMAIN = '/community/' + communityFound._id
+      link: domain + '/community/' + communityFound._id
     };
     return sendEmail(userFound.email, information, filePath);
   })

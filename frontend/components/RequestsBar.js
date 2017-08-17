@@ -43,13 +43,15 @@ class RequestsBar extends React.Component {
   }
 
   render() {
+    const ready = this.props.requests;
     return (
       <div className="requests-bar">
         <button onClick={this.open.bind(this)} className="add-request-button">Add <Glyphicon glyph="plus"/></button>
         <div className="requests-bar-title">REQUESTS</div>
         <div className="requests-scroll">
         {
-          this.props.requests.length === 0 ? <p className="empty-list">Loading requests...</p> :
+          !ready ? <p className="empty-list">Loading requests...</p> :
+          this.props.requests.length === 0 ? <p className="empty-list">No Requests</p> :
           this.props.requests.map((request, index) =>
             <Request communityId={this.props.communityId} key={index} request={request}/>
           )

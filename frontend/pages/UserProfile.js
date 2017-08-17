@@ -36,7 +36,7 @@ render() {
           <div>
           <div className="profile-wrapper">
             <div className="door-tag">
-              <img className="doortag-img" src="/img/doortag.svg" />
+              <img className="doortag-img" src="/img/doortag.svg" alt="doortag"/>
               <div className="doortag-inner">
                 <img className="profile-pic" alt="user" src={user.imgURL || "http://dl.hiapphere.com/data/icon/201511/HiAppHere_com_com.ludicside.mrsquare.png"} />
                 <h2 className="name">{user.fName + ' ' + user.lName}</h2>
@@ -62,7 +62,7 @@ render() {
                     </div>
                     <div className="stat">
                       <h1>{user.stats[2] || 0}</h1>
-                      <h3>Given</h3>
+                      <h3>Communities</h3>
                     </div>
                   </div>
               </div>

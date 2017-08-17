@@ -29,7 +29,7 @@ class CommunitySearch extends React.Component {
           <CreateCommunityModal />
           <h1 className="title">Join a community</h1>
         </div>
-        <SearchCommunitiesList communities={this.props.allCommunities}/>
+        <SearchCommunitiesList communities={this.props.allCommunities} history={this.props.history}/>
         <Footer />
       </div>
     );
@@ -38,7 +38,8 @@ class CommunitySearch extends React.Component {
 
 CommunitySearch.propTypes = {
   getAllCommunitiesDispatch: PropTypes.func,
-  allCommunities: PropTypes.array
+  allCommunities: PropTypes.array,
+  history: PropTypes.array
 };
 
 const mapStateToProps = (state) => {

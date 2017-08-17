@@ -3,19 +3,29 @@
 
 .mission {
   color: @dark-navy;
-  padding: 70px 20% 100px 20%;
+  padding: 70px 25% 100px 25%;
   border-bottom: 1px solid @gray;
   text-align: center;
+  font-size: 18px;
   h1 {
-    color: @light-blue;
+    color: @lighter-blue;
     font-weight: 800;
     margin-bottom: 20px;
+  }
+  .icons {
+    display: flex;
+    position: relative;
+    img {
+      height: 300px;
+      margin: auto;
+      margin-top: 40px;
+    }
   }
 }
 
 .how-it-works {
   color: @dark-navy;
-  padding: 70px 25% 100px 25%;
+  padding: 70px 20% 100px 25%;
   border-bottom: 1px solid @gray;
   h1 {
     color: @burnt-orange;
@@ -32,7 +42,7 @@
 .about-us {
   color: @dark-navy;
   text-align: center;
-  padding: 70px 20% 100px 20%;
+  padding: 70px 10% 100px 10%;
   h1 {
     color: @red;
     font-weight: 800;
@@ -40,9 +50,11 @@
   }
   .our-profiles {
     display: flex;
+    flex-wrap: wrap;
     .profile {
       margin: auto;
       padding: 10px; 
+      width: 300px;
       h2 {
         font-weight: 700;
       }

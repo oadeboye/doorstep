@@ -41,7 +41,7 @@ class Request extends React.Component {
     return (
       <div className="request" onClick={ownRequest ? () => this.close() : () => this.open()}>
         <div className="request-title">{this.props.request.text}</div>
-        {ownRequest ? <button onClick={(e) => this.onRemove(e)}>x</button> : null}
+        {ownRequest ? <button className="x-btn" onClick={(e) => this.onRemove(e)}>x</button> : null}
         <Modal show={this.state.showEditModal} onHide={() => this.close()}>
           <Modal.Header closeButton>
             <Modal.Title>Fulfill a Request</Modal.Title>
