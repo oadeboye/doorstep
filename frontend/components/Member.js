@@ -29,6 +29,7 @@ class Member extends React.Component {
   }
 
   render() {
+    const thisUser = this.props.user;
     return (
       <Link to={'/view/profile/' + this.props.user._id}>
         <div className="member">
@@ -43,16 +44,16 @@ class Member extends React.Component {
             <h3 className="member-name">{this.props.user.fName + ' ' + this.props.user.lName}</h3>
             <div className="stats-box">
               <div className="stat">
-                <h1>4</h1>
+                <h1>{thisUser.stats[0] || 0}</h1>
                 <h3>Given</h3>
               </div>
               <div className="stat">
-                <h1>4</h1>
-                <h3>Given</h3>
+                <h1>{thisUser.stats[1] || 0}</h1>
+                <h3>Taken</h3>
               </div>
               <div className="stat">
-                <h1>4</h1>
-                <h3>Given</h3>
+                <h1>{thisUser.stats[2] || 0}</h1>
+                <h3>Communities</h3>
               </div>
             </div>
           </div>

@@ -114,10 +114,14 @@ router.post('/item', (req, res) => {
         community.items = resultItemsArray;
         User.findById(req.body.owner)
         .then((user) => {
-          user.stats[0] = user.stats[0] + 1;
-          user.save()
-          .then((saved) => {
-            console.log("COMMUNITY ADD ITEM", saved.stats);
+          const userSplice = user.stats.slice();
+          const update = user.stats[0] + 1;
+          userSplice.splice(0, 1, update);
+          console.log("UPDATING STATS");
+          user.update({ stats: userSplice})
+          .then(() => {
+            user.stats = userSplice;
+            console.log("COMMUNITY ADD ITEM STATS UPDATE", user.stats);
             // Send back the community json object with the updated array
             return res.json({ success: true });
           });
@@ -340,9 +344,16 @@ router.post('/edit-profile/:id', (req, res) => {
     profile.lName = req.body.lName;
     profile.email = req.body.email;
     profile.aboutMe = req.body.aboutMe;
+    // const newProfile = Object.assign({}, profile, {
+    //   fName: req.body.fName,
+    //   lName: req.body.lName,
+    //   email: req.body.email,
+    //   aboutMe: req.body.aboutMe,
+    // });
     profile.save()
     .then(() => {
-      res.json({ success: true });
+      console.log("UPDATING PROFILE", profile.aboutMe);
+      res.json({ success: true, user: profile });
     });
   })
   .catch((err) => {

@@ -33,27 +33,10 @@ var userSchema = mongoose.Schema({
   phone: {
     type: String
   },
-  pendingRequests: [{
-    requesterPhone: {
-      type: String
-    },
-    ownerPhone: {
-      type: String
-    },
-    itemId: {
-      type: String
-    },
-    pending: {
-      type: Boolean,
-      default: false
-    },
-    sId: {
-      type: String
-    },
-    requester: {
-      type: String
-    }
-  }]
+  pendingRequests: {
+    type: Array,
+    default: []
+  }
 });
 
 var itemSchema = mongoose.Schema({
