@@ -302,7 +302,8 @@ class Welcome extends React.Component {
             <img alt="Demilade" src="/img/demi.png"/>
             <p>Demilade is a student at Wellesley College,
             working towards a double major in Music and Math.
-            She panicked and couldn't figure out what else to say about herself.</p>
+            Her full name has more syllables than any line of code she's
+            ever debugged. </p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
@@ -315,8 +316,7 @@ class Welcome extends React.Component {
             <h2>Minh To</h2>
             <img alt="Minh" src="/img/minh.jpg"/>
             <p>Minh is a Computer Science major at Hamilton College.
-            She has smol hands and likes to clap like this *clap clap*.
-            Pho is not her favourite food, Patrick.</p>
+            She can binge code and appreciates puns, pho sure.</p>
             </div>
           </div>
         </div>

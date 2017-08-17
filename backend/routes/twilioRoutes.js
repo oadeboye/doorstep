@@ -194,7 +194,7 @@ router.post('/offer/:requestId', (req, res) => {
     const newMessage = {
       to: req.body.to,
       from: process.env.MY_TWILIO_NUMBER,
-      body: `${req.body.fulfiller.fName} has offered you their ${request.text}. Your request is being taken off of Community Market`
+      body: `${req.body.fulfiller.fName} has offered you ${request.text}. Your request is being taken off of Community Market`
     };
     client.messages.create(newMessage)
     .then(message => {
