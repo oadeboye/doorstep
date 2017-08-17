@@ -344,9 +344,16 @@ router.post('/edit-profile/:id', (req, res) => {
     profile.lName = req.body.lName;
     profile.email = req.body.email;
     profile.aboutMe = req.body.aboutMe;
+    // const newProfile = Object.assign({}, profile, {
+    //   fName: req.body.fName,
+    //   lName: req.body.lName,
+    //   email: req.body.email,
+    //   aboutMe: req.body.aboutMe,
+    // });
     profile.save()
     .then(() => {
-      res.json({ success: true });
+      console.log("UPDATING PROFILE", profile.aboutMe);
+      res.json({ success: true, user: profile });
     });
   })
   .catch((err) => {
