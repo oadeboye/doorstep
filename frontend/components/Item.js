@@ -27,6 +27,7 @@ class Item extends React.Component {
   }
 
   cannotRequest() {
+    console.log('cannot request');
     swal({
       title: "Cannot request this item",
       text: "You probably have requested this item but forgot about that. Greed is not a virtue",
@@ -50,17 +51,17 @@ class Item extends React.Component {
 
   render() {
     const verify = !this.props.pending && this.props.item.owner && (this.props.owner === JSON.parse(JSON.stringify(this.props.item.owner._id)));
-    var requests = this.props.item.owner.pendingRequests.map(request => request.requesterPhone);
-    const canRequest = this.props.user._id !== this.props.item.owner._id &&
-    requests.indexOf(this.props.user.phone) === -1;
+    var requests = this.props.item.owner.pendingRequests.map(request => request.itemId);
+    const canRequest = requests.indexOf(this.props.item._id) === -1;
+    const ownItem = this.props.user._id === this.props.item.owner._id;
     return (
       <div>
         <div className="item" onClick={
-          canRequest ?
-          // this.props.user._id === this.props.item.owner._id || // if user owns the item or
-          // this.props.item.owner.pendingRequest.requesterPhone === this.props.user.phone ? // if user has already requested this item
-          () => this.open() : // user cannot request item
-          () => this.cannotRequest() // otherwise user can request item
+          !ownItem ?
+            (canRequest ?
+              () => this.open() : // user cannot request item
+              () => this.cannotRequest()) : // otherwise user can request item
+          () => this.close()
         } className="item">
           <div className="img-wrapper">
             <img alt="someImage" src={this.props.item.imgURL || "https://lh3.googleusercontent.com/-_G3XieI-P7Y/AAAAAAAAAAI/AAAAAAAAAEY/AU_AGutjoWQ/s640/photo.jpg"}/>

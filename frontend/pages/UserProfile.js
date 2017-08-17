@@ -69,7 +69,7 @@ render() {
             </div>
           </div>
           <CommunitiesList history={this.props.history}/>
-          <ImageUpload />
+          {/* <ImageUpload /> */}
           </div>
           :
           <h1 className="loader">Loading...</h1>
