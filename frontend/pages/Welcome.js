@@ -274,6 +274,9 @@ class Welcome extends React.Component {
           the amount of waste that we produce. Using a community-based platform, we hope to encourage
           users to become mindful of their practice, while in the meantime, foster and strengthen
           interpersonal connections with other members in their community.</p>
+          <div className="icons">
+            <img alt="image" src="/img/cycle.png"/>
+          </div>
         </div>
 
         <div className="how-it-works" id="about">
@@ -308,8 +311,8 @@ class Welcome extends React.Component {
             <h2>Teresa Liu</h2>
             <img alt="Teresa" src="/img/teresa.jpg"/>
             <p>Teresa currently studies Computer Engineering at
-            the University of Southern California. She enjoys design, music,
-            and eating banana chips</p>
+            the University of Southern California. She enjoys design and doodling, music and noodling,
+            and eating banana chips.</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>
