@@ -248,26 +248,32 @@ class Welcome extends React.Component {
       <div className="welcome-page">
         <NavbarWelcome />
         <div className="welcome-splash">
-          <h1 className="welcome-title">Welcome to Doorstep</h1>
-          <Button
-            className="login-button"
-            bsStyle="primary"
-            bsSize="large"
-            onClick={() => this.openLogin()}
-          >Login
-          </Button>
-          <Button
-            className="register-button"
-            bsStyle="primary"
-            bsSize="large"
-            onClick={() => this.openRegister()}
-          >Register
-          </Button>
+          <img className="logo" src="/img/logo-t.svg"/>
+          <div className="welcome-wrapper">
+            <h1 className="welcome-title">Doorstep</h1>
+            <Button
+              className="login-button"
+              bsStyle="primary"
+              bsSize="large"
+              onClick={() => this.openLogin()}
+            >Login
+            </Button>
+            <Button
+              className="register-button"
+              bsStyle="primary"
+              bsSize="large"
+              onClick={() => this.openRegister()}
+            >Register
+            </Button>
+          </div>
         </div>
 
         <div className="mission" id="mission">
           <h1>Our Mission</h1>
-          <p/>
+          <p>Our mission is to help users find a new home for their belongings to eventually reduce
+          the amount of waste that we produce. Using a community-based platform, we hope to encourage
+          users to become mindful of their practice, while in the meantime, foster and strengthen
+          interpersonal connections with other members in their community.</p>
         </div>
 
         <div className="how-it-works" id="about">
@@ -293,18 +299,17 @@ class Welcome extends React.Component {
           <div className="our-profiles">
             <div className="profile">
             <h2>Demilade Adeboye</h2>
-            <img alt="Demilade" src="/img/demi.jpg"/>
+            <img alt="Demilade" src="/img/demi.png"/>
             <p>Demilade is a student at Wellesley College,
             working towards a double major in Music and Math.
             She panicked and couldn't figure out what else to say about herself.</p>
             </div>
             <div className="profile">
             <h2>Teresa Liu</h2>
-            <img alt="Teresa" src="/img/minh.jpg"/>
-            <p>Teresa currently studies Computer Science at
-            the University of Southern California. She didn't write this blurb
-            about herself, so I can tell you that she's actually a unicorn.
-            She likes banana chips.</p>
+            <img alt="Teresa" src="/img/teresa.jpg"/>
+            <p>Teresa currently studies Computer Engineering at
+            the University of Southern California. She enjoys design, music,
+            and eating banana chips</p>
             </div>
             <div className="profile">
             <h2>Minh To</h2>

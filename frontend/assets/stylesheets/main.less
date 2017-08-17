@@ -26,19 +26,33 @@ a:hover {
 .welcome-page {
   .login-button {
     margin-bottom: 15px;
+    border-radius: 0px;
     &:extend(.button-orange all);
   }
   .register-button {
+    border-radius: 0px;
     &:extend(.button-red all);
   }
   .welcome-splash {
     .splash;
+    background-color: @light-blue;
+    flex-direction: row;
+  }
+  .welcome-wrapper {
+    margin: 40px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
   }
   .welcome-title {
     margin-bottom: 25px;
-    .title;
-    width: 100vw;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 54px;
     text-align: center;
+  }
+  .logo {
+    height: 200px;
   }
 }
 
@@ -68,8 +82,12 @@ a:hover {
   display: flex;
   align-items: center;
   .corner-logo {
-    margin-left: 30px;
+    margin-left: 10px;
     margin-right: auto;
+  }
+  .logo-navbar {
+    margin-left: 30px;
+    height: 30px;
   }
   .nav-item-link {
     margin-right: 30px;

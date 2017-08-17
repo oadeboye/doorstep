@@ -20,6 +20,7 @@ class NavbarWelcome extends React.Component {
   render() {
     return (
       <div className="navbar">
+        <img className="logo-navbar" src="/img/logo-t.svg"/>
         <div className="corner-logo">Doorstep</div>
         <a className="nav-item-link" href="#mission"><div className="nav-item">Mission</div></a>
         <a className="nav-item-link" href="#about"><div className="nav-item">About</div></a>
