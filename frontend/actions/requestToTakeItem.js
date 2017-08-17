@@ -7,7 +7,6 @@ export function requestToTakeItem(user, ownerPhone, item, message) {
       type: Types.requestItemRequested
     });
     const error = false;
-    console.log('USERNAME', user.username, user.fName);
     const content = `${user.fName} has requested ${item.name} from you with the following message:\n${message}. Would you like Doorstep to send ${user.fName} your phone number?`;
     axios.post('/twilio/send-message', {
       content,

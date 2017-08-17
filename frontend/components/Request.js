@@ -35,8 +35,6 @@ class Request extends React.Component {
   }
 
   render() {
-    console.log('requester', this.props.request.requester._id);
-    console.log('user', this.props.user._id);
     const ownRequest = this.props.request.requester._id === this.props.user._id;
     return (
       <div className="request" onClick={ownRequest ? () => this.close() : () => this.open()}>

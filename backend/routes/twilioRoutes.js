@@ -57,9 +57,6 @@ router.post('/send-message', function(req, res) {
           pending: true,
           sId: msg.sid
         };
-        // const copyPending = [...requester.pendingRequest];
-        // copyPending.push(newPending);
-        console.log('NEW PENDING', newPending);
         const newArray = [...owner.pendingRequests];
         newArray.push(newPending);
         owner.update({pendingRequests: newArray})
@@ -87,29 +84,16 @@ router.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
   User.findOne({phone: req.body.From})
   .then(owner => { // find owner of item
-    console.log('FOUND USER', owner);
-    // const requesterPhone = owner.pendingRequests.requesterPhone;
     const requesterIndex = req.body.Body.indexOf('@');
     let requesterUsername = '';
-    console.log('BODY', req.body.Body.trim().split(" ")[0].toLowerCase());
-    console.log('requesterIndex', requesterIndex);
     if (requesterIndex !== -1) {
       requesterUsername = req.body.Body.trim().substring(requesterIndex + 1); // separates requester username
-      console.log('REQUESTER USERNAME', requesterUsername);
       const requesters = owner.pendingRequests.map(request => request.requester);
       if (req.body.Body.trim().split(" ")[0].toLowerCase() === 'yes') {
-        // requester = req.body.Body.trim().substring(requesterIndex + 1); // separates requester username
-        console.log('REQUESTER USERNAME', requesterUsername);
-        // const ownerPhone = owner.pendingRequest.ownerPhone;
         User.findOne({username: requesterUsername}) // find requester
         .then(requester => {
-          console.log('FOUND REQUESTER', requester);
-          console.log('ITEM ID', owner.pendingRequests[0].itemId);
           Item.findById(owner.pendingRequests[0].itemId) // works if a user only makes one request for 1 owner
           .then(item => { // find item
-            console.log('HERe');
-            // const requesters = owner.pendingRequests.map(request => request.requester);
-            console.log('ALL REQUESTERS', requesters);
             // make sure the user did make a request before releasing owner's number
             if (requesters.indexOf(requesterUsername) !== -1) {
               twiml.message(`You have authorized Doorstep to reveal your number to ${requester.fName} ${requester.lName}`);
@@ -123,7 +107,6 @@ router.post('/sms', (req, res) => {
               res.end(twiml.toString());
             } else {
               // send error message to owner if they entered the wrong requester's username
-              console.log('REQUSTR', requesterUsername + 'end');
               twiml.message(`Please provide a valid requester username`);
               res.writeHead(200, {'Content-Type': 'text/xml'});
               res.end(twiml.toString());
@@ -150,7 +133,7 @@ router.post('/sms', (req, res) => {
           .then(owner => {
             Item.findByIdAndRemove(owner.pendingRequests[0].itemId)
             .then(item => {
-              console.log('removing item', item._id);
+              console.log('removing item');
               const newPendingRequests = removeRequests(owner.pendingRequests, item._id);
               owner.update({pendingRequests: newPendingRequests})
               .then(resp => {
@@ -190,7 +173,6 @@ router.post('/sms', (req, res) => {
 router.post('/offer/:requestId', (req, res) => {
   Request.findByIdAndRemove(req.params.requestId)
   .then(request => {
-    console.log('request', request);
     const newMessage = {
       to: req.body.to,
       from: process.env.MY_TWILIO_NUMBER,

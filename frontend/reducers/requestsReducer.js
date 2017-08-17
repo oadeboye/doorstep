@@ -38,13 +38,6 @@ const requestsReducer = (state = {pending: true, requests: []}, action) => {
         error: action.error
       };
       return postRejectedState;
-    // case 'persist/REHYDRATE':
-    //   console.log("PERSISTING REQUESTS", action.payload.requests.requests);
-    //   const persistentState = {
-    //     requests: action.payload.requests.requests,
-    //     pending: false
-    //   };
-    //   return persistentState;
     case Types.removeRequestRequested:
       const removeRequestedState = {
         pending: true,
@@ -56,14 +49,12 @@ const requestsReducer = (state = {pending: true, requests: []}, action) => {
         pending: false,
         requests: action.requests
       };
-      console.log('FULFILLED REMOVE REQUEST', removeFulfilledState);
       return removeFulfilledState;
     case Types.removeRequestRejected:
       const removeRejectedState = {
         pending: false,
         error: action.error
       };
-      console.log('ERROR REMOVING REQUEST', removeRejectedState);
       return removeRejectedState;
     case Types.offerRequested:
       const offerPendingState = {
@@ -76,14 +67,12 @@ const requestsReducer = (state = {pending: true, requests: []}, action) => {
         pending: false,
         requests: action.requests
       };
-      console.log('FULFILLED OFFER', offerFulfilledState);
       return offerFulfilledState;
     case Types.offerRejected:
       const offerRejectedState = {
         pending: false,
         error: action.error
       };
-      console.log('REJECTED OFFER', offerRejectedState);
       return offerRejectedState;
     default:
       return state;

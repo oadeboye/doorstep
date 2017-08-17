@@ -76,13 +76,6 @@ const oneCommunityReducer = (state = {pending: true, community: {}}, action) => 
         error: action.error
       };
       return editRejectedState;
-    // case 'persist/REHYDRATE':
-    //   console.log("PERSISTING COMM", action.payload.currentComm.community);
-    //   const persistentState = {
-    //     community: action.payload.currentComm.community,
-    //     pending: false
-    //   };
-    //   return persistentState;
     default:
       return state;
   }

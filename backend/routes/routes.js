@@ -208,7 +208,6 @@ router.post('/request', (req, res) => {
 router.post('/remove-request/:requestId', (req, res) => {
   Request.findByIdAndRemove(req.params.requestId)
   .then(resp => {
-    console.log('REMOVING REQUEST', resp);
     res.json({success: true});
   })
   .catch(err => {
@@ -344,15 +343,8 @@ router.post('/edit-profile/:id', (req, res) => {
     profile.lName = req.body.lName;
     profile.email = req.body.email;
     profile.aboutMe = req.body.aboutMe;
-    // const newProfile = Object.assign({}, profile, {
-    //   fName: req.body.fName,
-    //   lName: req.body.lName,
-    //   email: req.body.email,
-    //   aboutMe: req.body.aboutMe,
-    // });
     profile.save()
     .then(() => {
-      console.log("UPDATING PROFILE", profile.aboutMe);
       res.json({ success: true, user: profile });
     });
   })
@@ -402,10 +394,8 @@ router.get('/calculate-stats/:id', (req, res) => {
     if (user) {
       Item.find({ owner: userId })
       .then((item) => {
-        console.log("MADE IT IN FIRST");
         Community.find({ users: { $all: [ userId ] } })
         .then((community) => {
-          console.log("MADE IT IN SECOND", user);
           const statUpdate = [0, 0, 0];
           statUpdate.splice(0, 1, item.length);
           statUpdate.splice(2, 1, community.length);
@@ -413,7 +403,6 @@ router.get('/calculate-stats/:id', (req, res) => {
           .then(() => {
             user.stats = statUpdate;
             res.json({ success: true, given: item.length, user });
-            console.log("USER UPDATE", user.stats);
           });
         });
       });
@@ -426,19 +415,6 @@ router.get('/calculate-stats/:id', (req, res) => {
     res.json({ success: false, failure: err });
   });
 });
-
-// Community.find({ users: { $in: userId } })
-// .then((community) => {
-//   const statUpdate = user.stats.slice();
-//   statUpdate.splice(0, 1, item.length);
-//   statUpdate.splice(2, 1, community.length);
-//   user.update({stats: statUpdate})
-//   .then(() => {
-//     user.stats = statUpdate;
-//     res.json({ success: true, given: item.length, user });
-//     console.log("USER UPDATE", user.stats);
-//   });
-// });
 
 // POST remove self
 // allows user to remove themself from a community

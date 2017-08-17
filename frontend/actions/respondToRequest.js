@@ -13,10 +13,8 @@ export function respondToRequest(fulfiller, requester, request, communityId) {
       fulfiller
     })
     .then(response => {
-      console.log('RESPONSE', response);
       axios.get('/api/community/' + communityId)
       .then(resp => {
-        console.log('update requests');
         dispatch({
           type: Types.offerFulfilled,
           requests: resp.data.community.requests
@@ -24,7 +22,6 @@ export function respondToRequest(fulfiller, requester, request, communityId) {
       });
     })
     .catch(error => {
-      console.log('error dispatching', error);
       dispatch({
         type: Types.offerRejected,
         error

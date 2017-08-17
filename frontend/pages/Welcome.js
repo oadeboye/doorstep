@@ -45,13 +45,6 @@ class Welcome extends React.Component {
     };
   }
 
-  // componentWillMount() {
-  //   if (this.props.user && Object.keys(this.props.user).length !== 0) {
-  //     console.log("USER", this.props.user)
-  //     this.props.history.push('/profile');
-  //   }
-  // }
-
   componentDidMount() {
     axios.get('/api/users')
     .then((resp) => {
@@ -248,7 +241,7 @@ class Welcome extends React.Component {
       <div className="welcome-page">
         <NavbarWelcome />
         <div className="welcome-splash">
-          <img className="logo" src="/img/logo-t.svg"/>
+          <img alt="doorstep" className="logo" src="/img/logo-t.svg"/>
           <div className="welcome-wrapper">
             <h1 className="welcome-title">Doorstep</h1>
             <Button
@@ -275,7 +268,7 @@ class Welcome extends React.Component {
           users to become mindful of their practice, while in the meantime, foster and strengthen
           interpersonal connections with other members in their community.</p>
           <div className="icons">
-            <img alt="image" src="/img/cycle.png"/>
+            <img alt="icon" src="/img/cycle.png"/>
           </div>
         </div>
 

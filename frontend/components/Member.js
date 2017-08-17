@@ -24,7 +24,6 @@ class Member extends React.Component {
 
   removeMember(e) {
     e.preventDefault();
-    console.log('removing member...');
     this.props.removeMemberDispatch(this.props.communityId, this.props.user._id);
   }
 
