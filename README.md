@@ -5,19 +5,24 @@ Users can sign up for a profile allowing them to join or create communities they
 ## Features
 ### Registration and Profile
 Upon registration, user must provide a unique username. In a few simple steps, new users can create new communities and join existing ones. Other users can view your profile, but only you can edit your profile.
-![alt text](https://user-images.githubusercontent.com/19524925/29914597-642834ca-8e39-11e7-8c9d-77ded1caf39a.png)
+![alt text](https://user-images.githubusercontent.com/19524925/29915013-c0d2f54c-8e3a-11e7-945c-88afed66213f.png)
 
 ### Communities
-Users upload images of items they wish to give away within each community, and only members of that community have access to these items. Each item is then marked with the id of the user who posted it. Only users added by current community members can have access to each community.
+Users upload images of items they wish to give away within each community, and only members of that community have access to these items. Community profile (including members, description, and marketplace) can be edited.
+
 
 #### Browse/Request to join a community
 On the navigation bar, users can click on 'Search Communities' to see all existing communities. Once they ask to join a community, an email will be sent to that community's admin. After the admin approves the request, the user will be immediately able to access that community's marketplace and profile.
 
-#### Adding members
-Existing members of the community can add new users by username. A suggestion box will prompt for matching usernames
+#### Giving items away
+Users can post any items they want to give away.
+
+#### Adding/Removing members
+Existing members of the community can add new users by username. A suggestion box will prompt for matching usernames. Members can choose to leave a community or remove other members.
 
 #### Borrow/Use Requests
 A community member who would like to take the item must click on the item's card to indicate their interest. The user will then be put in contact with the item's owner through an in-app chat, and the two community members can decide when and where to exchange the item.
+
 
 #### Item Requests
 Community members may submit requests to the community for items they need. Other community members can click on the request to fulfill it, and will be automatically put in contact with the requester.
