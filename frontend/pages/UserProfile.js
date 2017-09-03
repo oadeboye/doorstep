@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
+import ImageUpload from '../components/ImageUpload';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CommunitiesList from '../components/CommunitiesList';
@@ -69,6 +69,7 @@ render() {
             </div>
           </div>
           <CommunitiesList history={this.props.history}/>
+          {/* <ImageUpload /> */}
           </div>
           :
           <h1 className="loader">Loading...</h1>

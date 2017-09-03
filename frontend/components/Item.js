@@ -27,6 +27,7 @@ class Item extends React.Component {
   }
 
   cannotRequest() {
+    console.log('cannot request');
     swal({
       title: "Cannot request this item",
       text: "You probably have requested this item but forgot about that. Greed is not a virtue",
