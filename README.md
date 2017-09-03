@@ -5,7 +5,7 @@ Users can sign up for a profile allowing them to join or create communities they
 ## Features
 ### Registration and Profile
 Upon registration, user must provide a unique username. In a few simple steps, new users can create new communities and join existing ones. Other users can view your profile, but only you can edit your profile.
-![alt text](https://user-images.githubusercontent.com/19524925/29915013-c0d2f54c-8e3a-11e7-945c-88afed66213f.png)
+![alt text](https://user-images.githubusercontent.com/19524925/30006824-ec269f0e-9101-11e7-9f1d-f63328cbecff.gif)
 
 ### Communities
 Users upload images of items they wish to give away within each community, and only members of that community have access to these items. Community profile (including members, description, and marketplace) can be edited.
