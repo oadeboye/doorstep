@@ -10,7 +10,6 @@ Upon registration, user must provide a unique username. In a few simple steps, n
 ### Communities
 Users upload images of items they wish to give away within each community, and only members of that community have access to these items. Community profile (including members, description, and marketplace) can be edited.
 
-
 #### Browse/Request to join a community
 On the navigation bar, users can click on 'Search Communities' to see all existing communities. Once they ask to join a community, an email will be sent to that community's admin. After the admin approves the request, the user will be immediately able to access that community's marketplace and profile.
 
@@ -19,6 +18,7 @@ Users can post any items they want to give away.
 
 #### Adding/Removing members
 Existing members of the community can add new users by username. A suggestion box will prompt for matching usernames. Members can choose to leave a community or remove other members.
+[Adding new members](https://user-images.githubusercontent.com/19524925/30006733-d9699d6e-90ff-11e7-99e2-b740b90f69fa.gif)
 
 #### Borrow/Use Requests
 A community member who would like to take the item must click on the item's card to indicate their interest. The user will then be put in contact with the item's owner through an in-app chat, and the two community members can decide when and where to exchange the item.
