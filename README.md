@@ -1,4 +1,9 @@
 # Doorstep
+
+Hosted at http://hellodoorstep.herokuapp.com/
+
+![logo](https://user-images.githubusercontent.com/19524925/30006845-5f486f4e-9102-11e7-82b9-77b53773b45a.png)
+
 Welcome to Doorstep, a platform where community members share and request free food or clothing items from each other in an attempt to reduce waste. Doorstep provides its community members an open marketplace while encouraging community engagement.
 Users can sign up for a profile allowing them to join or create communities they would like to be a part of. Within these communities, users can post items they currently own for other users within this community to access. Community members can then click on the item's card and submit a message to the owner of the item. Community members can also submit requests for items they might need quickly, such as a cup of sugar or a pair of new but unworn jeans.
 
@@ -33,5 +38,3 @@ When a user requests or offers an item on the marketplace, our own messaging sys
 * [Minh To](https://github.com/mnto)
 * [Teresa Liu](https://github.com/teresaliu20)
 * [Demilade Adeboye](https://github.com/oadeboye)
-
-Hosted at http://hellodoorstep.herokuapp.com/
