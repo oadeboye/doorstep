@@ -26,6 +26,7 @@ Existing members of the community can add new users by username. A suggestion bo
 
 ### Messaging system
 When a user requests or offers an item on the marketplace, our own messaging system sends a message to the item owner or requester to facilitate communication in between an exchange. Removing an item from the marketplace after an exchange can also be easily done with text messages.
+![messages](https://user-images.githubusercontent.com/19524925/30006778-f0c6e89e-9100-11e7-9f63-1ce6f2f4fc2f.jpg | width=500)
 
 ## Creators
 * [Minh To](https://github.com/mnto)
