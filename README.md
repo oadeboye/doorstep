@@ -13,19 +13,16 @@ Users upload images of items they wish to give away within each community, and o
 #### Browse/Request to join a community
 On the navigation bar, users can click on 'Search Communities' to see all existing communities. Once they ask to join a community, an email will be sent to that community's admin. After the admin approves the request, the user will be immediately able to access that community's marketplace and profile.
 
-#### Giving items away
-Users can post any items they want to give away.
+#### Give/take items
+Any member of the community can post items that they want to give away onto the marketplace. Other members who would like to take the item must click on an item's card to indicate their interest. The user will then be put in contact with the item's owner through an in-app chat, and the two community members can decide when and where to exchange the item.
+
+#### Make a Request on marketplace
+Community members may submit requests to the community for items they need. Other community members can click on the request to fulfill it, and will be automatically put in contact with the requester.
+![add a request](https://user-images.githubusercontent.com/19524925/30006753-46a8dd54-9100-11e7-8d52-2e60c817f9c8.gif)
 
 #### Adding/Removing members
 Existing members of the community can add new users by username. A suggestion box will prompt for matching usernames. Members can choose to leave a community or remove other members.
-![Adding new members](https://user-images.githubusercontent.com/19524925/30006733-d9699d6e-90ff-11e7-99e2-b740b90f69fa.gif)
-
-#### Borrow/Use Requests
-A community member who would like to take the item must click on the item's card to indicate their interest. The user will then be put in contact with the item's owner through an in-app chat, and the two community members can decide when and where to exchange the item.
-
-
-#### Item Requests
-Community members may submit requests to the community for items they need. Other community members can click on the request to fulfill it, and will be automatically put in contact with the requester.
+![add new members](https://user-images.githubusercontent.com/19524925/30006733-d9699d6e-90ff-11e7-99e2-b740b90f69fa.gif)
 
 ### Messaging system
 When a user requests or offers an item on the marketplace, our own messaging system sends a message to the item owner or requester to facilitate communication in between an exchange. Removing an item from the marketplace after an exchange can also be easily done with text messages.
